@@ -150,6 +150,29 @@
         return `https://cdn.discordapp.com/app-assets/${appId}/${assetId}.png`;
     }
 
+    function getDiscordBadgesHtml(flags) {
+        if (!flags) return '';
+        const badgeMap = {
+            1: { name: 'Staff', icon: 'fa-discord', color: '#5865F2' },
+            2: { name: 'Partner', icon: 'fa-handshake', color: '#5865F2' },
+            4: { name: 'HypeSquad Events', icon: 'fa-flag', color: '#f59e0b' },
+            8: { name: 'Bug Hunter', icon: 'fa-bug', color: '#22c55e' },
+            64: { name: 'Bravery', icon: 'fa-shield', color: '#9b59b6' },
+            128: { name: 'Brilliance', icon: 'fa-lightbulb', color: '#f1c40f' },
+            256: { name: 'Balance', icon: 'fa-scale-balanced', color: '#1abc9c' },
+            512: { name: 'Early Supporter', icon: 'fa-star', color: '#facc15' },
+            16384: { name: 'Bug Hunter Lvl 2', icon: 'fa-bug', color: '#f59e0b' },
+            4194304: { name: 'Active Developer', icon: 'fa-code', color: '#22c55e' }
+        };
+        let html = '';
+        for (const [bit, info] of Object.entries(badgeMap)) {
+            if ((flags & bit) === parseInt(bit)) {
+                html += `<div style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:4px; background:rgba(255,255,255,0.05); margin-right:4px; border:1px solid rgba(255,255,255,0.1);" title="${info.name}"><i class="fa-solid ${info.icon}" style="color:${info.color}; font-size:10px;"></i></div>`;
+            }
+        }
+        return html;
+    }
+
     function renderTelemetry(data) {
         const statusEl = document.getElementById('discordStatus');
         if (statusEl) {
@@ -163,6 +186,26 @@
         const prefsEl = document.getElementById('discordPrefs');
         if (prefsEl) {
             let html = '';
+            
+            // Discord Official User Info & Badges
+            if (data.discord_user) {
+                const du = data.discord_user;
+                const flagsHtml = getDiscordBadgesHtml(du.public_flags);
+                let devices = [];
+                if (data.active_on_discord_desktop) devices.push('<i class="fa-solid fa-desktop"></i> Desktop');
+                if (data.active_on_discord_mobile) devices.push('<i class="fa-solid fa-mobile-screen"></i> Mobile');
+                if (data.active_on_discord_web) devices.push('<i class="fa-solid fa-globe"></i> Web');
+                const deviceHtml = devices.length > 0 ? devices.join(' • ') : '<i class="fa-solid fa-power-off"></i> Offline';
+                
+                html += `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 8px; border-left: 2px solid #5865F2;">
+                            <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-brands fa-discord" style="margin-right: 4px; color: #5865F2;"></i> ${du.display_name || du.username}</div>
+                            <div class="pref-val" style="font-size: 0.85em; font-weight: 500; color: rgba(255,255,255,0.7); display:flex; justify-content:space-between; align-items:center;">
+                                <span style="font-family: 'Poppins';">@${du.username}</span>
+                                <span style="font-size:0.75em; color:rgba(255,255,255,0.4);">${deviceHtml}</span>
+                            </div>
+                            ${flagsHtml ? `<div style="margin-top:8px; display:flex;">${flagsHtml}</div>` : ''}
+                        </div>`;
+            }
             
             // Custom Status
             const customStatus = data.activities.find(a => a.type === 4);
