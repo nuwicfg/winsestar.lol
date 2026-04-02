@@ -55,18 +55,54 @@
     </script>
     <style>
       .sovereign-master {
-        background-image: url('https://i.pinimg.com/originals/55/01/60/5501609ee45d514d1f2c4a63502045e2.gif');
-        background-size: cover;
-        background-position: center;
+        background: #000;
+        position: relative;
       }
+      
+      /* Animated Starfield */
+      .stars-container {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .stars {
+        background: black url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        display: block;
+        z-index: 0;
+      }
+      .twinkling {
+        background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png') repeat;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        z-index: 1;
+        animation: move-twink-back 200s linear infinite;
+        opacity: 0.5;
+      }
+      @keyframes move-twink-back {
+        from {background-position: 0 0;}
+        to {background-position: -10000px 5000px;}
+      }
+
       .banner-area-v7 {
         background-image: url('https://i.pinimg.com/originals/ce/dd/03/cedd0342aa785d996a605f6390a36bc4.gif');
+      }
+      
+      #mainUI {
+        z-index: 10;
       }
     </style>
 </head>
 <body>
 
 <div class="sovereign-master h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+    <!-- SLIDING STARS BG -->
+    <div class="stars-container">
+       <div class="stars"></div>
+       <div class="twinkling"></div>
+    </div>
     <!-- VIDEO BACKGROUND LAYER -->
     <div id="videoLayer" class="video-bg-v7 hidden">
       <div id="ytPlayer"></div>
