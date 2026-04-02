@@ -41,38 +41,45 @@
           pointer-events: none;
       }
 
-      /* Floating Nav */
-      .top-nav {
+      /* Side Nav Capsule (Modern Left Sidebar) */
+      .side-nav {
         position: fixed;
-        top: 40px;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 40px;
+        top: 50%;
+        transform: translateY(-50%);
         display: flex;
+        flex-direction: column;
         align-items: center;
-        background: rgba(20, 20, 20, 0.6);
-        backdrop-filter: blur(10px);
+        background: rgba(20, 20, 20, 0.4);
+        backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 50px;
-        padding: 5px;
-        z-index: 100;
+        border-radius: 40px;
+        padding: 8px;
+        z-index: 1000;
+        gap: 10px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
       }
       .nav-item {
-        padding: 10px 25px;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.75rem;
-        font-weight: 600;
+        padding: 15px 25px;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.65rem;
+        font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
-        border-radius: 50px;
+        border-radius: 30px;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        width: 160px;
       }
       .nav-item:hover {
         color: #fff;
+        background: rgba(255, 255, 255, 0.05);
       }
       .nav-item.active {
         background: #ffffff;
         color: #000000;
+        box-shadow: 0 10px 20px rgba(255,255,255,0.1);
       }
       
       /* Right actions */
@@ -267,57 +274,7 @@
         font-weight: 400;
         min-height: 80px;
       }
-      
-      .left-back-btn {
-        position: fixed;
-        left: -10px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-right: 4px solid #fff;
-        padding: 30px 15px 30px 25px;
-        border-radius: 0 50px 50px 0;
-        z-index: 2000;
-        cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-      .left-back-btn:hover {
-        left: 0;
-        background: rgba(255, 255, 255, 0.1);
-        box-shadow: 10px 0 30px rgba(255,255,255,0.05);
-      }
 
-      /* Advanced Social Media App Cards */
-      .app-grid {
-        margin-top: 40px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        width: 100%;
-        max-width: 600px;
-      }
-      .app-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #fff;
-        aspect-ratio: 1;
-        transition: all 0.4s;
-      }
-      .app-card:hover {
-        background: rgba(255, 255, 255, 0.08);
-        transform: translateY(-5px);
-        border-color: rgba(255,255,255,0.3);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-      }
       .app-icon {
         font-size: 1.5rem;
         margin-bottom: 8px;
@@ -369,18 +326,13 @@
     <!-- 3D ZOOMING & SHOOTING STARS BG -->
     <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
 
-    <!-- TOP NAVIGATION -->
-    <nav class="top-nav">
+    <!-- SIDE NAVIGATION (Vertical Triple Capsule) -->
+    <nav class="side-nav">
         <!-- Intercepted by JS below for page transition -->
         <a href="index.html" class="nav-item page-link">ANA SAYFA</a>
         <a href="#" class="nav-item active">WİNSESTAR</a>
         <a href="social.html" class="nav-item page-link">SOSYAL MEDYA</a>
     </nav>
-
-    <!-- RIGHT ACTION BUTTONS -->
-    <div class="left-back-btn page-link" onclick="window.location.href='index.html'">
-        <i class="fa-solid fa-chevron-left" style="font-size: 1.5rem; color: #fff;"></i>
-    </div>
 
     <div class="action-btns">
         <div class="lang-switch">
@@ -410,25 +362,6 @@
                 <div class="title-line-1" id="tr-title1">WİNSESTAR</div>
                 <div class="title-line-2" id="tr-title2">KİMDİR?</div>
                 <p class="desc-text" id="typewriterText"></p>
-                
-                <div class="app-grid">
-                    <a href="https://tiktok.com/@winsevlr" target="_blank" class="app-card">
-                        <i class="fa-brands fa-tiktok app-icon"></i>
-                        <span class="app-name">TikTok</span>
-                    </a>
-                    <a href="https://discord.com/users/1158363483256147978" target="_blank" class="app-card">
-                        <i class="fa-brands fa-discord app-icon"></i>
-                        <span class="app-name">Discord</span>
-                    </a>
-                    <a href="https://instagram.com/winsestar" target="_blank" class="app-card">
-                        <i class="fa-brands fa-instagram app-icon"></i>
-                        <span class="app-name">Instagram</span>
-                    </a>
-                    <a href="https://youtube.com/@winsestar" target="_blank" class="app-card">
-                        <i class="fa-brands fa-youtube app-icon"></i>
-                        <span class="app-name">YouTube</span>
-                    </a>
-                </div>
             </div>
 
         </div>
