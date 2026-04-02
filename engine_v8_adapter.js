@@ -158,13 +158,7 @@
         }
         // Ensure we load the local profil.gif by not overriding the src
         const avatarEl = document.getElementById('profileAvatar');
-        if (avatarEl) {
-            // Keep the premium golden border frame to style the profil.gif
-            avatarEl.style.border = '3px solid #facc15';
-            avatarEl.style.boxShadow = '0 0 20px rgba(250, 204, 21, 0.5), inset 0 0 10px rgba(250, 204, 21, 0.3)';
-            avatarEl.style.padding = '2px';
-            avatarEl.style.background = '#000';
-        }
+        // No extra yellow borders applied to the avatar anymore.
 
         const prefsEl = document.getElementById('discordPrefs');
         if (prefsEl) {
