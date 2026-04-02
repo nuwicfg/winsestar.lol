@@ -123,7 +123,7 @@
         background: rgba(17, 17, 17, 0.6);
         border-radius: 40px;
         border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(250,204,21,0.05);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(255,255,255,0.05);
         position: relative;
         transform-style: preserve-3d;
         display: flex;
@@ -279,7 +279,7 @@
         <div class="hero-grid">
             
             <!-- LEFT IMAGE CARD (3D TILT ENABLED) -->
-            <a href="https://tiktok.com/@winsevlr" target="_blank" style="text-decoration: none;">
+            
               <div class="image-card" data-tilt data-tilt-max="20" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
                   <!-- The Base Avatar. They can overwrite tiktok.png later if they want. Defaults to profil.gif -->
                   <img src="tiktok.png" alt="Tiktok Profil" class="profile-img" onerror="this.src='profil.gif'">
@@ -389,7 +389,7 @@
             let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
             if(r>10) r=10;
             ctx.beginPath();
-            ctx.fillStyle = 'rgba(250,204,21,0.8)';
+            ctx.fillStyle = 'rgba(255,255,255,0.8)';
             ctx.arc(x, y, r, 0, Math.PI * 2);
             ctx.fill();
           }
@@ -426,7 +426,7 @@
 
         // Cursor Glow
         const cg = document.createElement('div');
-        cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(250,204,21,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
+        cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
         document.body.appendChild(cg);
         document.addEventListener('mousemove', e => {
            cg.style.left = e.clientX + 'px';

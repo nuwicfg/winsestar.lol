@@ -160,7 +160,7 @@
             64: { name: 'Bravery', icon: 'fa-shield', color: '#9b59b6' },
             128: { name: 'Brilliance', icon: 'fa-lightbulb', color: '#f1c40f' },
             256: { name: 'Balance', icon: 'fa-scale-balanced', color: '#1abc9c' },
-            512: { name: 'Early Supporter', icon: 'fa-star', color: '#facc15' },
+            512: { name: 'Early Supporter', icon: 'fa-star', color: '#ffffff' },
             16384: { name: 'Bug Hunter Lvl 2', icon: 'fa-bug', color: '#f59e0b' },
             4194304: { name: 'Active Developer', icon: 'fa-code', color: '#22c55e' }
         };
@@ -194,7 +194,7 @@
             if (customStatus) {
                 const emoji = customStatus.emoji?.id ? `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${customStatus.emoji.animated ? 'gif' : 'png'}?size=32" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 4px;">` : (customStatus.emoji?.name ? (customStatus.emoji.name + ' ') : '');
                 const text = customStatus.state || '';
-                html += `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 8px; border-left: 2px solid #facc15;"><div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val" style="font-size: 0.9em; font-weight: 500; color: #fff;">${emoji}${text}</div></div>`;
+                html += `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 8px; border-left: 2px solid #ffffff;"><div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val" style="font-size: 0.9em; font-weight: 500; color: #fff;">${emoji}${text}</div></div>`;
             }
             
             // Spotify
@@ -217,10 +217,10 @@
                     const imgUrl = getAssetUrl(game.application_id, game.assets?.large_image);
                     imgHtml = `<img src="${imgUrl}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);">`;
                 }
-                html += `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; border-left: 2px solid #facc15;">
+                html += `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; border-left: 2px solid #ffffff;">
                             ${imgHtml}
                             <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 2px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-gamepad" style="margin-right: 4px; color: #facc15;"></i> PLAYING</div>
+                                <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 2px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-gamepad" style="margin-right: 4px; color: #ffffff;"></i> PLAYING</div>
                                 <div class="pref-val" style="font-weight: 700; font-size: 0.9em; color: #fff; text-overflow: ellipsis; overflow: hidden;">${game.name}</div>
                                 <div style="font-size: 0.75em; color: rgba(255,255,255,0.8); text-overflow: ellipsis; overflow: hidden;">${game.details || ''}</div>
                                 <div style="font-size: 0.75em; color: rgba(255,255,255,0.8); text-overflow: ellipsis; overflow: hidden;">${game.state || ''}</div>
@@ -229,7 +229,7 @@
             });
             
             if (!html) {
-                html = `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; text-align: center; border: 1px dashed rgba(250,204,21,0.3);"><div class="pref-label" style="font-size: 0.7em; color: rgba(255,255,255,0.7); margin-bottom: 4px; text-transform: uppercase;"><i class="fa-solid fa-satellite-dish" style="margin-right: 4px;"></i> DISCORD TELEMETRY</div><div class="pref-val"><span style="color: rgba(255,255,255,0.6); font-size: 0.85em;">Offline or Idle</span></div></div>`;
+                html = `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; text-align: center; border: 1px dashed rgba(255,255,255,0.3);"><div class="pref-label" style="font-size: 0.7em; color: rgba(255,255,255,0.7); margin-bottom: 4px; text-transform: uppercase;"><i class="fa-solid fa-satellite-dish" style="margin-right: 4px;"></i> DISCORD TELEMETRY</div><div class="pref-val"><span style="color: rgba(255,255,255,0.6); font-size: 0.85em;">Offline or Idle</span></div></div>`;
             }
             
             prefsEl.innerHTML = html;

@@ -25,13 +25,13 @@
         "bio": "MR ❤️",
         "config": {
           "badges": [
-             { "icon": "<i class=\"fa-solid fa-crown\" style=\"color: #facc15;\"></i>", "tooltip": "Emperor" },
+             { "icon": "<i class=\"fa-solid fa-crown\" style=\"color: #ffffff;\"></i>", "tooltip": "Emperor" },
              { "icon": "<i class=\"fa-solid fa-code\" style=\"color: #ffffff;\"></i>", "tooltip": "Developer" },
              { "icon": "<i class=\"fa-solid fa-bolt\" style=\"color: #f59e0b;\"></i>", "tooltip": "Early Supporter" }
           ],
           "colors": {
-             "name": ["#facc15", "#f59e0b"],
-             "border": ["#facc15", "#27272a"]
+             "name": ["#ffffff", "#f59e0b"],
+             "border": ["#ffffff", "#27272a"]
           },
           "links": {
             "discord": "https://discord.com/users/1158363483256147978",
@@ -87,7 +87,7 @@
         <div id="card-aura-particles" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
         </div>
 
-        <div class="profile-card-v7 gradient-border" id="mainCard" style="border: 2px solid #facc15; box-shadow: 0 0 25px rgba(250,204,21,0.2) inset, 0 0 35px rgba(250,204,21,0.3);">
+        <div class="profile-card-v7 gradient-border" id="mainCard" style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">
           <div id="starAura" class="star-aura"></div>
 
           <header class="card-header-v7">
@@ -163,7 +163,7 @@
       let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
       if(r>10) r=10;
       ctx.beginPath();
-      ctx.fillStyle = '#facc15';
+      ctx.fillStyle = '#ffffff';
       ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fill();
     }
@@ -175,7 +175,7 @@
 
   // Cursor Glow
   const cg = document.createElement('div');
-  cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(250,204,21,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
+  cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
   document.body.appendChild(cg);
   document.addEventListener('mousemove', e => {
      cg.style.left = e.clientX + 'px';

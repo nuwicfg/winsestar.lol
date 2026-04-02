@@ -8,21 +8,21 @@
 
 :root {
     /* IMPERIAL COLOR MATRIX v7.0 */
-    --text-start: #facc15;
+    --text-start: #ffffff;
     --text-end: #f59e0b;
-    --border-start: #facc15;
+    --border-start: #ffffff;
     --border-end: #000000;
     
     /* GLOW INFRASTRUCTURE */
-    --card-glow-start: #facc1522;
+    --card-glow-start: #ffffff22;
     --card-glow-end: #000000;
-    --border-glow-start: #facc15;
+    --border-glow-start: #ffffff;
     
     --bg-glow-start: #000000;
     --bg-glow-end: #0a0a0a;
     
     /* UI TOKENS */
-    --accent-primary: #facc15;
+    --accent-primary: #ffffff;
     --accent-glow: rgba(250, 204, 21, 0.45);
     --bg-master: #020202;
     --card-glass: rgba(12, 12, 12, 0.25);
@@ -272,7 +272,7 @@ body.sovereign-master {
     background-size: contain;
     z-index: -5;
     opacity: 0.7;
-    filter: drop-shadow(0 0 10px #facc15) brightness(1.5);
+    filter: drop-shadow(0 0 10px #ffffff) brightness(1.5);
     animation: starPulse 6s ease-in-out infinite, starRotate 30s linear infinite, starSlide 12s ease-in-out infinite alternate;
     pointer-events: none;
 }
