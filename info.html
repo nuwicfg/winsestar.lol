@@ -104,41 +104,43 @@
         width: 100%;
       }
       
-      /* Image Card */
+      /* Image Card - 3D */
       .image-card {
-        background: #111111;
-        padding: 20px;
+        background: rgba(17, 17, 17, 0.4);
         border-radius: 40px;
-        border: 1px solid rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(250,204,21,0.05);
         position: relative;
+        transform-style: preserve-3d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
       }
       .image-card::after {
           content: "";
           position: absolute;
           top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%) translateZ(-50px);
           width: 150%; height: 150%;
-          background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+          background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 60%);
           z-index: -1;
           pointer-events: none;
       }
       .profile-img {
         width: 320px;
         height: 320px;
-        object-fit: cover;
+        object-fit: contain; /* Perfect for transparent TikTok profile png */
         border-radius: 30px;
-        filter: grayscale(20%);
-        transition: filter 0.4s;
+        transform: translateZ(50px); /* 3D POP EFFECT */
+        transition: transform 0.3s ease;
       }
-      .image-card:hover .profile-img {
-        filter: grayscale(0%);
-      }
-
+      
       /* Typography */
       .text-content {
         display: flex;
         flex-direction: column;
+        flex: 1;
       }
       .title-line-1 {
         font-family: 'Montserrat', sans-serif;
@@ -155,7 +157,7 @@
         line-height: 0.9;
         color: #ffffff;
         letter-spacing: -3px;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
       .desc-text {
         color: #888888;
@@ -163,6 +165,34 @@
         line-height: 1.6;
         max-width: 500px;
         font-weight: 400;
+        min-height: 80px; /* Space for typewriter */
+      }
+      
+      /* New Social Links Grid */
+      .social-media-area {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+      }
+      .soc-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+      .soc-btn:hover {
+        background: #fff;
+        color: #000;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255,255,255,0.1);
       }
 
       /* Footer Nav */
@@ -204,9 +234,8 @@
           margin-top: 50px;
           width: 100%;
         }
-        .action-btns {
-            display: none;
-        }
+        .action-btns { display: none; }
+        .social-media-area { justify-content: center; }
       }
     </style>
 </head>
@@ -216,7 +245,7 @@
     <nav class="top-nav">
         <a href="index.html" class="nav-item">ANA SAYFA</a>
         <a href="#" class="nav-item active">WİNSESTAR</a>
-        <a href="#" class="nav-item">PROJELERİM</a>
+        <a href="#" class="nav-item">SOSYAL MEDYA</a>
     </nav>
 
     <!-- RIGHT ACTION BUTTONS -->
@@ -229,29 +258,57 @@
     <section class="hero-section">
         <div class="hero-grid">
             
-            <!-- LEFT IMAGE CARD -->
-            <div class="image-card">
-                <!-- Using the same profil.gif from your root directory -->
-                <img src="profil.gif" alt="Winsestar Profile" class="profile-img">
+            <!-- LEFT IMAGE CARD (3D TILT ENABLED) -->
+            <!-- Upload your tiktok logo file as 'tiktok.png' with a transparent background! -->
+            <div class="image-card" data-tilt data-tilt-max="20" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.5">
+                <img src="tiktok.png" alt="Tiktok Profil" class="profile-img" onerror="this.src='profil.gif'">
             </div>
 
             <!-- RIGHT TEXT CONTENT -->
             <div class="text-content">
                 <div class="title-line-1">WİNSESTAR</div>
                 <div class="title-line-2">KİMDİR?</div>
-                <p class="desc-text">Merhaba, ben Winsestar. THE SOVEREIGN EMPEROR. Dijital imparatorluklar inşa eden ileri düzey bir yönetici ve geliştiriciyim!</p>
+                <p class="desc-text" id="typewriterText"></p>
+                
+                <div class="social-media-area">
+                  <a href="https://tiktok.com/@winsestar" target="_blank" class="soc-btn"><i class="fa-brands fa-tiktok"></i></a>
+                  <a href="https://discord.com/users/1158363483256147978" target="_blank" class="soc-btn"><i class="fa-brands fa-discord"></i></a>
+                  <a href="https://instagram.com/winsestar" target="_blank" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="https://youtube.com/@winsestar" target="_blank" class="soc-btn"><i class="fa-brands fa-youtube"></i></a>
+                </div>
             </div>
 
         </div>
     </section>
 
-    <!-- FOOTER LINKS -->
+    <!-- Footer Links -->
     <div class="footer-nav">
+        <a href="https://tiktok.com/@winsestar" target="_blank" class="f-link">TİKTOK</a>
         <a href="https://discord.com/users/1158363483256147978" target="_blank" class="f-link">DİSCORD</a>
         <a href="https://instagram.com/winsestar" target="_blank" class="f-link">INSTAGRAM</a>
-        <a href="https://github.com/nuwicfg" target="_blank" class="f-link">GİTHUB</a>
-        <a href="https://youtube.com/@winsestar" target="_blank" class="f-link">YOUTUBE</a>
     </div>
 
+    <!-- VanillaTilt Library for 3D Effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script>
+        // Typewriter Effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById('typewriterText');
+            // Your custom text about TikTok edits:
+            const text = "Merhaba, ben Winsestar. Klasik kurguları yıkan dinamik bir TikTok editörüyüm. Ritim ve görselliğin buluştuğu o karanlık tarafta, en akıcı videoları ben inşa ederim.";
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 35); // Lower number = faster typing
+                }
+            }
+            
+            // Start typewriter after a short delay
+            setTimeout(typeWriter, 500);
+        });
+    </script>
 </body>
 </html>
