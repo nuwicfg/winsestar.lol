@@ -156,6 +156,18 @@
             const colors = { online: '#22c55e', idle: '#f59e0b', dnd: '#ef4444', offline: '#4b5563' };
             statusEl.style.background = colors[data.discord_status] || colors.offline;
         }
+        
+        // Update Actual Discord Avatar
+        const avatarEl = document.getElementById('profileAvatar');
+        if (avatarEl && data.discord_user && data.discord_user.avatar) {
+            const isGif = data.discord_user.avatar.startsWith('a_');
+            avatarEl.src = `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.${isGif ? 'gif' : 'png'}?size=256`;
+            // Add luxurious Imperial Gold frame to replace any baked-in frames
+            avatarEl.style.border = '3px solid #facc15';
+            avatarEl.style.boxShadow = '0 0 20px rgba(250, 204, 21, 0.5), inset 0 0 10px rgba(250, 204, 21, 0.3)';
+            avatarEl.style.padding = '2px';
+            avatarEl.style.background = '#000';
+        }
 
         const prefsEl = document.getElementById('discordPrefs');
         if (prefsEl) {
