@@ -194,13 +194,13 @@
             if (customStatus) {
                 const emoji = customStatus.emoji?.id ? `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${customStatus.emoji.animated ? 'gif' : 'png'}?size=32" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 4px;">` : (customStatus.emoji?.name ? (customStatus.emoji.name + ' ') : '');
                 const text = customStatus.state || '';
-                html += `<div class="v8-pref-widget telemetry-card" style="border-left: 2px solid #ffffff;"><div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val" style="font-size: 0.9em; font-weight: 500; color: #fff;">${emoji}${text}</div></div>`;
+                html += `<div class="v8-pref-widget telemetry-card activity-card" style="border-left: 2px solid #ffffff;"><div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val" style="font-size: 0.9em; font-weight: 500; color: #fff;">${emoji}${text}</div></div>`;
             }
             
             // Spotify
             if (data.spotify) {
                 const cover = data.spotify.album_art_url || '';
-                html += `<div class="v8-pref-widget telemetry-card" style="border-left: 2px solid #1ed760;">
+                html += `<div class="v8-pref-widget telemetry-card spotify-card" style="border-left: 2px solid #1ed760;">
                             <img src="${cover}" style="width: 54px; height: 54px; border-radius: 8px; margin-right: 15px; box-shadow: 0 4px 10px rgba(30, 215, 96, 0.3);">
                             <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 2px; text-transform: uppercase; font-weight: bold;"><i class="fa-brands fa-spotify" style="margin-right: 4px; color: #1ed760;"></i> LISTENING</div>
@@ -217,7 +217,7 @@
                     const imgUrl = getAssetUrl(game.application_id, game.assets?.large_image);
                     imgHtml = `<img src="${imgUrl}" style="width: 54px; height: 54px; border-radius: 8px; margin-right: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);">`;
                 }
-                html += `<div class="v8-pref-widget telemetry-card" style="border-left: 2px solid #ffffff;">
+                html += `<div class="v8-pref-widget telemetry-card activity-card" style="border-left: 2px solid #ffffff;">
                             ${imgHtml}
                             <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 2px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-gamepad" style="margin-right: 4px; color: #ffffff;"></i> PLAYING</div>
