@@ -88,6 +88,21 @@
         </div>
 
         <div class="profile-card-v7 gradient-border" id="mainCard" style="border: 2px solid #facc15; box-shadow: 0 0 25px rgba(250,204,21,0.2) inset, 0 0 35px rgba(250,204,21,0.3);">
+          
+          <!-- INFO MODAL -->
+          <div id="infoModalOverlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999; border-radius:40px; display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:0; pointer-events:none; transition:opacity 0.4s ease; padding: 2rem; border:1px solid rgba(250,204,21,0.3);">
+            <h3 style="color:#facc15; font-family:'Montserrat', sans-serif; font-size:1.4rem; margin-bottom:1.5rem; letter-spacing:2px; text-align:center;"><i class="fa-solid fa-database" style="margin-right:8px;"></i>SOVEREIGN DATA</h3>
+            <div style="color:rgba(255,255,255,0.8); font-size:0.9rem; font-family:'Poppins', sans-serif; text-align:center; width:100%; line-height:2;">
+              <p><strong style="color:#fff;">Entity:</strong> WINSESTAR</p>
+              <p><strong style="color:#fff;">Framework:</strong> Sovereign V8.0</p>
+              <p><strong style="color:#fff;">Security:</strong> Maximum Clearance</p>
+              <p><strong style="color:#fff;">Status:</strong> Online</p>
+              <hr style="border-color: rgba(250,204,21,0.2); margin: 15px 0;">
+              <p style="font-size:0.8em; color:rgba(255,255,255,0.4);"><i class="fa-solid fa-lock" style="margin-right:4px;"></i> Encrypted Connection</p>
+            </div>
+            <button id="closeInfoBtn" style="margin-top:2rem; padding:10px 30px; background:transparent; border:1px solid #facc15; color:#facc15; border-radius:20px; cursor:pointer; font-family:'Poppins', sans-serif; font-weight:600; letter-spacing:1px; transition:all 0.3s ease; box-shadow:0 0 10px rgba(250,204,21,0.2) inset;">CLOSE</button>
+          </div>
+
           <div id="starAura" class="star-aura"></div>
 
           <header class="card-header-v7">
@@ -180,6 +195,24 @@
   document.addEventListener('mousemove', e => {
      cg.style.left = e.clientX + 'px';
      cg.style.top = e.clientY + 'px';
+  });
+
+  // Info Modal Bindings
+  document.addEventListener('DOMContentLoaded', () => {
+     const infoBtn = document.querySelector('.info-icon-v7');
+     const closeBtn = document.getElementById('closeInfoBtn');
+     const modal = document.getElementById('infoModalOverlay');
+     
+     if(infoBtn && modal && closeBtn) {
+         infoBtn.addEventListener('click', () => {
+             modal.style.pointerEvents = 'auto';
+             modal.style.opacity = '1';
+         });
+         closeBtn.addEventListener('click', () => {
+             modal.style.pointerEvents = 'none';
+             modal.style.opacity = '0';
+         });
+     }
   });
 </script>
 
