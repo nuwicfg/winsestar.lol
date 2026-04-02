@@ -108,7 +108,7 @@
         if (!grid) return;
         grid.innerHTML = '';
         
-        const icons = { discord: 'fa-discord', instagram: 'fa-instagram', github: 'fa-github' };
+        const icons = { discord: 'fa-discord', instagram: 'fa-instagram', github: 'fa-github', youtube: 'fa-youtube', steam: 'fa-steam', spotify: 'fa-spotify', twitter: 'fa-x-twitter', telegram: 'fa-telegram' };
         Object.keys(icons).forEach(k => {
             if (links[k]) {
                 grid.innerHTML += `<a href="${links[k]}" target="_blank" class="social-item">
