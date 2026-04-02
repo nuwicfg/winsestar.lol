@@ -1,71 +1,80 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winsestar | The Emperor Profile</title>
-    
-    <!-- Tailwind CSS (CDN for ultra speed and simple styling) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome for the UI icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Essential Sovereign CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Fake local profile data so Sovereign Javascript engine initializes smoothly -->
-    <script>
-      window.S_PROFILE_DATA = {
-        "id": "master-winsestar",
-        "username": "winsestar",
-        "full_name": "WINSESTAR",
-        "avatar_url": "profil.gif",
-        "banner_url": "banner.png",
-        "bio": "<span class=\"blink-text\" style=\"color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.8);\">MR</span> <span style=\"color: red;\">❤️</span>",
-        "config": {
-          "badges": [
-             { "icon": "<i class=\"fa-solid fa-crown\" style=\"color: #ffffff;\"></i>", "tooltip": "Emperor" },
-             { "icon": "<i class=\"fa-solid fa-code\" style=\"color: #ffffff;\"></i>", "tooltip": "Developer" },
-             { "icon": "<i class=\"fa-solid fa-bolt\" style=\"color: #ffffff;\"></i>", "tooltip": "Early Supporter" }
-          ],
-          "colors": {
-             "name": ["#ffffff", "#666666"],
-             "border": ["#ffffff", "#27272a"]
-          },
-          "links": {
-            "discord": "https://discord.com/users/1158363483256147978",
-            "instagram": "https://instagram.com/winsestar",
-            "github": "https://github.com/nuwicfg",
-            "youtube": "https://youtube.com/@winsestar",
-            "spotify": "https://spotify.com/",
-            "steam": "https://steamcommunity.com/"
-          }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winsestar | Winsestar.lol</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Tailwind CSS (CDN for ultra speed and simple styling) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome for the UI icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Essential Sovereign CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Fake local profile data so Sovereign Javascript engine initializes smoothly -->
+  <script>
+    window.S_PROFILE_DATA = {
+      "id": "master-winsestar",
+      "username": "winsestar",
+      "full_name": "WINSESTAR",
+      "avatar_url": "profil.gif",
+      "banner_url": "banner.png",
+      "bio": "<span class=\"blink-text\" style=\"color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.8);\">MR</span> <span style=\"color: red;\">❤️</span>",
+      "config": {
+        "badges": [
+          { "icon": "<i class=\"fa-solid fa-crown\" style=\"color: #ffffff;\"></i>", "tooltip": "Emperor" },
+          { "icon": "<i class=\"fa-solid fa-code\" style=\"color: #ffffff;\"></i>", "tooltip": "Developer" },
+          { "icon": "<i class=\"fa-solid fa-bolt\" style=\"color: #ffffff;\"></i>", "tooltip": "Early Supporter" }
+        ],
+        "colors": {
+          "name": ["#ffffff", "#666666"],
+          "border": ["#ffffff", "#27272a"]
+        },
+        "links": {
+          "discord": "https://discord.com/users/1158363483256147978",
+          "instagram": "https://instagram.com/winsestar",
+          "github": "https://github.com/nuwicfg",
+          "youtube": "https://youtube.com/@winsestar",
+          "spotify": "https://spotify.com/",
+          "steam": "https://steamcommunity.com/"
         }
-      };
-    </script>
-    <style>
-      .sovereign-master {
-        background: #000;
-        position: relative;
       }
-      
-      .banner-area-v7 {
-        background-image: url('banner.png');
-        background-size: cover;
-        background-position: center;
-      }
-      
-      .glow-matrix {
-        z-index: 5;
-      }
-    </style>
+    };
+  </script>
+  <style>
+    .sovereign-master {
+      background: #000;
+      position: relative;
+    }
+
+    .banner-area-v7 {
+      background-image: url('banner.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .glow-matrix {
+      z-index: 5;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="sovereign-master h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+  <div class="sovereign-master h-screen w-full overflow-hidden flex items-center justify-center bg-black">
     <!-- 3D ZOOMING STARS BG -->
     <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
+
+    <!-- SIDE NAVIGATION (Iconic Capsule) -->
+    <nav class="side-nav">
+      <img src="logo.png" class="nav-logo" alt="Logo">
+      <a href="#" class="nav-item active">
+    </nav>
 
     <!-- VIDEO BACKGROUND LAYER -->
     <div id="videoLayer" class="video-bg-v7 hidden">
@@ -82,12 +91,15 @@
 
     <!-- MAIN PROFILE INTERFACE -->
     <div id="mainUI" class="main-container-v7 main-visible">
-      <div class="tilt-wrapper" id="cardTilt" style="width: 100%; max-width: 560px; display: flex; align-items: center; justify-content: center; position: relative;">
-        
-        <div id="card-aura-particles" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
+      <div class="tilt-wrapper" id="cardTilt"
+        style="width: 100%; max-width: 560px; display: flex; align-items: center; justify-content: center; position: relative;">
+
+        <div id="card-aura-particles"
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
         </div>
 
-        <div class="profile-card-v7 gradient-border" id="mainCard" style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">
+        <div class="profile-card-v7 gradient-border" id="mainCard"
+          style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">
           <div id="starAura" class="star-aura"></div>
 
           <header class="card-header-v7">
@@ -100,103 +112,112 @@
 
           <div class="card-body-v7">
             <div class="name-matrix-v7">
-               <h2 id="profileName" class="profile-name-v7 name-pulse" data-text="WINSESTAR">WINSESTAR</h2>
-               <span id="profileUsername" style="color: #ffffff; opacity: 0.9; font-weight: 500; font-family: 'Poppins'; text-shadow: 0 0 10px rgba(255,255,255,0.3);">@winsestar</span>
+              <h2 id="profileName" class="profile-name-v7 name-pulse" data-text="WINSESTAR">WINSESTAR</h2>
+              <span id="profileUsername"
+                style="color: #ffffff; opacity: 0.9; font-weight: 500; font-family: 'Poppins'; text-shadow: 0 0 10px rgba(255,255,255,0.3);">@winsestar</span>
               <div id="badgeContainer" class="badges-v7 hidden"></div>
             </div>
 
             <div class="bio-area-v7">
-              <p id="profileBio"><span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">MR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span></p>
+              <p id="profileBio"><span class="blink-text"
+                  style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">MR</span> <span
+                  style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span></p>
             </div>
 
             <div id="presenceRoot" class="presence-container-v7 hidden"></div>
-            
-            <div id="discordPrefs" style="width: 100%; margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;"></div>
-            
+
+            <div id="discordPrefs"
+              style="width: 100%; margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+            </div>
+
             <!-- SOCIAL LINKS -->
             <div id="socialLinks" class="social-links-v7"></div>
-          </header>
+            </header>
 
-          <footer class="card-footer-v7">
-            <div class="footer-hud">
-              <span class="f-tag">'winsestar.lol</span>
-              <div class="info-btn-wrap" style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0; text-indent: -9999px;">
-                <i class="fa-solid fa-circle-info info-icon-v7" style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff); text-indent: 0;"></i>
+            <footer class="card-footer-v7">
+              <div class="footer-hud">
+                <span class="f-tag">'winsestar.lol</span>
+                <div class="info-btn-wrap"
+                  style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0; text-indent: -9999px;">
+                  <i class="fa-solid fa-circle-info info-icon-v7"
+                    style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff); text-indent: 0;"></i>
+                </div>
+                <span class="f-code" id="profileVersion"><i class="fa-solid fa-eye" style="margin-right: 5px;"></i>
+                  12,842 Görüntülenme</span>
               </div>
-              <span class="f-code" id="profileVersion"><i class="fa-solid fa-eye" style="margin-right: 5px;"></i> 12,842 Görüntülenme</span>
-            </div>
-          </footer>
+            </footer>
+          </div>
         </div>
       </div>
     </div>
-</div>
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script src="engine_v8_adapter.js"></script>
-<script>
-  // Warp Speed Yellow Stars
-  const canvas = document.getElementById('warpCanvas');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-  let stars = [];
-  for(let i=0; i<300; i++) {
-    stars.push({ x: Math.random()*w-w/2, y: Math.random()*h-h/2, z: Math.random()*w });
-  }
-  function draw() {
-    ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.fillRect(0,0,w,h);
-    ctx.translate(w/2, h/2);
-    for(let i=0; i<stars.length; i++) {
-      let s = stars[i];
-      s.z -= 3;
-      if (s.z <= 0) { s.z = w; s.x = Math.random()*w-w/2; s.y = Math.random()*h-h/2; }
-      let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
-      if(r>10) r=10;
-      ctx.beginPath();
-      ctx.fillStyle = '#ffffff';
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.translate(-w/2, -h/2);
-    requestAnimationFrame(draw);
-  }
-  draw();
-  window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="engine_v8_adapter.js"></script>
+    <script>
+      // Warp Speed Yellow Stars
+      const canvas = document.getElementById('warpCanvas');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      let stars = [];
+      for (let i = 0; i < 300; i++) {
+        stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * w });
+      }
+      function draw() {
+        ctx.fillStyle = 'rgba(0,0,0,0.3)';
+        ctx.fillRect(0, 0, w, h);
+        ctx.translate(w / 2, h / 2);
+        for (let i = 0; i < stars.length; i++) {
+          let s = stars[i];
+          s.z -= 3;
+          if (s.z <= 0) { s.z = w; s.x = Math.random() * w - w / 2; s.y = Math.random() * h - h / 2; }
+          let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
+          if (r > 10) r = 10;
+          ctx.beginPath();
+          ctx.fillStyle = '#ffffff';
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.translate(-w / 2, -h / 2);
+        requestAnimationFrame(draw);
+      }
+      draw();
+      window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
 
-  // Cursor Glow
-  const cg = document.createElement('div');
-  cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
-  document.body.appendChild(cg);
-  document.addEventListener('mousemove', e => {
-     cg.style.left = e.clientX + 'px';
-     cg.style.top = e.clientY + 'px';
-  });
+      // Cursor Glow
+      const cg = document.createElement('div');
+      cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
+      document.body.appendChild(cg);
+      document.addEventListener('mousemove', e => {
+        cg.style.left = e.clientX + 'px';
+        cg.style.top = e.clientY + 'px';
+      });
 
-  // Smooth Page Transitions
-  document.addEventListener('DOMContentLoaded', () => {
-     // Fade in on load is handled by default since body opacity starts at 1, but we can do a quick intro
-     document.body.style.opacity = '0';
-     setTimeout(() => {
-         document.body.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-         document.body.style.opacity = '1';
-     }, 100);
+      // Smooth Page Transitions
+      document.addEventListener('DOMContentLoaded', () => {
+        // Fade in on load is handled by default since body opacity starts at 1, but we can do a quick intro
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          document.body.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+          document.body.style.opacity = '1';
+        }, 100);
 
-     // Intercept Info Button for smooth exit
-     const infoBtn = document.querySelector('.info-icon-v7');
-     if(infoBtn) {
-         infoBtn.addEventListener('click', (e) => {
-             e.preventDefault();
-             document.body.style.opacity = '0';
-             document.body.style.transform = 'scale(0.97)';
-             setTimeout(() => {
-                 window.location.href = 'info.html';
-             }, 500);
-         });
-     }
-  });
-</script>
+        // Intercept Info Button for smooth exit
+        const infoBtn = document.querySelector('.info-icon-v7');
+        if (infoBtn) {
+          infoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'scale(0.97)';
+            setTimeout(() => {
+              window.location.href = 'info.html';
+            }, 500);
+          });
+        }
+      });
+    </script>
 
 </body>
+
 </html>

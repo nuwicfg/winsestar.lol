@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Winsestar | Kimdir?</title>
+  <link rel="icon" type="image/png" href="logo.png">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -47,6 +48,18 @@
       z-index: -2;
       pointer-events: none;
     }
+
+      /* Logo in Side Nav */
+      .nav-logo {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 20px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.03);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      }
 
       /* Side Nav Capsule (Modern Left Sidebar) */
       .side-nav {
@@ -407,6 +420,7 @@
 
   <!-- SIDE NAVIGATION (Iconic Capsule) -->
   <nav class="side-nav">
+    <img src="logo.png" class="nav-logo" alt="Logo">
     <a href="index.html" class="nav-item page-link">
         <i class="fa-solid fa-house"></i>
         <span class="nav-label">ANA SAYFA</span>
