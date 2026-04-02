@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winsestar | Imperial Databank</title>
+    <title>Winsestar | Kimdir?</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,168 +11,247 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Essential Sovereign CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-      .sovereign-master {
-        background: #000;
-        position: relative;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      #mainUI {
-        z-index: 10;
+      body {
+        background-color: #050505;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden;
       }
-      .info-box-v7 {
-        width: 100%;
-        max-width: 600px;
-        background: rgba(10, 10, 10, 0.85);
-        backdrop-filter: blur(15px);
-        border: 2px solid #facc15;
-        box-shadow: 0 0 35px rgba(250,204,21,0.2) inset, 0 0 45px rgba(0,0,0,0.9);
-        border-radius: 40px;
-        padding: 4rem 3rem;
+      
+      /* Floating Nav */
+      .top-nav {
+        position: fixed;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
-        flex-direction: column;
         align-items: center;
-        position: relative;
-        overflow: hidden;
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 50px;
+        padding: 5px;
+        z-index: 100;
       }
-      .data-row {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        border-bottom: 1px dotted rgba(250,204,21,0.2);
-        padding-bottom: 0.5rem;
-      }
-      .d-label {
-        color: rgba(255,255,255,0.6);
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .d-val {
-        color: #fff;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 500;
-        text-align: right;
-      }
-      .return-btn {
-        margin-top: 3rem;
-        padding: 12px 40px;
-        background: transparent;
-        border: 1px solid #facc15;
-        color: #facc15;
-        border-radius: 30px;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
+      .nav-item {
+        padding: 10px 25px;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.75rem;
         font-weight: 600;
         letter-spacing: 2px;
-        transition: all 0.3s ease;
+        text-transform: uppercase;
+        border-radius: 50px;
         text-decoration: none;
-        box-shadow: 0 0 15px rgba(250,204,21,0.2) inset;
+        transition: all 0.3s ease;
       }
-      .return-btn:hover {
-        background: #facc15;
-        color: #000;
-        box-shadow: 0 0 25px rgba(250,204,21,0.6);
+      .nav-item:hover {
+        color: #fff;
       }
-      h1 {
-        color: #facc15;
+      .nav-item.active {
+        background: #ffffff;
+        color: #000000;
+      }
+      
+      /* Right actions */
+      .action-btns {
+        position: fixed;
+        top: 40px;
+        right: 40px;
+        display: flex;
+        gap: 15px;
+        z-index: 100;
+      }
+      .action-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(20, 20, 20, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .action-btn:hover {
+        background: rgba(40, 40, 40, 0.8);
+      }
+
+      /* Main Content Layout */
+      .hero-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+      }
+      .hero-grid {
+        display: flex;
+        align-items: center;
+        gap: 80px;
+        max-width: 1100px;
+        width: 100%;
+      }
+      
+      /* Image Card */
+      .image-card {
+        background: #111111;
+        padding: 20px;
+        border-radius: 40px;
+        border: 1px solid rgba(255,255,255,0.03);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(250,204,21,0.05);
+        position: relative;
+      }
+      .image-card::after {
+          content: "";
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 150%; height: 150%;
+          background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+          z-index: -1;
+          pointer-events: none;
+      }
+      .profile-img {
+        width: 320px;
+        height: 320px;
+        object-fit: cover;
+        border-radius: 30px;
+        filter: grayscale(20%);
+        transition: filter 0.4s;
+      }
+      .image-card:hover .profile-img {
+        filter: grayscale(0%);
+      }
+
+      /* Typography */
+      .text-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .title-line-1 {
         font-family: 'Montserrat', sans-serif;
-        font-size: 2rem;
-        font-weight: 800;
-        letter-spacing: 4px;
-        margin-bottom: 2rem;
-        text-shadow: 0 0 20px rgba(250,204,21,0.5);
+        font-weight: 700;
+        font-size: 3.5rem;
+        line-height: 1;
+        color: #e0e0e0;
+        letter-spacing: -1px;
+      }
+      .title-line-2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 6rem;
+        line-height: 0.9;
+        color: #ffffff;
+        letter-spacing: -3px;
+        margin-bottom: 30px;
+      }
+      .desc-text {
+        color: #888888;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 500px;
+        font-weight: 400;
+      }
+
+      /* Footer Nav */
+      .footer-nav {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        display: flex;
+        gap: 30px;
+        z-index: 100;
+      }
+      .f-link {
+        color: rgba(255,255,255,0.3);
+        text-decoration: none;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .f-link:hover {
+        color: #fff;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .hero-grid {
+          flex-direction: column;
+          text-align: center;
+          gap: 40px;
+          margin-top: 50px;
+        }
+        .title-line-1 { font-size: 2.5rem; }
+        .title-line-2 { font-size: 4rem; }
+        .footer-nav {
+          position: relative;
+          bottom: 0; right: 0;
+          justify-content: center;
+          margin-top: 50px;
+          width: 100%;
+        }
+        .action-btns {
+            display: none;
+        }
       }
     </style>
 </head>
 <body>
 
-<div class="sovereign-master h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-    <!-- 3D ZOOMING STARS BG -->
-    <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
+    <!-- TOP NAVIGATION -->
+    <nav class="top-nav">
+        <a href="index.html" class="nav-item">ANA SAYFA</a>
+        <a href="#" class="nav-item active">WİNSESTAR</a>
+        <a href="#" class="nav-item">PROJELERİM</a>
+    </nav>
 
-    <!-- MAIN INTERFACE -->
-    <div id="mainUI" class="main-container-v7 main-visible">
-      <div class="tilt-wrapper" style="width: 100%; max-width: 600px; display: flex; align-items: center; justify-content: center; position: relative;">
-        
-        <div class="info-box-v7">
-          <h1><i class="fa-solid fa-server" style="margin-right: 12px;"></i>DATABANK</h1>
-          
-          <div class="data-row">
-            <span class="d-label">Designation</span>
-            <span class="d-val">WINSESTAR</span>
-          </div>
-          <div class="data-row">
-            <span class="d-label">Core Engine</span>
-            <span class="d-val">Sovereign V8.5 Static</span>
-          </div>
-          <div class="data-row">
-            <span class="d-label">Telemetry Provider</span>
-            <span class="d-val">Lanyard REST/WSS</span>
-          </div>
-          <div class="data-row">
-            <span class="d-label">Deployment</span>
-            <span class="d-val">Cloudflare Pages Global</span>
-          </div>
-          <div class="data-row">
-            <span class="d-label">Security</span>
-            <span class="d-val" style="color: #22c55e;"><i class="fa-solid fa-shield-check"></i> Maximum</span>
-          </div>
-          <div class="data-row" style="border:none;">
-            <span class="d-label">System Status</span>
-            <span class="d-val" style="color: #facc15;">ONLINE & SYNCED</span>
-          </div>
-
-          <a href="index.html" class="return-btn"><i class="fa-solid fa-angle-left" style="margin-right: 8px;"></i> RETURN TO MAIN UI</a>
-        </div>
-      </div>
+    <!-- RIGHT ACTION BUTTONS -->
+    <div class="action-btns">
+        <button class="action-btn"><i class="fa-solid fa-moon"></i></button>
+        <button class="action-btn" style="font-size: 0.8rem; font-weight:bold; font-family:'Montserrat', sans-serif;">TR</button>
     </div>
-</div>
 
-<script>
-  // Warp Speed Yellow Stars
-  const canvas = document.getElementById('warpCanvas');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-  let stars = [];
-  for(let i=0; i<300; i++) {
-    stars.push({ x: Math.random()*w-w/2, y: Math.random()*h-h/2, z: Math.random()*w });
-  }
-  function draw() {
-    ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.fillRect(0,0,w,h);
-    ctx.translate(w/2, h/2);
-    for(let i=0; i<stars.length; i++) {
-      let s = stars[i];
-      s.z -= 3;
-      if (s.z <= 0) { s.z = w; s.x = Math.random()*w-w/2; s.y = Math.random()*h-h/2; }
-      let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
-      if(r>10) r=10;
-      ctx.beginPath();
-      ctx.fillStyle = '#facc15';
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.translate(-w/2, -h/2);
-    requestAnimationFrame(draw);
-  }
-  draw();
-  window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+    <!-- MAIN HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-grid">
+            
+            <!-- LEFT IMAGE CARD -->
+            <div class="image-card">
+                <!-- Using the same profil.gif from your root directory -->
+                <img src="profil.gif" alt="Winsestar Profile" class="profile-img">
+            </div>
 
-  // Cursor Glow
-  const cg = document.createElement('div');
-  cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(250,204,21,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
-  document.body.appendChild(cg);
-  document.addEventListener('mousemove', e => {
-     cg.style.left = e.clientX + 'px';
-     cg.style.top = e.clientY + 'px';
-  });
-</script>
+            <!-- RIGHT TEXT CONTENT -->
+            <div class="text-content">
+                <div class="title-line-1">WİNSESTAR</div>
+                <div class="title-line-2">KİMDİR?</div>
+                <p class="desc-text">Merhaba, ben Winsestar. THE SOVEREIGN EMPEROR. Dijital imparatorluklar inşa eden ileri düzey bir yönetici ve geliştiriciyim!</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER LINKS -->
+    <div class="footer-nav">
+        <a href="https://discord.com/users/1158363483256147978" target="_blank" class="f-link">DİSCORD</a>
+        <a href="https://instagram.com/winsestar" target="_blank" class="f-link">INSTAGRAM</a>
+        <a href="https://github.com/nuwicfg" target="_blank" class="f-link">GİTHUB</a>
+        <a href="https://youtube.com/@winsestar" target="_blank" class="f-link">YOUTUBE</a>
+    </div>
 
 </body>
 </html>
