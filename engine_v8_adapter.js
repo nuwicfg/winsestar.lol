@@ -187,25 +187,7 @@
         if (prefsEl) {
             let html = '';
             
-            // Discord Official User Info & Badges
-            if (data.discord_user) {
-                const du = data.discord_user;
-                const flagsHtml = getDiscordBadgesHtml(du.public_flags);
-                let devices = [];
-                if (data.active_on_discord_desktop) devices.push('<i class="fa-solid fa-desktop"></i> Desktop');
-                if (data.active_on_discord_mobile) devices.push('<i class="fa-solid fa-mobile-screen"></i> Mobile');
-                if (data.active_on_discord_web) devices.push('<i class="fa-solid fa-globe"></i> Web');
-                const deviceHtml = devices.length > 0 ? devices.join(' • ') : '<i class="fa-solid fa-power-off"></i> Offline';
-                
-                html += `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 8px; border-left: 2px solid #5865F2;">
-                            <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-brands fa-discord" style="margin-right: 4px; color: #5865F2;"></i> ${du.display_name || du.username}</div>
-                            <div class="pref-val" style="font-size: 0.85em; font-weight: 500; color: rgba(255,255,255,0.7); display:flex; justify-content:space-between; align-items:center;">
-                                <span style="font-family: 'Poppins';">@${du.username}</span>
-                                <span style="font-size:0.75em; color:rgba(255,255,255,0.4);">${deviceHtml}</span>
-                            </div>
-                            ${flagsHtml ? `<div style="margin-top:8px; display:flex;">${flagsHtml}</div>` : ''}
-                        </div>`;
-            }
+
             
             // Custom Status
             const customStatus = data.activities.find(a => a.type === 4);
