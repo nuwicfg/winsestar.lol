@@ -520,7 +520,10 @@
       }
     };
 
+    let typewriterTimeout;
     function switchLang(lang) {
+      if (typewriterTimeout) clearTimeout(typewriterTimeout);
+      
       // Toggle active state for all buttons
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lng' + lang.toUpperCase()).classList.add('active');
@@ -538,7 +541,7 @@
         if (i < text.length) {
           el.innerHTML += text.charAt(i);
           i++;
-          setTimeout(typeWriter, 40);
+          typewriterTimeout = setTimeout(typeWriter, 40);
         }
       }
       typeWriter();

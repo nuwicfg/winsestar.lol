@@ -42,10 +42,14 @@
 html, body { cursor: default; }
 
 body.sovereign-master {
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    min-height: 100vh; width: 100vw;
-    overflow-x: hidden;
-    overflow-y: auto;
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    height: 100svh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     position: relative;
     background: var(--bg-master);
     color: var(--text-high);
@@ -186,7 +190,7 @@ body.sovereign-master {
 */
 .main-container-v7 {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,7 +199,6 @@ body.sovereign-master {
     opacity: 0;
     visibility: hidden;
     transition: opacity 1.5s var(--ease-v7);
-    padding: 2rem 1rem;
 }
 .main-container-v7.main-visible {
     opacity: 1; visibility: visible;
