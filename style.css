@@ -1153,13 +1153,13 @@ canvas.bg-v7 { position: fixed; inset: 0; z-index: -2; width: 100vw; height: 100
     opacity: 0.5;
 }
 
-@keyframes blinkText { 0% { opacity: 1; } 50% { opacity: 0.2; } 100% { opacity: 1; } }
-.blink-text { animation: blinkText 1.5s infinite; }
+@keyframes blinkText { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+.blink-text { animation: blinkText 2.2s infinite; }
 
 .social-links-v7 { display: flex; justify-content: center; gap: 25px; margin-top: 20px; margin-bottom: 25px; } .social-item { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); color: #fff; border-radius: 12px; text-decoration: none; font-size: 1.2rem; transition: all 0.3s; box-shadow: 0 0 10px rgba(255,255,255,0.2); } .social-item:hover { background: #fff; color: #000; transform: translateY(-3px); box-shadow: 0 0 20px rgba(255,255,255,0.8); }
 
 .profile-name-v7 { background: linear-gradient(to right, #ff3c3c, #950101) !important; -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; text-fill-color: transparent !important; -webkit-text-fill-color: transparent !important; }
 
-.telemetry-card { padding: 15px; background: rgba(255, 255, 255, 0.03); border-right: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; min-width: 0; display: flex; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); perspective: 1000px; }
+.telemetry-card { padding: 15px; background: rgba(255, 255, 255, 0.03); border-right: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; min-width: 0; display: flex; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); perspective: 1000px; transform-style: preserve-3d; }
 .spotify-card:hover { transform: perspective(1000px) rotateY(-12deg) translateY(-8px) scale(1.02); border-color: rgba(30, 215, 96, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 20px rgba(30, 215, 96, 0.1); }
 .activity-card:hover { transform: perspective(1000px) rotateY(12deg) translateY(-8px) scale(1.02); border-color: rgba(255, 255, 255, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 20px rgba(255, 255, 255, 0.1); }

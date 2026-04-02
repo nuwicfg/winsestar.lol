@@ -59,9 +59,42 @@
       #mainUI {
         z-index: 10;
       }
+      
+      .left-nav-trigger {
+        position: fixed;
+        left: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-right: 4px solid #fff;
+        padding: 30px 15px 30px 25px;
+        border-radius: 0 50px 50px 0;
+        z-index: 2000;
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .left-nav-trigger:hover {
+        left: 0;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 10px 0 30px rgba(255,255,255,0.05);
+      }
     </style>
 </head>
 <body>
+
+<div class="left-nav-trigger" onclick="fadeOutTo('info.html')">
+    <i class="fa-solid fa-chevron-right" style="font-size: 1.5rem; color: #fff;"></i>
+</div>
+
+<script>
+  function fadeOutTo(url) {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s';
+    setTimeout(() => { window.location.href = url; }, 500);
+  }
+</script>
 
 <div class="sovereign-master h-screen w-full overflow-hidden flex items-center justify-center bg-black">
     <!-- 3D ZOOMING STARS BG -->

@@ -101,6 +101,80 @@
         background: rgba(40, 40, 40, 0.8);
       }
 
+      /* Language Toggle */
+      .lang-switch {
+        display: flex;
+        align-items: center;
+        background: rgba(20, 20, 20, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 30px;
+        padding: 4px;
+        gap: 5px;
+      }
+      .lang-btn {
+        padding: 5px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .lang-btn.active {
+        background: rgba(255, 255, 255, 0.1);
+        font-weight: 700;
+        box-shadow: 0 0 15px rgba(255,255,255,0.1);
+      }
+
+      /* Left Side Nav */
+      .left-side-nav {
+        position: fixed;
+        left: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+      .side-nav-item {
+        width: 12px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.4s;
+        position: relative;
+      }
+      .side-nav-item:hover, .side-nav-item.active {
+        background: #fff;
+        box-shadow: 0 0 15px #fff;
+        transform: scale(1.4);
+      }
+      .side-nav-item::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 4px 10px;
+        border-radius: 4px;
+      }
+      .side-nav-item:hover::before {
+        opacity: 1;
+        left: 35px;
+      }
+
       /* Main Content Layout */
       .hero-section {
         min-height: 100vh;
@@ -194,44 +268,66 @@
         min-height: 80px;
       }
       
+      .left-back-btn {
+        position: fixed;
+        left: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-right: 4px solid #fff;
+        padding: 30px 15px 30px 25px;
+        border-radius: 0 50px 50px 0;
+        z-index: 2000;
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .left-back-btn:hover {
+        left: 0;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 10px 0 30px rgba(255,255,255,0.05);
+      }
+
       /* Advanced Social Media App Cards */
       .app-grid {
         margin-top: 40px;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        max-width: 500px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 100%;
+        max-width: 600px;
       }
       .app-card {
         background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 20px;
-        padding: 15px 20px;
+        padding: 15px;
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         text-decoration: none;
         color: #fff;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        aspect-ratio: 1;
+        transition: all 0.4s;
       }
       .app-card:hover {
         background: rgba(255, 255, 255, 0.08);
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.05);
+        transform: translateY(-5px);
+        border-color: rgba(255,255,255,0.3);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       }
       .app-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        margin-right: 15px;
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+        color: #fff;
       }
       .app-name {
         font-weight: 600;
+        font-size: 0.75rem;
         letter-spacing: 1px;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Montserrat', sans-serif;
       }
 
       /* Footer Nav */
@@ -282,9 +378,20 @@
     </nav>
 
     <!-- RIGHT ACTION BUTTONS -->
+    <div class="left-back-btn page-link" onclick="window.location.href='index.html'">
+        <i class="fa-solid fa-chevron-left" style="font-size: 1.5rem; color: #fff;"></i>
+    </div>
+
     <div class="action-btns">
-        <button class="action-btn"><i class="fa-solid fa-moon"></i></button>
-        <button class="action-btn" style="font-size: 0.8rem; font-weight:bold; font-family:'Montserrat', sans-serif;">TR</button>
+        <div class="lang-switch">
+            <div id="lngTR" class="lang-btn active" onclick="switchLang('tr')">
+                <img src="https://flagcdn.com/w20/tr.png" width="16" alt="TR"> TR
+            </div>
+            <div id="lngEN" class="lang-btn" onclick="switchLang('en')">
+                <img src="https://flagcdn.com/w20/us.png" width="16" alt="EN"> EN
+            </div>
+        </div>
+        <div class="action-btn"><i class="fa-solid fa-expand"></i></div>
     </div>
 
     <!-- MAIN HERO SECTION -->
@@ -300,9 +407,28 @@
 
             <!-- RIGHT TEXT CONTENT -->
             <div class="text-content">
-                <div class="title-line-1">WİNSESTAR</div>
-                <div class="title-line-2">KİMDİR?</div>
+                <div class="title-line-1" id="tr-title1">WİNSESTAR</div>
+                <div class="title-line-2" id="tr-title2">KİMDİR?</div>
                 <p class="desc-text" id="typewriterText"></p>
+                
+                <div class="app-grid">
+                    <a href="https://tiktok.com/@winsevlr" target="_blank" class="app-card">
+                        <i class="fa-brands fa-tiktok app-icon"></i>
+                        <span class="app-name">TikTok</span>
+                    </a>
+                    <a href="https://discord.com/users/1158363483256147978" target="_blank" class="app-card">
+                        <i class="fa-brands fa-discord app-icon"></i>
+                        <span class="app-name">Discord</span>
+                    </a>
+                    <a href="https://instagram.com/winsestar" target="_blank" class="app-card">
+                        <i class="fa-brands fa-instagram app-icon"></i>
+                        <span class="app-name">Instagram</span>
+                    </a>
+                    <a href="https://youtube.com/@winsestar" target="_blank" class="app-card">
+                        <i class="fa-brands fa-youtube app-icon"></i>
+                        <span class="app-name">YouTube</span>
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -329,12 +455,32 @@
             });
         });
 
-        // Typewriter Effect
-        document.addEventListener('DOMContentLoaded', () => {
+        // Translation Logic
+        const TRANSLATIONS = {
+            tr: {
+                title1: "WİNSESTAR",
+                title2: "KİMDİR?",
+                bio: "Merhaba, ben Winsestar. Profesyonel TikTok editörüyüm. Ritim ve görselliğin iç içe girdiği Vandal vuruşları, nefes kesen Valorant fragmanları ve akıcı montajlarla dijital dünyaya yön veriyorum."
+            },
+            en: {
+                title1: "WİNSESTAR",
+                title2: "WHO IS?",
+                bio: "Hello, I am Winsestar. I am a professional TikTok editor. I lead the digital world with Vandal shots where rhythm and visuals intertwine, breathtaking Valorant trailers, and smooth montages."
+            }
+        };
+
+        function switchLang(lang) {
+            document.getElementById('lngTR').classList.toggle('active', lang === 'tr');
+            document.getElementById('lngEN').classList.toggle('active', lang === 'en');
+            
+            document.getElementById('tr-title1').innerText = TRANSLATIONS[lang].title1;
+            document.getElementById('tr-title2').innerText = TRANSLATIONS[lang].title2;
+            
+            // Re-type bio
             const el = document.getElementById('typewriterText');
-            // Epic biography prioritizing Valorant and Tiktok Edits
-            const text = "Merhaba, ben Winsestar. Profesyonel TikTok editörüyüm. Ritim ve görselliğin iç içe girdiği Vandal vuruşları, nefes kesen Valorant fragmanları ve akıcı montajlarla dijital dünyaya yön veriyorum.";
+            el.innerHTML = "";
             let i = 0;
+            const text = TRANSLATIONS[lang].bio;
             
             function typeWriter() {
                 if (i < text.length) {
@@ -343,7 +489,12 @@
                     setTimeout(typeWriter, 40);
                 }
             }
-            setTimeout(typeWriter, 600);
+            typeWriter();
+        }
+
+        // Typewriter Effect (Initial)
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLang('tr');
         });
 
         // Advanced WebGL style Warp & Shooting Stars Canvas

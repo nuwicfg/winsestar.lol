@@ -29,7 +29,27 @@
             features: config.features || { badges: ['imperial-star'], typewriter: true, viewCounter: true }
         };
 
+        incrementGlobalViews();
         bootSovereign();
+    }
+
+    async function incrementGlobalViews() {
+        const bucket = 'B9yB5w1vE8m9K2wz';
+        const key = 'visits';
+        const url = `https://kvdb.io/${bucket}/${key}`;
+        
+        try {
+            // Increment
+            const res = await fetch(`${url}/+1`, { method: 'POST' });
+            const count = await res.text();
+            
+            const viewEl = document.getElementById('profileVersion');
+            if (viewEl) {
+                viewEl.innerHTML = `<i class="fa-solid fa-eye" style="margin-right: 5px;"></i> ${Number(count).toLocaleString()} Görüntülenme`;
+            }
+        } catch (e) {
+            console.error("View Counter Error:", e);
+        }
     }
 
     async function bootSovereign() {
