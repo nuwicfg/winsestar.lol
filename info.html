@@ -25,8 +25,22 @@
         color: #ffffff;
         font-family: 'Poppins', sans-serif;
         overflow-x: hidden;
+        /* Default opacity for smooth fade in */
+        opacity: 0;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
       
+      /* Valorant Background Layer */
+      .bg-valorant {
+          position: fixed;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background: url('https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/background.png') no-repeat center center;
+          background-size: cover;
+          opacity: 0.15;
+          z-index: -2;
+          pointer-events: none;
+      }
+
       /* Floating Nav */
       .top-nav {
         position: fixed;
@@ -106,7 +120,7 @@
       
       /* Image Card - 3D */
       .image-card {
-        background: rgba(17, 17, 17, 0.4);
+        background: rgba(17, 17, 17, 0.6);
         border-radius: 40px;
         border: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(250,204,21,0.05);
@@ -116,6 +130,7 @@
         align-items: center;
         justify-content: center;
         padding: 0;
+        cursor: pointer;
       }
       .image-card::after {
           content: "";
@@ -127,15 +142,26 @@
           z-index: -1;
           pointer-events: none;
       }
+      
+      /* Use absolute positioning to layer default avatar + Tiktok Overlay */
       .profile-img {
         width: 320px;
         height: 320px;
-        object-fit: contain; /* Perfect for transparent TikTok profile png */
-        border-radius: 30px;
-        transform: translateZ(50px); /* 3D POP EFFECT */
+        object-fit: cover;
+        border-radius: 40px;
+        transform: translateZ(30px);
         transition: transform 0.3s ease;
       }
-      
+      .tiktok-overlay {
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          font-size: 3rem;
+          color: #fff;
+          text-shadow: 2px 2px 0 #ff0050, -2px -2px 0 #00f2fe;
+          transform: translateZ(80px); /* Pops out a LOT */
+      }
+
       /* Typography */
       .text-content {
         display: flex;
@@ -165,7 +191,7 @@
         line-height: 1.6;
         max-width: 500px;
         font-weight: 400;
-        min-height: 80px; /* Space for typewriter */
+        min-height: 80px;
       }
       
       /* New Social Links Grid */
@@ -217,23 +243,11 @@
         color: #fff;
       }
 
-      /* Responsive */
       @media (max-width: 900px) {
-        .hero-grid {
-          flex-direction: column;
-          text-align: center;
-          gap: 40px;
-          margin-top: 50px;
-        }
+        .hero-grid { flex-direction: column; text-align: center; gap: 40px; margin-top: 50px; }
         .title-line-1 { font-size: 2.5rem; }
         .title-line-2 { font-size: 4rem; }
-        .footer-nav {
-          position: relative;
-          bottom: 0; right: 0;
-          justify-content: center;
-          margin-top: 50px;
-          width: 100%;
-        }
+        .footer-nav { position: relative; bottom: 0; right: 0; justify-content: center; margin-top: 50px; width: 100%; }
         .action-btns { display: none; }
         .social-media-area { justify-content: center; }
       }
@@ -241,9 +255,15 @@
 </head>
 <body>
 
+    <div class="bg-valorant"></div>
+
+    <!-- 3D ZOOMING & SHOOTING STARS BG -->
+    <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
     <!-- TOP NAVIGATION -->
     <nav class="top-nav">
-        <a href="index.html" class="nav-item">ANA SAYFA</a>
+        <!-- Intercepted by JS below for page transition -->
+        <a href="index.html" class="nav-item page-link">ANA SAYFA</a>
         <a href="#" class="nav-item active">WİNSESTAR</a>
         <a href="#" class="nav-item">SOSYAL MEDYA</a>
     </nav>
@@ -259,10 +279,14 @@
         <div class="hero-grid">
             
             <!-- LEFT IMAGE CARD (3D TILT ENABLED) -->
-            <!-- Upload your tiktok logo file as 'tiktok.png' with a transparent background! -->
-            <div class="image-card" data-tilt data-tilt-max="20" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.5">
-                <img src="tiktok.png" alt="Tiktok Profil" class="profile-img" onerror="this.src='profil.gif'">
-            </div>
+            <a href="https://tiktok.com/@winsevlr" target="_blank" style="text-decoration: none;">
+              <div class="image-card" data-tilt data-tilt-max="20" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
+                  <!-- The Base Avatar. They can overwrite tiktok.png later if they want. Defaults to profil.gif -->
+                  <img src="tiktok.png" alt="Tiktok Profil" class="profile-img" onerror="this.src='profil.gif'">
+                  <!-- The HUGE Floating 3D Tiktok Logo Over it -->
+                  <i class="fa-brands fa-tiktok tiktok-overlay"></i>
+              </div>
+            </a>
 
             <!-- RIGHT TEXT CONTENT -->
             <div class="text-content">
@@ -271,7 +295,7 @@
                 <p class="desc-text" id="typewriterText"></p>
                 
                 <div class="social-media-area">
-                  <a href="https://tiktok.com/@winsestar" target="_blank" class="soc-btn"><i class="fa-brands fa-tiktok"></i></a>
+                  <a href="https://tiktok.com/@winsevlr" target="_blank" class="soc-btn"><i class="fa-brands fa-tiktok"></i></a>
                   <a href="https://discord.com/users/1158363483256147978" target="_blank" class="soc-btn"><i class="fa-brands fa-discord"></i></a>
                   <a href="https://instagram.com/winsestar" target="_blank" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
                   <a href="https://youtube.com/@winsestar" target="_blank" class="soc-btn"><i class="fa-brands fa-youtube"></i></a>
@@ -283,7 +307,7 @@
 
     <!-- Footer Links -->
     <div class="footer-nav">
-        <a href="https://tiktok.com/@winsestar" target="_blank" class="f-link">TİKTOK</a>
+        <a href="https://tiktok.com/@winsevlr" target="_blank" class="f-link">TİKTOK</a>
         <a href="https://discord.com/users/1158363483256147978" target="_blank" class="f-link">DİSCORD</a>
         <a href="https://instagram.com/winsestar" target="_blank" class="f-link">INSTAGRAM</a>
     </div>
@@ -291,23 +315,122 @@
     <!-- VanillaTilt Library for 3D Effect -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
+        // Smooth Entry & Exit Transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fade in
+            setTimeout(() => { document.body.style.opacity = '1'; }, 100);
+            
+            // Intercept links for fade out
+            const pageLinks = document.querySelectorAll('.page-link');
+            pageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = e.currentTarget.href;
+                    document.body.style.opacity = '0';
+                    document.body.style.transform = 'scale(0.97)';
+                    setTimeout(() => { window.location.href = target; }, 500);
+                });
+            });
+        });
+
         // Typewriter Effect
         document.addEventListener('DOMContentLoaded', () => {
             const el = document.getElementById('typewriterText');
-            // Your custom text about TikTok edits:
-            const text = "Merhaba, ben Winsestar. Klasik kurguları yıkan dinamik bir TikTok editörüyüm. Ritim ve görselliğin buluştuğu o karanlık tarafta, en akıcı videoları ben inşa ederim.";
+            // Epic biography prioritizing Valorant and Tiktok Edits
+            const text = "Merhaba, ben Winsestar. Profesyonel TikTok editörüyüm. Ritim ve görselliğin iç içe girdiği Vandal vuruşları, nefes kesen Valorant fragmanları ve akıcı montajlarla dijital dünyaya yön veriyorum.";
             let i = 0;
             
             function typeWriter() {
                 if (i < text.length) {
                     el.innerHTML += text.charAt(i);
                     i++;
-                    setTimeout(typeWriter, 35); // Lower number = faster typing
+                    setTimeout(typeWriter, 40);
                 }
             }
-            
-            // Start typewriter after a short delay
-            setTimeout(typeWriter, 500);
+            setTimeout(typeWriter, 600);
+        });
+
+        // Advanced WebGL style Warp & Shooting Stars Canvas
+        const canvas = document.getElementById('warpCanvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        
+        // Warp Stars
+        let stars = [];
+        for(let i=0; i<400; i++) {
+          stars.push({ x: Math.random()*w-w/2, y: Math.random()*h-h/2, z: Math.random()*w });
+        }
+        
+        // Fast Shooting Stars (Meteors)
+        let meteors = [];
+        function spawnMeteor() {
+            if (Math.random() > 0.95) { // 5% chance per frame
+                meteors.push({
+                    x: Math.random() * w,
+                    y: -50,
+                    length: Math.random() * 100 + 100,
+                    speedX: (Math.random() - 0.5) * 5,
+                    speedY: Math.random() * 20 + 20,
+                    opacity: 1
+                });
+            }
+        }
+
+        function draw() {
+          ctx.fillStyle = 'rgba(0,0,0,0.3)';
+          ctx.fillRect(0,0,w,h);
+          
+          ctx.translate(w/2, h/2);
+          for(let i=0; i<stars.length; i++) {
+            let s = stars[i];
+            s.z -= 4; // Faster warp
+            if (s.z <= 0) { s.z = w; s.x = Math.random()*w-w/2; s.y = Math.random()*h-h/2; }
+            let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
+            if(r>10) r=10;
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(250,204,21,0.8)';
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.translate(-w/2, -h/2);
+
+          // Render Meteors
+          spawnMeteor();
+          for(let i=meteors.length-1; i>=0; i--) {
+              let m = meteors[i];
+              m.x += m.speedX;
+              m.y += m.speedY;
+              m.opacity -= 0.015;
+              
+              if (m.opacity <= 0) {
+                  meteors.splice(i, 1);
+                  continue;
+              }
+              
+              ctx.beginPath();
+              // Create glowing trail line
+              const gradient = ctx.createLinearGradient(m.x, m.y, m.x - m.speedX*3, m.y - m.speedY*3);
+              gradient.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
+              gradient.addColorStop(1, 'rgba(0, 242, 254, 0)'); // Very faint cyan tail
+              ctx.strokeStyle = gradient;
+              ctx.lineWidth = 3;
+              ctx.moveTo(m.x, m.y);
+              ctx.lineTo(m.x - (m.speedX * Math.random() * 5), m.y - (m.length));
+              ctx.stroke();
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+        window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+
+        // Cursor Glow
+        const cg = document.createElement('div');
+        cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(250,204,21,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
+        document.body.appendChild(cg);
+        document.addEventListener('mousemove', e => {
+           cg.style.left = e.clientX + 'px';
+           cg.style.top = e.clientY + 'px';
         });
     </script>
 </body>

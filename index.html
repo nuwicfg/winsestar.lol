@@ -182,12 +182,25 @@
      cg.style.top = e.clientY + 'px';
   });
 
-  // Info Click Routing
+  // Smooth Page Transitions
   document.addEventListener('DOMContentLoaded', () => {
+     // Fade in on load is handled by default since body opacity starts at 1, but we can do a quick intro
+     document.body.style.opacity = '0';
+     setTimeout(() => {
+         document.body.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+         document.body.style.opacity = '1';
+     }, 100);
+
+     // Intercept Info Button for smooth exit
      const infoBtn = document.querySelector('.info-icon-v7');
      if(infoBtn) {
-         infoBtn.addEventListener('click', () => {
-             window.location.href = 'info.html';
+         infoBtn.addEventListener('click', (e) => {
+             e.preventDefault();
+             document.body.style.opacity = '0';
+             document.body.style.transform = 'scale(0.97)';
+             setTimeout(() => {
+                 window.location.href = 'info.html';
+             }, 500);
          });
      }
   });
