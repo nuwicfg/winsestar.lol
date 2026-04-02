@@ -186,17 +186,16 @@ body.sovereign-master {
 */
 .main-container-v7 {
     width: 100%;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: 2rem 1rem;
     position: relative;
     z-index: 10;
     opacity: 0;
     visibility: hidden;
     transition: opacity 1.5s var(--ease-v7);
+    padding: 2rem 1rem;
 }
 .main-container-v7.main-visible {
     opacity: 1; visibility: visible;
@@ -211,6 +210,7 @@ body.sovereign-master {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .profile-card-v7 {
