@@ -80,7 +80,7 @@
         
         if (s.features?.typewriter) {
             const bioEl = document.getElementById('profileBio');
-            if (bioEl) applyTypewriter(bioEl, s.bio);
+            if (bioEl) bioEl.innerHTML = s.bio;
         }
     }
 
