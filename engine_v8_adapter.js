@@ -148,6 +148,42 @@
             const colors = { online: '#22c55e', idle: '#f59e0b', dnd: '#ef4444', offline: '#4b5563' };
             statusEl.style.background = colors[data.discord_status] || colors.offline;
         }
+
+        const prefsEl = document.getElementById('discordPrefs');
+        if (prefsEl) {
+            let html = '';
+            
+            // Custom Status
+            const customStatus = data.activities.find(a => a.type === 4);
+            if (customStatus) {
+                const emoji = customStatus.emoji?.id ? `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${customStatus.emoji.animated ? 'gif' : 'png'}?size=32" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 4px;">` : (customStatus.emoji?.name ? (customStatus.emoji.name + ' ') : '');
+                const text = customStatus.state || '';
+                html += `<div class="v8-pref-widget"><div class="pref-label"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val">${emoji}${text}</div></div>`;
+            }
+            
+            // Spotify
+            if (data.spotify) {
+                html += `<div class="v8-pref-widget"><div class="pref-label" style="color: #1ed760;"><i class="fa-brands fa-spotify" style="margin-right: 4px;"></i> LISTENING TO SPOTIFY</div><div class="pref-val"><strong>${data.spotify.song}</strong><br><span style="font-size: 0.8em; opacity: 0.8;">by ${data.spotify.artist}</span></div></div>`;
+            }
+            
+            // Playing a Game
+            const game = data.activities.find(a => a.type === 0);
+            if (game) {
+                html += `<div class="v8-pref-widget"><div class="pref-label"><i class="fa-solid fa-gamepad" style="margin-right: 4px;"></i> PLAYING</div><div class="pref-val"><strong>${game.name}</strong><br><span style="font-size: 0.8em; opacity: 0.8;">${game.details || ''} ${game.state || ''}</span></div></div>`;
+            }
+            
+            // Visual Studio Code / Other generic rich presence
+            const rpc = data.activities.find(a => a.type === 0 && a.name !== (game?.name));
+            if (rpc && !game) {
+                 html += `<div class="v8-pref-widget"><div class="pref-label"><i class="fa-solid fa-code" style="margin-right: 4px;"></i> ACTIVITY</div><div class="pref-val"><strong>${rpc.name}</strong><br><span style="font-size: 0.8em; opacity: 0.8;">${rpc.details || ''}</span></div></div>`;
+            }
+            
+            if (!html) {
+                html = `<div class="v8-pref-widget"><div class="pref-label"><i class="fa-solid fa-satellite-dish" style="margin-right: 4px;"></i> DISCORD TELEMETRY</div><div class="pref-val"><span style="opacity: 0.5;">No active presence</span></div></div>`;
+            }
+            
+            prefsEl.innerHTML = html;
+        }
     }
 
     function applyTypewriter(el, text) {
