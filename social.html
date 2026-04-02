@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winsestar | Sosyal Medya</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background-color: #050505;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden;
+        opacity: 0;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .bg-valorant {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: url('https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/background.png') no-repeat center center;
+          background-size: cover; opacity: 0.15; z-index: -2; pointer-events: none;
+      }
+
+      /* Floating Nav */
+      .top-nav {
+        position: fixed; top: 40px; left: 50%; transform: translateX(-50%);
+        display: flex; align-items: center; background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 50px; padding: 5px; z-index: 100;
+      }
+      .nav-item {
+        padding: 10px 25px; color: rgba(255, 255, 255, 0.5); font-size: 0.75rem;
+        font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+        border-radius: 50px; text-decoration: none; transition: all 0.3s ease;
+      }
+      .nav-item:hover { color: #fff; }
+      .nav-item.active { background: #ffffff; color: #000000; }
+
+      .hero-section {
+        min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; padding: 2rem; position: relative;
+      }
+      .title-line-1 {
+        font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 3.5rem;
+        background: linear-gradient(to right, #ffffff, #666666); -webkit-background-clip: text; color: transparent;
+        letter-spacing: -1px; margin-bottom: 50px;
+      }
+
+      /* Advanced HUGE Social Media App Cards */
+      .app-grid {
+        display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 600px;
+      }
+      .app-card {
+        background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 25px; padding: 25px 30px; display: flex; align-items: center;
+        text-decoration: none; color: #fff; position: relative; overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .app-card::before {
+        content: ""; position: absolute; top:0; left:-100%; width: 50%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+        transform: skewX(-20deg); transition: 0.5s;
+      }
+      .app-card:hover::before { left: 150%; }
+      .app-card:hover {
+        background: rgba(255, 255, 255, 0.1); transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 50px rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.3);
+      }
+      .app-icon {
+        width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center;
+        justify-content: center; font-size: 1.8rem; margin-right: 25px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      }
+      .app-name {
+        font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; font-family: 'Montserrat', sans-serif;
+      }
+      .app-arrow {
+        margin-left: auto; font-size: 1.5rem; opacity: 0; transform: translateX(-20px);
+        transition: all 0.3s;
+      }
+      .app-card:hover .app-arrow { opacity: 1; transform: translateX(0); }
+    </style>
+</head>
+<body>
+    <div class="bg-valorant"></div>
+    <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
+    <nav class="top-nav">
+        <a href="index.html" class="nav-item page-link">ANA SAYFA</a>
+        <a href="info.html" class="nav-item page-link">WİNSESTAR</a>
+        <a href="#" class="nav-item active">SOSYAL MEDYA</a>
+    </nav>
+
+    <section class="hero-section">
+        <div class="title-line-1">BAĞLANTILAR</div>
+        
+        <div class="app-grid">
+          <a href="https://tiktok.com/@winsevlr" target="_blank" class="app-card">
+            <div class="app-icon" style="background: linear-gradient(45deg, #00f2fe, #ff0050);"><i class="fa-brands fa-tiktok"></i></div>
+            <div class="app-name">TikTok</div>
+            <i class="fa-solid fa-arrow-right app-arrow"></i>
+          </a>
+          <a href="https://discord.com/users/1158363483256147978" target="_blank" class="app-card">
+            <div class="app-icon" style="background: #5865F2;"><i class="fa-brands fa-discord"></i></div>
+            <div class="app-name">Discord</div>
+            <i class="fa-solid fa-arrow-right app-arrow"></i>
+          </a>
+          <a href="https://instagram.com/winsestar" target="_blank" class="app-card">
+            <div class="app-icon" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><i class="fa-brands fa-instagram"></i></div>
+            <div class="app-name">Instagram</div>
+            <i class="fa-solid fa-arrow-right app-arrow"></i>
+          </a>
+          <a href="https://youtube.com/@winsestar" target="_blank" class="app-card">
+            <div class="app-icon" style="background: #FF0000;"><i class="fa-brands fa-youtube"></i></div>
+            <div class="app-name">YouTube</div>
+            <i class="fa-solid fa-arrow-right app-arrow"></i>
+          </a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => { document.body.style.opacity = '1'; }, 100);
+            
+            const pageLinks = document.querySelectorAll('.page-link');
+            pageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = e.currentTarget.href;
+                    document.body.style.opacity = '0';
+                    document.body.style.transform = 'scale(0.97)';
+                    setTimeout(() => { window.location.href = target; }, 500);
+                });
+            });
+        });
+
+        // Warp & Shooting Stars Canvas
+        const canvas = document.getElementById('warpCanvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        let stars = [];
+        for(let i=0; i<400; i++) { stars.push({ x: Math.random()*w-w/2, y: Math.random()*h-h/2, z: Math.random()*w }); }
+        let meteors = [];
+        function spawnMeteor() {
+            if (Math.random() > 0.95) {
+                meteors.push({ x: Math.random() * w, y: -50, length: Math.random() * 100 + 100, speedX: (Math.random() - 0.5) * 5, speedY: Math.random() * 20 + 20, opacity: 1 });
+            }
+        }
+        function draw() {
+          ctx.fillStyle = 'rgba(0,0,0,0.3)';
+          ctx.fillRect(0,0,w,h);
+          ctx.translate(w/2, h/2);
+          for(let i=0; i<stars.length; i++) {
+            let s = stars[i];
+            s.z -= 4; 
+            if (s.z <= 0) { s.z = w; s.x = Math.random()*w-w/2; s.y = Math.random()*h-h/2; }
+            let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
+            if(r>10) r=10;
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(255,255,255,0.8)';
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.translate(-w/2, -h/2);
+          spawnMeteor();
+          for(let i=meteors.length-1; i>=0; i--) {
+              let m = meteors[i];
+              m.x += m.speedX; m.y += m.speedY; m.opacity -= 0.015;
+              if (m.opacity <= 0) { meteors.splice(i, 1); continue; }
+              ctx.beginPath();
+              const gradient = ctx.createLinearGradient(m.x, m.y, m.x - m.speedX*3, m.y - m.speedY*3);
+              gradient.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
+              gradient.addColorStop(1, 'rgba(0, 242, 254, 0)');
+              ctx.strokeStyle = gradient; ctx.lineWidth = 3;
+              ctx.moveTo(m.x, m.y); ctx.lineTo(m.x - (m.speedX * Math.random() * 5), m.y - (m.length)); ctx.stroke();
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+        window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+    </script>
+</body>
+</html>
