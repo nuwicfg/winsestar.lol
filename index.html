@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winsestar | The Emperor Profile</title>
+    
+    <!-- Tailwind CSS (CDN for ultra speed and simple styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for the UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Essential Sovereign CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fake local profile data so Sovereign Javascript engine initializes smoothly -->
+    <script>
+      window.S_PROFILE_DATA = {
+        "id": "master-winsestar",
+        "username": "winsestar",
+        "full_name": "WINSESTAR",
+        "avatar_url": "profil.gif",
+        "banner_url": "",
+        "bio": "THE SOVEREIGN EMPEROR",
+        "config": {
+          "colors": {
+             "name": ["#facc15", "#f59e0b"],
+             "border": ["#facc15", "#27272a"],
+             "cardGlow": ["#facc1522", "#000000"],
+             "borderGlow": ["#facc15", "#000000"],
+             "bgGlow": ["#facc1511", "#000000"],
+             "icons": ["#ffffff", "#9ca3af"]
+          },
+          "effects": {
+            "glitchName": true,
+            "floatCard": true,
+            "glowCard": true,
+            "tiltEnabled": true
+          },
+          "links": {
+            "discord": "bu kısımları koddan değiştirebilirsin",
+            "instagram": "winsestar",
+            "github": "winsestar"
+          }
+        }
+      };
+    </script>
+</head>
+<body>
+
+<div class="sovereign-master h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+    <!-- VIDEO BACKGROUND LAYER -->
+    <div id="videoLayer" class="video-bg-v7 hidden">
+      <div id="ytPlayer"></div>
+      <video id="nativeVideo" loop muted playsinline></video>
+    </div>
+
+    <!-- GALACTIC BG ENGINE -->
+    <canvas id="bgCanvas" class="bg-v7 hidden"></canvas>
+    <div id="particles-js" class="bg-v7"></div>
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+    <div class="glow-matrix"></div>
+
+    <!-- MAIN PROFILE INTERFACE -->
+    <div id="mainUI" class="main-container-v7 main-visible">
+      <div class="tilt-wrapper" id="cardTilt" style="width: 100%; max-width: 560px; display: flex; align-items: center; justify-content: center; position: relative;">
+        
+        <div id="card-aura-particles" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
+        </div>
+
+        <div class="profile-card-v7 gradient-border" id="mainCard">
+          <div id="starAura" class="star-aura"></div>
+
+          <header class="card-header-v7">
+            <div class="banner-area-v7" id="cardBanner"></div>
+            <div class="avatar-wrap-v7">
+              <img src="profil.gif" id="profileAvatar" class="profile-img-v7" alt="Avatar">
+              <div class="status-indicator-v7" id="discordStatus"></div>
+            </div>
+          </header>
+
+          <div class="card-body-v7">
+            <div class="name-matrix-v7">
+              <h2 id="profileName" class="gradient-text name-pulse" data-text="WINSESTAR">WINSESTAR</h2>
+              <span id="profileUsername">@winsestar</span>
+              <div id="badgeContainer" class="badges-v7 hidden"></div>
+            </div>
+
+            <div class="bio-area-v7">
+              <p id="profileBio">THE SOVEREIGN EMPEROR</p>
+            </div>
+
+            <div id="presenceRoot" class="presence-container-v7 hidden"></div>
+
+            <div id="discordPrefs" class="discord-prefs-v8">
+               <div class="v8-pref-widget">
+                  <div class="pref-label"><i class="fa-solid fa-satellite-dish"></i> INITIALIZING...</div>
+                  <div class="pref-val">Connecting to Sovereign Lanyard Engine...</div>
+              </div>
+            </div>
+
+            <div class="social-grid-v7" id="socialLinks"></div>
+
+            <div id="viewCounter" class="view-counter-v7 hidden">
+              <i class="fa-solid fa-eye"></i> <span id="viewCountVal">1,024</span> views
+            </div>
+          </div>
+
+          <footer class="card-footer-v7">
+            <div class="footer-hud">
+              <span class="f-tag">'winsestar.lol</span>
+              <div class="info-btn-wrap">
+                <i class="fa-solid fa-circle-info info-icon-v7"></i>
+              </div>
+              <span class="f-code" id="profileVersion">v7.5 (STATIC)</span>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="engine_v8_adapter.js"></script>
+
+</body>
+</html>
