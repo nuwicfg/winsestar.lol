@@ -324,10 +324,10 @@ body.sovereign-master {
 .card-header-v7 { position: relative; border-radius: 40px 40px 0 0; }
 .banner-area-v7 { height: 170px; background: linear-gradient(135deg, var(--card-glow-start), var(--card-glow-end)); opacity: 0.15; border-radius: 40px 40px 0 0; overflow: hidden; }
 .avatar-wrap-v7 { position: absolute; bottom: -50px; left: 40px; width: 130px; height: 130px; z-index: 10; overflow: visible; }
-.profile-img-v7 { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 0 35px rgba(250, 204, 21, 0.15), 0 10px 45px rgba(0,0,0,0.9); transition: opacity 0.6s ease; }
+.profile-img-v7 { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #000; border: 3px solid rgba(255, 255, 255, 0.85); box-shadow: 0 10px 45px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.1); transition: opacity 0.6s ease; }
 /* Hide broken image icon when src is empty */
 .profile-img-v7:not([src]), .profile-img-v7[src=""] { color: transparent; }
-.status-indicator-v7 { position: absolute; bottom: 8px; right: 8px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+.status-indicator-v7 { position: absolute; bottom: 8px; right: 8px; width: 22px; height: 22px; border-radius: 50%; border: 3px solid #111; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
 
 .card-body-v7 { padding: 5rem 3rem 3rem; text-align: left; }
 
