@@ -55,14 +55,15 @@
         letter-spacing: -1px; margin-bottom: 50px;
       }
 
-      /* Advanced HUGE Social Media App Cards */
+      /* Advanced Square Social Media App Cards */
       .app-grid {
-        display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 600px;
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 100%; max-width: 500px; padding-bottom: 50px;
       }
       .app-card {
         background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 25px; padding: 25px 30px; display: flex; align-items: center;
+        border-radius: 35px; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center;
         text-decoration: none; color: #fff; position: relative; overflow: hidden;
+        aspect-ratio: 1; /* Kare yapar */
         transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
       .app-card::before {
@@ -77,18 +78,13 @@
         border-color: rgba(255,255,255,0.3);
       }
       .app-icon {
-        width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center;
-        justify-content: center; font-size: 1.8rem; margin-right: 25px;
+        width: 80px; height: 80px; border-radius: 24px; display: flex; align-items: center;
+        justify-content: center; font-size: 2.5rem; margin-bottom: 25px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       }
       .app-name {
-        font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; font-family: 'Montserrat', sans-serif;
+        font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; font-family: 'Montserrat', sans-serif; text-align: center;
       }
-      .app-arrow {
-        margin-left: auto; font-size: 1.5rem; opacity: 0; transform: translateX(-20px);
-        transition: all 0.3s;
-      }
-      .app-card:hover .app-arrow { opacity: 1; transform: translateX(0); }
     </style>
 </head>
 <body>
@@ -106,24 +102,24 @@
         
         <div class="app-grid">
           <a href="https://tiktok.com/@winsevlr" target="_blank" class="app-card">
-            <div class="app-icon" style="background: linear-gradient(45deg, #00f2fe, #ff0050);"><i class="fa-brands fa-tiktok"></i></div>
+            <div class="app-icon" style="background: rgba(255,255,255,0.05); color: #ffffff;"><i class="fa-brands fa-tiktok"></i></div>
             <div class="app-name">TikTok</div>
-            <i class="fa-solid fa-arrow-right app-arrow"></i>
+            
           </a>
           <a href="https://discord.com/users/1158363483256147978" target="_blank" class="app-card">
-            <div class="app-icon" style="background: #5865F2;"><i class="fa-brands fa-discord"></i></div>
+            <div class="app-icon" style="background: rgba(255,255,255,0.05); color: #ffffff;"><i class="fa-brands fa-discord"></i></div>
             <div class="app-name">Discord</div>
-            <i class="fa-solid fa-arrow-right app-arrow"></i>
+            
           </a>
           <a href="https://instagram.com/winsestar" target="_blank" class="app-card">
-            <div class="app-icon" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><i class="fa-brands fa-instagram"></i></div>
+            <div class="app-icon" style="background: rgba(255,255,255,0.05); color: #ffffff;"><i class="fa-brands fa-instagram"></i></div>
             <div class="app-name">Instagram</div>
-            <i class="fa-solid fa-arrow-right app-arrow"></i>
+            
           </a>
           <a href="https://youtube.com/@winsestar" target="_blank" class="app-card">
-            <div class="app-icon" style="background: #FF0000;"><i class="fa-brands fa-youtube"></i></div>
+            <div class="app-icon" style="background: rgba(255,255,255,0.05); color: #ffffff;"><i class="fa-brands fa-youtube"></i></div>
             <div class="app-name">YouTube</div>
-            <i class="fa-solid fa-arrow-right app-arrow"></i>
+            
           </a>
         </div>
     </section>
