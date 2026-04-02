@@ -67,7 +67,7 @@
         const cardEl = document.getElementById('mainCard');
 
         if (nameEl) {
-            nameEl.classList.toggle('active-glitch', !!eff.glitchName);
+            // nameEl.classList.toggle('active-glitch', false);
         }
         if (cardEl) {
             cardEl.classList.toggle('float-animation', !!eff.floatCard);
