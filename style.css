@@ -545,6 +545,19 @@ body.sovereign-master {
 }
 @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
+/* EYE LOOK ANIMATION */
+.fa-eye {
+    display: inline-block;
+    animation: eyeLook 4s ease-in-out infinite;
+}
+
+@keyframes eyeLook {
+    0%, 100% { transform: translate(0, 0) scale(1); filter: drop-shadow(0 0 5px #fff); }
+    25% { transform: translate(2px, -1px) scale(1.05); filter: drop-shadow(0 0 10px #ff0000); }
+    50% { transform: translate(-1.5px, 1.5px) scale(0.95); filter: drop-shadow(0 0 5px #fff); }
+    75% { transform: translate(-2px, -1px) scale(1.05); filter: drop-shadow(0 0 10px #ff0000); }
+}
+
 /* VIEWS COUNTER */
 .view-counter-v7 {
     margin-top: 3rem; text-align: center; width: 100%; border-top: 1px dashed rgba(255,255,255,0.1);
