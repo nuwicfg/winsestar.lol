@@ -37,6 +37,7 @@
         },
         "links": {
           "discord": "https://discord.com/users/1158363483256147978",
+          "tiktok": "https://tiktok.com/@winsevlr",
           "instagram": "https://instagram.com/winsestar",
           "spotify": "https://spotify.com/",
           "steam": "https://steamcommunity.com/"
@@ -69,6 +70,7 @@
       display: flex;
       gap: 15px;
     }
+
     .lang-switch-v7 {
       display: flex;
       background: rgba(15, 15, 15, 0.4);
@@ -76,8 +78,9 @@
       padding: 6px;
       border-radius: 30px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
+
     .lang-btn-v7 {
       width: 40px;
       height: 40px;
@@ -90,10 +93,12 @@
       opacity: 0.4;
       filter: grayscale(1);
     }
+
     .lang-btn-v7:hover {
       opacity: 0.8;
       background: rgba(255, 255, 255, 0.05);
     }
+
     .lang-btn-v7.active {
       opacity: 1;
       filter: grayscale(0);
@@ -104,253 +109,254 @@
   </style>
 </head>
 
-  <body class="sovereign-master">
+<body class="sovereign-master">
 
-    <!-- LANGUAGE SWITCHER (Global) -->
-    <div class="action-btns-home">
-      <div class="lang-switch-v7">
-        <div id="lngTR" class="lang-btn-v7 active" onclick="switchLang('tr')">
-          <img src="https://flagcdn.com/w20/tr.png" width="18" alt="TR">
-        </div>
-        <div id="lngEN" class="lang-btn-v7" onclick="switchLang('en')">
-          <img src="https://flagcdn.com/w20/us.png" width="18" alt="EN">
-        </div>
-        <div id="lngDE" class="lang-btn-v7" onclick="switchLang('de')">
-          <img src="https://flagcdn.com/w20/de.png" width="18" alt="DE">
-        </div>
-        <div id="lngFR" class="lang-btn-v7" onclick="switchLang('fr')">
-          <img src="https://flagcdn.com/w20/fr.png" width="18" alt="FR">
-        </div>
+  <!-- LANGUAGE SWITCHER (Global) -->
+  <div class="action-btns-home">
+    <div class="lang-switch-v7">
+      <div id="lngTR" class="lang-btn-v7 active" onclick="switchLang('tr')">
+        <img src="https://flagcdn.com/w20/tr.png" width="18" alt="TR">
+      </div>
+      <div id="lngEN" class="lang-btn-v7" onclick="switchLang('en')">
+        <img src="https://flagcdn.com/w20/us.png" width="18" alt="EN">
+      </div>
+      <div id="lngDE" class="lang-btn-v7" onclick="switchLang('de')">
+        <img src="https://flagcdn.com/w20/de.png" width="18" alt="DE">
+      </div>
+      <div id="lngFR" class="lang-btn-v7" onclick="switchLang('fr')">
+        <img src="https://flagcdn.com/w20/fr.png" width="18" alt="FR">
       </div>
     </div>
+  </div>
 
-    <!-- 3D ZOOMING STARS BG -->
-    <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
+  <!-- 3D ZOOMING STARS BG -->
+  <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
 
-    <!-- SIDE NAVIGATION (Iconic Capsule) -->
-    <nav class="side-nav">
-      <a href="#" class="nav-item active">
-        <i class="fa-solid fa-house"></i>
-        <span class="nav-label">ANA SAYFA</span>
-      </a>
-      <a href="info.html" class="nav-item page-link">
-        <i class="fa-solid fa-user"></i>
-        <span class="nav-label">WİNSESTAR</span>
-      </a>
-      <a href="social.html" class="nav-item page-link">
-        <i class="fa-solid fa-share-nodes"></i>
-        <span class="nav-label">SOSYAL MEDYA</span>
-      </a>
-    </nav>
+  <!-- SIDE NAVIGATION (Iconic Capsule) -->
+  <nav class="side-nav">
+    <a href="#" class="nav-item active">
+      <i class="fa-solid fa-house"></i>
+      <span class="nav-label">ANA SAYFA</span>
+    </a>
+    <a href="info.html" class="nav-item page-link">
+      <i class="fa-solid fa-user"></i>
+      <span class="nav-label">WİNSESTAR</span>
+    </a>
+    <a href="social.html" class="nav-item page-link">
+      <i class="fa-solid fa-share-nodes"></i>
+      <span class="nav-label">SOSYAL MEDYA</span>
+    </a>
+  </nav>
 
-    <!-- VIDEO BACKGROUND LAYER -->
-    <div id="videoLayer" class="video-bg-v7 hidden">
-      <div id="ytPlayer"></div>
-      <video id="nativeVideo" loop muted playsinline></video>
-    </div>
+  <!-- VIDEO BACKGROUND LAYER -->
+  <div id="videoLayer" class="video-bg-v7 hidden">
+    <div id="ytPlayer"></div>
+    <video id="nativeVideo" loop muted playsinline></video>
+  </div>
 
-    <!-- GALACTIC BG ENGINE -->
-    <canvas id="bgCanvas" class="bg-v7 hidden"></canvas>
-    <div id="particles-js" class="bg-v7"></div>
-    <div class="vignette"></div>
-    <div class="scanlines"></div>
-    <div class="glow-matrix"></div>
+  <!-- GALACTIC BG ENGINE -->
+  <canvas id="bgCanvas" class="bg-v7 hidden"></canvas>
+  <div id="particles-js" class="bg-v7"></div>
+  <div class="vignette"></div>
+  <div class="scanlines"></div>
+  <div class="glow-matrix"></div>
 
-    <!-- MAIN PROFILE INTERFACE -->
-    <div id="mainUI" class="main-container-v7 main-visible">
-      <div class="tilt-wrapper" id="cardTilt">
+  <!-- MAIN PROFILE INTERFACE -->
+  <div id="mainUI" class="main-container-v7 main-visible">
+    <div class="tilt-wrapper" id="cardTilt">
 
-        <div id="card-aura-particles"
-          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
-        </div>
+      <div id="card-aura-particles"
+        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
+      </div>
 
-        <div class="profile-card-v7 gradient-border" id="mainCard"
-          style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">
+      <div class="profile-card-v7 gradient-border" id="mainCard"
+        style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">
 
 
-          <header class="card-header-v7">
-            <div class="banner-area-v7" id="cardBanner"></div>
-            <div class="avatar-wrap-v7">
-              <img src="profil.gif" id="profileAvatar" class="profile-img-v7" alt="Avatar">
-              <div class="status-indicator-v7" id="discordStatus"></div>
-            </div>
-          </header>
+        <header class="card-header-v7">
+          <div class="banner-area-v7" id="cardBanner"></div>
+          <div class="avatar-wrap-v7">
+            <img src="profil.gif" id="profileAvatar" class="profile-img-v7" alt="Avatar">
+            <div class="status-indicator-v7" id="discordStatus"></div>
+          </div>
+        </header>
 
-          <div class="card-body-v7">
-            <div class="name-matrix-v7">
-              <h2 id="profileName" class="profile-name-v7 name-pulse" data-text="WINSESTAR">WINSESTAR</h2>
-              <span id="profileUsername"
-                style="color: #ffffff; opacity: 0.9; font-weight: 500; font-family: 'Poppins'; text-shadow: 0 0 10px rgba(255,255,255,0.3);">@winsestar</span>
-              <div id="badgeContainer" class="badges-v7 hidden"></div>
-            </div>
-
-            <div class="bio-area-v7">
-              <p id="profileBio"><span class="blink-text"
-                  style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">GÖZLERİN BENİ BİTİRDİ</span> <span
-                  style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1); font-size: 1.2rem;"><i class="fa-solid fa-eye"></i></span></p>
-            </div>
-
-            <div id="presenceRoot" class="presence-container-v7 hidden"></div>
-
-            <div id="discordPrefs"
-              style="width: 100%; margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
-            </div>
-
-            <!-- SOCIAL LINKS -->
-            <div id="socialLinks" class="social-links-v7"></div>
+        <div class="card-body-v7">
+          <div class="name-matrix-v7">
+            <h2 id="profileName" class="profile-name-v7 name-pulse" data-text="WINSESTAR">WINSESTAR</h2>
+            <span id="profileUsername"
+              style="color: #ffffff; opacity: 0.9; font-weight: 500; font-family: 'Poppins'; text-shadow: 0 0 10px rgba(255,255,255,0.3);">@winsestar</span>
+            <div id="badgeContainer" class="badges-v7 hidden"></div>
           </div>
 
-            <footer class="card-footer-v7">
-              <div class="footer-hud">
-                <span class="f-tag">'winsestar.lol</span>
-                <div class="info-btn-wrap" id="fullscreenToggle"
-                  style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0; margin-right: 15px;">
-                  <i class="fa-solid fa-expand fs-icon-v7"
-                    style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff);"></i>
-                </div>
-                <div class="info-btn-wrap" id="infoBtn"
-                  style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0;">
-                  <i class="fa-solid fa-circle-info info-icon-v7"
-                    style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff);"></i>
-                </div>
-                <span class="f-code" id="profileVersion"><i class="fa-solid fa-eye" style="margin-right: 5px;"></i>
-                  <span id="viewCountText">12,842 Görüntülenme</span></span>
-              </div>
-            </footer>
-          </div> <!-- Closes profile-card-v7 -->
-        </div> <!-- Closes tilt-wrapper -->
-      </div> <!-- Closes mainUI -->
+          <div class="bio-area-v7">
+            <p id="profileBio"><span class="blink-text"
+                style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">GÖZLERİN BENİ BİTİRDİ</span> <span
+                style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1); font-size: 1.2rem;"><i
+                  class="fa-solid fa-eye"></i></span></p>
+          </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="engine_v8_adapter.js"></script>
-    <script>
-      // Warp Speed Yellow Stars
-      const canvas = document.getElementById('warpCanvas');
-      const ctx = canvas.getContext('2d');
-      let w = canvas.width = window.innerWidth;
-      let h = canvas.height = window.innerHeight;
-      let stars = [];
-      for (let i = 0; i < 300; i++) {
-        stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * w });
+          <div id="presenceRoot" class="presence-container-v7 hidden"></div>
+
+          <div id="discordPrefs"
+            style="width: 100%; margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+          </div>
+
+          <!-- SOCIAL LINKS -->
+          <div id="socialLinks" class="social-links-v7"></div>
+        </div>
+
+        <footer class="card-footer-v7">
+          <div class="footer-hud">
+            <span class="f-tag">'winsestar.lol</span>
+            <div class="info-btn-wrap" id="fullscreenToggle"
+              style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0; margin-right: 15px;">
+              <i class="fa-solid fa-expand fs-icon-v7"
+                style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff);"></i>
+            </div>
+            <div class="info-btn-wrap" id="infoBtn"
+              style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0;">
+              <i class="fa-solid fa-circle-info info-icon-v7"
+                style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff);"></i>
+            </div>
+            <span class="f-code" id="profileVersion"><i class="fa-solid fa-eye" style="margin-right: 5px;"></i>
+              <span id="viewCountText">12,842 Görüntülenme</span></span>
+          </div>
+        </footer>
+      </div> <!-- Closes profile-card-v7 -->
+    </div> <!-- Closes tilt-wrapper -->
+  </div> <!-- Closes mainUI -->
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="engine_v8_adapter.js"></script>
+  <script>
+    // Warp Speed Yellow Stars
+    const canvas = document.getElementById('warpCanvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    let stars = [];
+    for (let i = 0; i < 300; i++) {
+      stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * w });
+    }
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      ctx.fillRect(0, 0, w, h);
+      ctx.translate(w / 2, h / 2);
+      for (let i = 0; i < stars.length; i++) {
+        let s = stars[i];
+        s.z -= 3;
+        if (s.z <= 0) { s.z = w; s.x = Math.random() * w - w / 2; s.y = Math.random() * h - h / 2; }
+        let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
+        if (r > 10) r = 10;
+        ctx.beginPath();
+        ctx.fillStyle = '#ffffff';
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
       }
-      function draw() {
-        ctx.fillStyle = 'rgba(0,0,0,0.3)';
-        ctx.fillRect(0, 0, w, h);
-        ctx.translate(w / 2, h / 2);
-        for (let i = 0; i < stars.length; i++) {
-          let s = stars[i];
-          s.z -= 3;
-          if (s.z <= 0) { s.z = w; s.x = Math.random() * w - w / 2; s.y = Math.random() * h - h / 2; }
-          let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
-          if (r > 10) r = 10;
-          ctx.beginPath();
-          ctx.fillStyle = '#ffffff';
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.translate(-w / 2, -h / 2);
-        requestAnimationFrame(draw);
+      ctx.translate(-w / 2, -h / 2);
+      requestAnimationFrame(draw);
+    }
+    draw();
+    window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+
+    // Cursor Glow
+    const cg = document.createElement('div');
+    cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
+    document.body.appendChild(cg);
+    document.addEventListener('mousemove', e => {
+      cg.style.left = e.clientX + 'px';
+      cg.style.top = e.clientY + 'px';
+    });
+
+    // Global Translations Engine for Home
+    const TRANSLATIONS = {
+      tr: {
+        navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR",
+        bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
+        views: "Görüntülenme"
+      },
+      en: {
+        navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS",
+        bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
+        views: "Views"
+      },
+      de: {
+        navHome: "START", navInfo: "ÜBER", navSocial: "LINKS",
+        bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
+        views: "Aufrufe"
+      },
+      fr: {
+        navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS",
+        bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
+        views: "Vues"
       }
-      draw();
-      window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+    };
 
-      // Cursor Glow
-      const cg = document.createElement('div');
-      cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
-      document.body.appendChild(cg);
-      document.addEventListener('mousemove', e => {
-        cg.style.left = e.clientX + 'px';
-        cg.style.top = e.clientY + 'px';
-      });
+    function switchLang(lang) {
+      localStorage.setItem('winsestar_lang', lang);
+      document.querySelectorAll('.lang-btn-v7').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('lng' + lang.toUpperCase());
+      if (activeBtn) activeBtn.classList.add('active');
 
-      // Global Translations Engine for Home
-      const TRANSLATIONS = {
-        tr: {
-          navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR",
-          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">GÖZLERİN BENİ BİTİRDİ</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
-          views: "Görüntülenme"
-        },
-        en: {
-          navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS",
-          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">YOUR EYES KILLED ME</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
-          views: "Views"
-        },
-        de: {
-          navHome: "START", navInfo: "ÜBER", navSocial: "LINKS",
-          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">HERR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span>',
-          views: "Aufrufe"
-        },
-        fr: {
-          navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS",
-          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">MR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span>',
-          views: "Vues"
-        }
-      };
-
-      function switchLang(lang) {
-        localStorage.setItem('winsestar_lang', lang);
-        document.querySelectorAll('.lang-btn-v7').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = document.getElementById('lng' + lang.toUpperCase());
-        if(activeBtn) activeBtn.classList.add('active');
-
-        // Update Nav
-        const navLabels = document.querySelectorAll('.nav-label');
-        if(navLabels.length >= 3) {
-          navLabels[0].innerText = TRANSLATIONS[lang].navHome;
-          navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
-          navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
-        }
-
-        // Update Bio
-        document.getElementById('profileBio').innerHTML = TRANSLATIONS[lang].bio;
-
-        // Update View Count Text (Keep the number, change the label)
-        const vText = document.getElementById('viewCountText');
-        if(vText) {
-          const count = vText.innerText.split(' ')[0];
-          vText.innerText = `${count} ${TRANSLATIONS[lang].views}`;
-        }
+      // Update Nav
+      const navLabels = document.querySelectorAll('.nav-label');
+      if (navLabels.length >= 3) {
+        navLabels[0].innerText = TRANSLATIONS[lang].navHome;
+        navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
+        navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
       }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        const savedLang = localStorage.getItem('winsestar_lang') || 'tr';
-        switchLang(savedLang);
+      // Update Bio
+      document.getElementById('profileBio').innerHTML = TRANSLATIONS[lang].bio;
 
-        // Fade in on load
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-          document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-          document.body.style.opacity = '1';
-        }, 100);
+      // Update View Count Text (Keep the number, change the label)
+      const vText = document.getElementById('viewCountText');
+      if (vText) {
+        const count = vText.innerText.split(' ')[0];
+        vText.innerText = `${count} ${TRANSLATIONS[lang].views}`;
+      }
+    }
 
-        // Intercept Info Button for smooth exit
-        const infoBtn = document.getElementById('infoBtn');
-        if (infoBtn) {
-          infoBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.body.style.opacity = '0';
-            setTimeout(() => { window.location.href = 'info.html'; }, 500);
-          });
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('winsestar_lang') || 'tr';
+      switchLang(savedLang);
 
-        // Fullscreen Logic
-        const fsBtn = document.getElementById('fullscreenToggle');
-        if (fsBtn) {
-          fsBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-              document.documentElement.requestFullscreen();
-              fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
-            } else {
-              if (document.exitFullscreen) {
-                document.exitFullscreen();
-                fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
-              }
+      // Fade in on load
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        document.body.style.opacity = '1';
+      }, 100);
+
+      // Intercept Info Button for smooth exit
+      const infoBtn = document.getElementById('infoBtn');
+      if (infoBtn) {
+        infoBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.style.opacity = '0';
+          setTimeout(() => { window.location.href = 'info.html'; }, 500);
+        });
+      }
+
+      // Fullscreen Logic
+      const fsBtn = document.getElementById('fullscreenToggle');
+      if (fsBtn) {
+        fsBtn.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
+          } else {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+              fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
             }
-          });
-        }
-      });
-    </script>
+          }
+        });
+      }
+    });
+  </script>
 
 </body>
 
