@@ -213,12 +213,75 @@
       font-family: 'Montserrat', sans-serif;
       text-align: center;
     }
+    .glow-matrix {
+      z-index: 5;
+    }
+
+    /* Language Switcher for Social */
+    .action-btns-social {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 1001;
+      display: flex;
+      gap: 15px;
+    }
+    .lang-switch-v7 {
+      display: flex;
+      background: rgba(15, 15, 15, 0.4);
+      backdrop-filter: blur(15px);
+      padding: 6px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .lang-btn-v7 {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+    .lang-btn-v7:hover {
+      opacity: 0.8;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .lang-btn-v7.active {
+      opacity: 1;
+      filter: grayscale(0);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 
 <body>
   <div class="bg-valorant"></div>
   <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
+  <!-- LANGUAGE SWITCHER (Global) -->
+  <div class="action-btns-social">
+    <div class="lang-switch-v7">
+      <div id="lngTR" class="lang-btn-v7 active" onclick="switchLang('tr')">
+        <img src="https://flagcdn.com/w20/tr.png" width="18" alt="TR">
+      </div>
+      <div id="lngEN" class="lang-btn-v7" onclick="switchLang('en')">
+        <img src="https://flagcdn.com/w20/us.png" width="18" alt="EN">
+      </div>
+      <div id="lngDE" class="lang-btn-v7" onclick="switchLang('de')">
+        <img src="https://flagcdn.com/w20/de.png" width="18" alt="DE">
+      </div>
+      <div id="lngFR" class="lang-btn-v7" onclick="switchLang('fr')">
+        <img src="https://flagcdn.com/w20/fr.png" width="18" alt="FR">
+      </div>
+    </div>
+  </div>
 
     <!-- SIDE NAVIGATION (Iconic Capsule) -->
     <nav class="side-nav">
@@ -281,20 +344,66 @@
   </section>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => { document.body.style.opacity = '1'; }, 100);
+      // Global Translations Engine for Social
+      const TRANSLATIONS = {
+        tr: {
+          navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR",
+          pageTitle: "BAĞLANTILAR"
+        },
+        en: {
+          navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS",
+          pageTitle: "SOCIAL LINKS"
+        },
+        de: {
+          navHome: "START", navInfo: "ÜBER", navSocial: "LINKS",
+          pageTitle: "SOZIALE LINKS"
+        },
+        fr: {
+          navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIAL",
+          pageTitle: "LIENS SOCIAUX"
+        }
+      };
 
-      const pageLinks = document.querySelectorAll('.page-link');
-      pageLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.currentTarget.href;
-          document.body.style.opacity = '0';
-          document.body.style.transform = 'scale(0.97)';
-          setTimeout(() => { window.location.href = target; }, 500);
+      function switchLang(lang) {
+        localStorage.setItem('winsestar_lang', lang);
+        document.querySelectorAll('.lang-btn-v7').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.getElementById('lng' + lang.toUpperCase());
+        if(activeBtn) activeBtn.classList.add('active');
+
+        // Update Nav
+        const navLabels = document.querySelectorAll('.nav-label');
+        if(navLabels.length >= 3) {
+          navLabels[0].innerText = TRANSLATIONS[lang].navHome;
+          navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
+          navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
+        }
+
+        // Update Title
+        const titleEl = document.querySelector('.title-line-1');
+        if(titleEl) titleEl.innerText = TRANSLATIONS[lang].pageTitle;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('winsestar_lang') || 'tr';
+        switchLang(savedLang);
+
+        // Fade in on load
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+          document.body.style.opacity = '1';
+        }, 100);
+
+        // Page transition intercepts
+        document.querySelectorAll('.page-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = link.getAttribute('href');
+            document.body.style.opacity = '0';
+            setTimeout(() => { window.location.href = target; }, 500);
+          });
         });
       });
-    });
 
     // Warp & Shooting Stars Canvas
     const canvas = document.getElementById('warpCanvas');

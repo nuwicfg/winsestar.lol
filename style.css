@@ -189,19 +189,17 @@ body.sovereign-master {
     ==========================================================================
 */
 .main-container-v7 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
-    height: 100%;
+    max-width: 560px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     z-index: 10;
-    opacity: 0;
-    visibility: hidden;
     transition: opacity 1.5s var(--ease-v7);
-}
-.main-container-v7.main-visible {
-    opacity: 1; visibility: visible;
 }
 /* Global hidden utility - used for other elements */
 .hidden { display: none !important; }

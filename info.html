@@ -501,21 +501,33 @@
       tr: {
         title1: "WİNSESTAR",
         title2: "KİMDİR?",
+        navHome: "ANA SAYFA",
+        navInfo: "WİNSESTAR",
+        navSocial: "SOSYAL MEDYA",
         bio: "Merhaba, ben Winsestar. Profesyonel TikTok editörüyüm. Ritim ve görselliğin iç içe girdiği Vandal vuruşları, nefes kesen Valorant fragmanları ve akıcı montajlarla dijital dünyaya yön veriyorum."
       },
       en: {
         title1: "WİNSESTAR",
         title2: "WHO IS?",
+        navHome: "HOME",
+        navInfo: "ABOUT",
+        navSocial: "SOCIALS",
         bio: "Hello, I am Winsestar. I am a professional TikTok editor. I lead the digital world with Vandal shots where rhythm and visuals intertwine, breathtaking Valorant trailers, and smooth montages."
       },
       de: {
         title1: "WİNSESTAR",
         title2: "WER IST?",
+        navHome: "START",
+        navInfo: "ÜBER",
+        navSocial: "SOZIALES",
         bio: "Hallo, ich bin Winsestar. Professioneller TikTok-Editor. Ich präge die digitale Welt mit Vandal-Treffern, bei denen Rhythmus und Visualisierung verschmelzen, atemberaubenden Valorant-Trailern und flüssigen Montagen."
       },
       fr: {
         title1: "WİNSESTAR",
         title2: "QUI EST?",
+        navHome: "ACCUEIL",
+        navInfo: "À PROPOS",
+        navSocial: "SOCIAL",
         bio: "Bonjour, je suis Winsestar. Éditeur TikTok professionnel. Je façonne le monde numérique avec des tirs Vandal où le rythme et le visuel s'entrelacent, des bandes-annonces Valorant à couper le souffle et des montages fluides."
       }
     };
@@ -524,32 +536,48 @@
     function switchLang(lang) {
       if (typewriterTimeout) clearTimeout(typewriterTimeout);
       
+      // Persist choice
+      localStorage.setItem('winsestar_lang', lang);
+
       // Toggle active state for all buttons
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('lng' + lang.toUpperCase()).classList.add('active');
+      const activeBtn = document.getElementById('lng' + lang.toUpperCase());
+      if (activeBtn) activeBtn.classList.add('active');
 
+      // Update Titles
       document.getElementById('tr-title1').innerText = TRANSLATIONS[lang].title1;
       document.getElementById('tr-title2').innerText = TRANSLATIONS[lang].title2;
 
+      // Update Nav Labels
+      const navLabels = document.querySelectorAll('.nav-label');
+      if (navLabels.length >= 3) {
+        navLabels[0].innerText = TRANSLATIONS[lang].navHome;
+        navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
+        navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
+      }
+
       // Re-type bio
       const el = document.getElementById('typewriterText');
-      el.innerHTML = "";
-      let i = 0;
-      const text = TRANSLATIONS[lang].bio;
+      if (el) {
+        el.innerHTML = "";
+        let i = 0;
+        const text = TRANSLATIONS[lang].bio;
 
-      function typeWriter() {
-        if (i < text.length) {
-          el.innerHTML += text.charAt(i);
-          i++;
-          typewriterTimeout = setTimeout(typeWriter, 40);
+        function typeWriter() {
+          if (i < text.length) {
+            el.innerHTML += text.charAt(i);
+            i++;
+            typewriterTimeout = setTimeout(typeWriter, 40);
+          }
         }
+        typeWriter();
       }
-      typeWriter();
     }
 
-    // Typewriter Effect (Initial)
+    // Typewriter Effect (Initial with Persistence)
     document.addEventListener('DOMContentLoaded', () => {
-      switchLang('tr');
+      const savedLang = localStorage.getItem('winsestar_lang') || 'tr';
+      switchLang(savedLang);
     });
 
     // Advanced WebGL style Warp & Shooting Stars Canvas

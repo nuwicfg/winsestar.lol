@@ -61,17 +61,76 @@
     .glow-matrix {
       z-index: 5;
     }
+
+    /* Language Switcher for Home */
+    .action-btns-home {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 1001;
+      display: flex;
+      gap: 15px;
+    }
+    .lang-switch-v7 {
+      display: flex;
+      background: rgba(15, 15, 15, 0.4);
+      backdrop-filter: blur(15px);
+      padding: 6px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .lang-btn-v7 {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+    .lang-btn-v7:hover {
+      opacity: 0.8;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .lang-btn-v7.active {
+      opacity: 1;
+      filter: grayscale(0);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 
-<body class="sovereign-master">
+  <body class="sovereign-master">
 
-  <!-- 3D ZOOMING STARS BG -->
+    <!-- LANGUAGE SWITCHER (Global) -->
+    <div class="action-btns-home">
+      <div class="lang-switch-v7">
+        <div id="lngTR" class="lang-btn-v7 active" onclick="switchLang('tr')">
+          <img src="https://flagcdn.com/w20/tr.png" width="18" alt="TR">
+        </div>
+        <div id="lngEN" class="lang-btn-v7" onclick="switchLang('en')">
+          <img src="https://flagcdn.com/w20/us.png" width="18" alt="EN">
+        </div>
+        <div id="lngDE" class="lang-btn-v7" onclick="switchLang('de')">
+          <img src="https://flagcdn.com/w20/de.png" width="18" alt="DE">
+        </div>
+        <div id="lngFR" class="lang-btn-v7" onclick="switchLang('fr')">
+          <img src="https://flagcdn.com/w20/fr.png" width="18" alt="FR">
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D ZOOMING STARS BG -->
     <canvas id="warpCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
 
     <!-- SIDE NAVIGATION (Iconic Capsule) -->
     <nav class="side-nav">
-      <img src="logo.png" class="nav-logo" alt="Logo">
       <a href="#" class="nav-item active">
         <i class="fa-solid fa-house"></i>
         <span class="nav-label">ANA SAYFA</span>
@@ -146,19 +205,23 @@
             <footer class="card-footer-v7">
               <div class="footer-hud">
                 <span class="f-tag">'winsestar.lol</span>
-                <div class="info-btn-wrap"
-                  style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0; text-indent: -9999px;">
+                <div class="info-btn-wrap" id="fullscreenToggle"
+                  style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0; margin-right: 15px;">
+                  <i class="fa-solid fa-expand fs-icon-v7"
+                    style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff);"></i>
+                </div>
+                <div class="info-btn-wrap" id="infoBtn"
+                  style="animation: blinkText 1s infinite alternate; background: rgba(255,255,255,0.2); border-radius: 50%; box-shadow: 0 0 25px rgba(255,255,255,0.8); padding: 8px; cursor: pointer; transform: scale(1.1); transition: all 0.3s; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 0;">
                   <i class="fa-solid fa-circle-info info-icon-v7"
-                    style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff); text-indent: 0;"></i>
+                    style="font-size: 1.5rem; color: #fff; filter: drop-shadow(0 0 5px #fff);"></i>
                 </div>
                 <span class="f-code" id="profileVersion"><i class="fa-solid fa-eye" style="margin-right: 5px;"></i>
-                  12,842 Görüntülenme</span>
+                  <span id="viewCountText">12,842 Görüntülenme</span></span>
               </div>
             </footer>
-          </div>
-        </div>
-      </div>
-    </div>
+          </div> <!-- Closes profile-card-v7 -->
+        </div> <!-- Closes tilt-wrapper -->
+      </div> <!-- Closes mainUI -->
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -203,25 +266,89 @@
         cg.style.top = e.clientY + 'px';
       });
 
-      // Smooth Page Transitions
+      // Global Translations Engine for Home
+      const TRANSLATIONS = {
+        tr: {
+          navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR",
+          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">MR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span>',
+          views: "Görüntülenme"
+        },
+        en: {
+          navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS",
+          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">MR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span>',
+          views: "Views"
+        },
+        de: {
+          navHome: "START", navInfo: "ÜBER", navSocial: "LINKS",
+          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">HERR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span>',
+          views: "Aufrufe"
+        },
+        fr: {
+          navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS",
+          bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">MR</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">🤍</span>',
+          views: "Vues"
+        }
+      };
+
+      function switchLang(lang) {
+        localStorage.setItem('winsestar_lang', lang);
+        document.querySelectorAll('.lang-btn-v7').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.getElementById('lng' + lang.toUpperCase());
+        if(activeBtn) activeBtn.classList.add('active');
+
+        // Update Nav
+        const navLabels = document.querySelectorAll('.nav-label');
+        if(navLabels.length >= 3) {
+          navLabels[0].innerText = TRANSLATIONS[lang].navHome;
+          navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
+          navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
+        }
+
+        // Update Bio
+        document.getElementById('profileBio').innerHTML = TRANSLATIONS[lang].bio;
+
+        // Update View Count Text (Keep the number, change the label)
+        const vText = document.getElementById('viewCountText');
+        if(vText) {
+          const count = vText.innerText.split(' ')[0];
+          vText.innerText = `${count} ${TRANSLATIONS[lang].views}`;
+        }
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
-        // Fade in on load is handled by default since body opacity starts at 1, but we can do a quick intro
+        const savedLang = localStorage.getItem('winsestar_lang') || 'tr';
+        switchLang(savedLang);
+
+        // Fade in on load
         document.body.style.opacity = '0';
         setTimeout(() => {
-          document.body.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+          document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
           document.body.style.opacity = '1';
         }, 100);
 
         // Intercept Info Button for smooth exit
-        const infoBtn = document.querySelector('.info-icon-v7');
+        const infoBtn = document.getElementById('infoBtn');
         if (infoBtn) {
           infoBtn.addEventListener('click', (e) => {
             e.preventDefault();
             document.body.style.opacity = '0';
-            document.body.style.transform = 'scale(0.97)';
-            setTimeout(() => {
-              window.location.href = 'info.html';
-            }, 500);
+            setTimeout(() => { window.location.href = 'info.html'; }, 500);
+          });
+        }
+
+        // Fullscreen Logic
+        const fsBtn = document.getElementById('fullscreenToggle');
+        if (fsBtn) {
+          fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+              fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+                fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
+              }
+            }
           });
         }
       });
