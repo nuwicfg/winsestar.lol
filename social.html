@@ -47,17 +47,7 @@
       pointer-events: none;
     }
 
-      /* Logo in Side Nav */
-      .nav-logo {
-        width: 38px;
-        height: 38px;
-        margin-bottom: 20px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 5px;
-        background: rgba(255, 255, 255, 0.03);
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-      }
+
 
       /* Side Nav Capsule (Modern Left Sidebar) */
       .side-nav {
@@ -285,7 +275,7 @@
 
     <!-- SIDE NAVIGATION (Iconic Capsule) -->
     <nav class="side-nav">
-      <img src="logo.png" class="nav-logo" alt="Logo">
+
       <a href="index.html" class="nav-item page-link">
           <i class="fa-solid fa-house"></i>
           <span class="nav-label">ANA SAYFA</span>
@@ -348,19 +338,19 @@
       const TRANSLATIONS = {
         tr: {
           navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR",
-          pageTitle: "BAĞLANTILAR"
+          pageTitle: "BAĞLANTILAR", openLink: "BAĞLANTIYI AÇ"
         },
         en: {
           navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS",
-          pageTitle: "SOCIAL LINKS"
+          pageTitle: "SOCIAL LINKS", openLink: "OPEN LINK"
         },
         de: {
           navHome: "START", navInfo: "ÜBER", navSocial: "LINKS",
-          pageTitle: "SOZIALE LINKS"
+          pageTitle: "SOZIALE LINKS", openLink: "LINK ÖFFNEN"
         },
         fr: {
           navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIAL",
-          pageTitle: "LIENS SOCIAUX"
+          pageTitle: "LIENS SOCIAUX", openLink: "OUVRIR LE LIEN"
         }
       };
 
@@ -381,6 +371,12 @@
         // Update Title
         const titleEl = document.querySelector('.title-line-1');
         if(titleEl) titleEl.innerText = TRANSLATIONS[lang].pageTitle;
+        
+        // Update Action Buttons
+        const linkBtns = document.querySelectorAll('.app-card > div:last-child');
+        linkBtns.forEach(btn => {
+          btn.innerText = TRANSLATIONS[lang].openLink;
+        });
       }
 
       document.addEventListener('DOMContentLoaded', () => {

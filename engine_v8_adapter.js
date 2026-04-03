@@ -34,14 +34,11 @@
     }
 
     async function incrementGlobalViews() {
-        const bucket = 'B9yB5w1vE8m9K2wz';
-        const key = 'visits';
-        const url = `https://kvdb.io/${bucket}/${key}`;
-        
         try {
             // Increment
-            const res = await fetch(`${url}/+1`, { method: 'POST' });
-            const count = await res.text();
+            const res = await fetch('https://api.counterapi.dev/v1/winsestar/profile/up');
+            const data = await res.json();
+            let count = (data.count || 0) + 12842; // Base view count + actual visits
             
             const viewEl = document.getElementById('profileVersion');
             if (viewEl) {

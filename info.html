@@ -49,17 +49,7 @@
       pointer-events: none;
     }
 
-      /* Logo in Side Nav */
-      .nav-logo {
-        width: 38px;
-        height: 38px;
-        margin-bottom: 20px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 5px;
-        background: rgba(255, 255, 255, 0.03);
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-      }
+
 
       /* Side Nav Capsule (Modern Left Sidebar) */
       .side-nav {
@@ -420,7 +410,7 @@
 
   <!-- SIDE NAVIGATION (Iconic Capsule) -->
   <nav class="side-nav">
-    <img src="logo.png" class="nav-logo" alt="Logo">
+
     <a href="index.html" class="nav-item page-link">
         <i class="fa-solid fa-house"></i>
         <span class="nav-label">ANA SAYFA</span>
@@ -450,7 +440,7 @@
         <img src="https://flagcdn.com/w20/fr.png" width="16" alt="FR"> FR
       </div>
     </div>
-    <div class="action-btn"><i class="fa-solid fa-expand"></i></div>
+    <div class="action-btn" id="fsToggleBtnInfo"><i class="fa-solid fa-expand"></i></div>
   </div>
 
   <!-- MAIN HERO SECTION -->
@@ -494,6 +484,22 @@
           setTimeout(() => { window.location.href = target; }, 500);
         });
       });
+
+      // Fullscreen Logic for info page
+      const fsBtn = document.getElementById('fsToggleBtnInfo');
+      if (fsBtn) {
+        fsBtn.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
+          } else {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+              fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
+            }
+          }
+        });
+      }
     });
 
     // Translation Logic
@@ -504,7 +510,7 @@
         navHome: "ANA SAYFA",
         navInfo: "WİNSESTAR",
         navSocial: "SOSYAL MEDYA",
-        bio: "Merhaba, ben Winsestar. Profesyonel TikTok editörüyüm. Ritim ve görselliğin iç içe girdiği Vandal vuruşları, nefes kesen Valorant fragmanları ve akıcı montajlarla dijital dünyaya yön veriyorum."
+        bio: "Merhaba, ben Winse (winsestar). TikTok ve Instagram platformları için profesyonel Valorant içerikleri üretiyorum. Çalışmalarım ve sosyal medya hesaplarım hakkında daha fazla bilgiye ulaşmak isterseniz, soldaki menüden 'Sosyal Medya' sekmesine göz atabilirsiniz."
       },
       en: {
         title1: "WİNSESTAR",
@@ -512,7 +518,7 @@
         navHome: "HOME",
         navInfo: "ABOUT",
         navSocial: "SOCIALS",
-        bio: "Hello, I am Winsestar. I am a professional TikTok editor. I lead the digital world with Vandal shots where rhythm and visuals intertwine, breathtaking Valorant trailers, and smooth montages."
+        bio: "Hello, I am Winse (winsestar). I create professional Valorant content for TikTok and Instagram platforms. If you want to access more information about my work and social media accounts, you can check out the 'Socials' tab from the menu on the left."
       },
       de: {
         title1: "WİNSESTAR",
@@ -520,7 +526,7 @@
         navHome: "START",
         navInfo: "ÜBER",
         navSocial: "SOZIALES",
-        bio: "Hallo, ich bin Winsestar. Professioneller TikTok-Editor. Ich präge die digitale Welt mit Vandal-Treffern, bei denen Rhythmus und Visualisierung verschmelzen, atemberaubenden Valorant-Trailern und flüssigen Montagen."
+        bio: "Hallo, ich bin Winse (winsestar). Ich erstelle professionelle Valorant-Inhalte für die Plattformen TikTok und Instagram. Wenn Sie weitere Informationen über meine Arbeit und meine Social-Media-Konten erhalten möchten, können Sie im linken Menü den Tab 'Soziales' besuchen."
       },
       fr: {
         title1: "WİNSESTAR",
@@ -528,7 +534,7 @@
         navHome: "ACCUEIL",
         navInfo: "À PROPOS",
         navSocial: "SOCIAL",
-        bio: "Bonjour, je suis Winsestar. Éditeur TikTok professionnel. Je façonne le monde numérique avec des tirs Vandal où le rythme et le visuel s'entrelacent, des bandes-annonces Valorant à couper le souffle et des montages fluides."
+        bio: "Bonjour, je suis Winse (winsestar). Je crée des contenus professionnels sur Valorant pour les plateformes TikTok et Instagram. Si vous souhaitez obtenir plus d'informations sur mon travail et mes réseaux sociaux, vous pouvez consulter l'onglet 'Social' dans le menu de gauche."
       }
     };
 
