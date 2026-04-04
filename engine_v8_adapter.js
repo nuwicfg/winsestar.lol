@@ -19,6 +19,13 @@
     };
 
     window.animatePageIn = function() {
+        // IMMEDIATE CHECK FOR BOTS / CRAWLERS
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+        if (isBot) {
+            forceShowPage();
+            return;
+        }
+
         // Initial state: hide flash overlay if it exists
         const overlays = document.querySelectorAll('.transition-glitch-overlay');
         overlays.forEach(o => o.remove());
@@ -57,8 +64,8 @@
         document.addEventListener('DOMContentLoaded', window.animatePageIn);
     }
     
-    // Hard fail-safes
-    setTimeout(forceShowPage, 1200);
+    // Hard fail-safes (Tightened for Google Crawler)
+    setTimeout(forceShowPage, 600);
     window.addEventListener('load', forceShowPage);
 
     // Global Navigation Interceptor

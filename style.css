@@ -84,6 +84,16 @@ body.page-enter {
     filter: blur(15px) contrast(0.8);
 }
 
+/* Fallback for situations where JS might fail or we want immediate visibility for bots */
+@media screen and (prefers-reduced-motion: reduce) {
+    body.page-enter, body.page-exit {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+    }
+}
+
 .transition-glitch-overlay {
     position: fixed;
     inset: 0;
@@ -250,6 +260,8 @@ body.page-enter {
     justify-content: center;
     z-index: 10;
     transition: opacity 1.5s var(--ease-v7);
+    /* Ensure immediate visibility for crawlers */
+    opacity: 1 !important;
 }
 /* Global hidden utility - used for other elements */
 .hidden { display: none !important; }
