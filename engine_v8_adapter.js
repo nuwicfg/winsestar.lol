@@ -7,43 +7,61 @@
 
 (function() {
     // --- CINEMATIC TRANSITION SYSTEM v8.0 ---
-    // --- EXTREME VISIBILITY FAIL-SAFE v8.5 ---
-    function forceShowPage() {
-        document.body.classList.remove('page-enter');
-        document.body.style.opacity = '1';
-        document.body.style.visibility = 'visible';
-        document.body.style.display = 'grid'; // Maintain Sovereign layout
-        const overlays = document.querySelectorAll('.transition-glitch-overlay');
-        overlays.forEach(o => o.remove());
-        console.log("Sovereign Visibility Forced.");
-    }
-
-    window.animatePageIn = function() {
-        document.body.classList.add('page-enter');
-        
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                document.body.classList.remove('page-enter');
-                document.body.style.opacity = '1';
-            }, 50);
-        });
-
-        // Flash on enter
+    // --- CRITICAL VISIBILITY & TRANSITION SYSTEM v8.6 ---
+    // This system ensures the site NEVER stays black, even if scripts fail.
+    
+    window.animatePageOut = function(url) {
         const overlay = document.createElement('div');
-        overlay.className = 'transition-glitch-overlay';
+        overlay.className = 'transition-glitch-overlay glitch-flash-active';
         document.body.appendChild(overlay);
-        overlay.classList.add('glitch-flash-active');
-        setTimeout(() => overlay.remove(), 600);
+        document.body.classList.add('page-exit');
+        setTimeout(() => { window.location.href = url; }, 800);
     };
 
-    // Trigger Entrance IMMEDIATELY
-    if (document.body) window.animatePageIn();
+    window.animatePageIn = function() {
+        // Initial state: hide flash overlay if it exists
+        const overlays = document.querySelectorAll('.transition-glitch-overlay');
+        overlays.forEach(o => o.remove());
+
+        // Entrance animation
+        document.body.classList.add('page-enter');
+        
+        // Force opacity and remove enter class in the next frame
+        requestAnimationFrame(() => {
+            document.body.classList.remove('page-enter');
+            document.body.style.opacity = '1';
+            document.body.style.visibility = 'visible';
+        });
+
+        // Entrance flash
+        const flash = document.createElement('div');
+        flash.className = 'transition-glitch-overlay glitch-flash-active';
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 600);
+    };
+
+    function forceShowPage() {
+        document.body.classList.remove('page-enter', 'page-exit');
+        document.body.style.opacity = '1';
+        document.body.style.visibility = 'visible';
+        document.body.style.display = 'grid';
+        const overlays = document.querySelectorAll('.transition-glitch-overlay');
+        overlays.forEach(o => o.remove());
+        console.log("Visibility Fail-safe Triggered.");
+    }
+
+    // Immediate execution
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        window.animatePageIn();
+    } else {
+        document.addEventListener('DOMContentLoaded', window.animatePageIn);
+    }
     
-    // Global Fail-Safe (If script hangs or animations fail, show site anyway)
-    setTimeout(forceShowPage, 1000);
+    // Hard fail-safes
+    setTimeout(forceShowPage, 1200);
     window.addEventListener('load', forceShowPage);
 
-    // Global Click Interceptor
+    // Global Navigation Interceptor
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (link && link.getAttribute('href')) {
@@ -79,7 +97,7 @@
             const config = profile.config || {};
             
             window.sState = {
-                discordId: config.links?.discord?.split('/').pop() || '1158363483256147978',
+                discordId: '1158363483256147978',
                 siteTitle: profile.full_name || profile.username,
                 bio: profile.bio || '',
                 colors: config.colors || {},
@@ -95,7 +113,7 @@
             }
             bootSovereign();
         } catch (err) {
-            console.error("Initialization Error:", err);
+            console.error("Init Error:", err);
             forceShowPage(); 
         }
     }
@@ -120,7 +138,7 @@
             fetchTelemetry();
             setInterval(fetchTelemetry, 15000);
             setInterval(spawnShootingStar, 4000);
-            forceShowPage(); // Success backup
+            setTimeout(forceShowPage, 100); // Success override
         } catch (e) {
             console.error("Boot Error:", e);
             forceShowPage();
