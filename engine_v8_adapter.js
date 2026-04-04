@@ -135,7 +135,9 @@
             let count = (data.count || 0);
             const viewEl = document.getElementById('profileVersion');
             if (viewEl) {
-                viewEl.innerHTML = `<i class="fa-solid fa-eye" style="margin-right: 5px;"></i> ${Number(count).toLocaleString()} Görüntülenme`;
+                const lang = localStorage.getItem('winsestar_lang') || 'tr';
+                const label = (window.TRANSLATIONS && window.TRANSLATIONS[lang]) ? window.TRANSLATIONS[lang].views : 'Görüntülenme';
+                viewEl.innerHTML = `<i class="fa-solid fa-eye" style="margin-right: 5px;"></i> <span id="viewCountText">${Number(count).toLocaleString()} ${label}</span>`;
             }
         } catch (e) {}
     }
@@ -337,12 +339,12 @@
 
         if (data.spotify) {
             coverEl.src = data.spotify.album_art_url || 'logo.png';
-            decorWrap.style.opacity = "0.25"; // Increased for Chrome rendering engine
+            decorWrap.style.opacity = "0.5"; // Increased for better visibility as requested
             decorWrap.style.pointerEvents = "none";
         } else {
             // If not listening, you might want to hide it or show a default logo
             coverEl.src = 'logo.png';
-            decorWrap.style.opacity = "0.1"; 
+            decorWrap.style.opacity = "0.2"; 
         }
     }
 

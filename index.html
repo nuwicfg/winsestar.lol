@@ -68,9 +68,9 @@
     }
 
     .banner-area-v7 {
-      background-image: url('banner.png');
-      background-size: cover;
-      background-position: center;
+      background-image: url('banner.png') !important;
+      background-size: cover !important;
+      background-position: center !important;
     }
 
     .glow-matrix {
@@ -197,6 +197,8 @@
     <img id="decorCover" src="logo.png" alt="Spotify Hologram">
   </div>
 
+  <div id="decorRight" class="card-decor-right">WINSESTAR</div>
+
   <!-- Main UI Layer -->
   <div class="main-container-v7" id="mainUI">
     <div class="tilt-wrapper" id="cardTilt">
@@ -205,7 +207,7 @@
         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
       </div>
 
-      <div id="decorRight" class="card-decor-right">Winsestar</div>
+
 
       <div class="profile-card-v7 gradient-border" id="mainCard"
         style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">
@@ -334,7 +336,7 @@
     }, { passive: true });
 
     // Global Translations Engine for Home
-    const TRANSLATIONS = {
+    window.TRANSLATIONS = {
       tr: {
         navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR", navPortfolio: "EDİTLERİM",
         bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
@@ -366,20 +368,21 @@
       // Update Nav
       const navLabels = document.querySelectorAll('.nav-label');
       if (navLabels.length >= 4) {
-        navLabels[0].innerText = TRANSLATIONS[lang].navHome;
-        navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
-        navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
-        navLabels[3].innerText = TRANSLATIONS[lang].navPortfolio;
+        navLabels[0].innerText = window.TRANSLATIONS[lang].navHome;
+        navLabels[1].innerText = window.TRANSLATIONS[lang].navInfo;
+        navLabels[2].innerText = window.TRANSLATIONS[lang].navSocial;
+        navLabels[3].innerText = window.TRANSLATIONS[lang].navPortfolio;
       }
 
       // Update Bio
-      document.getElementById('profileBio').innerHTML = TRANSLATIONS[lang].bio;
+      document.getElementById('profileBio').innerHTML = window.TRANSLATIONS[lang].bio;
 
       // Update View Count Text (Keep the number, change the label)
       const vText = document.getElementById('viewCountText');
       if (vText) {
-        const count = vText.innerText.split(' ')[0];
-        vText.innerText = `${count} ${TRANSLATIONS[lang].views}`;
+        const parts = vText.innerText.trim().split(' ');
+        const count = parts[0];
+        vText.innerText = `${count} ${window.TRANSLATIONS[lang].views}`;
       }
     }
 
