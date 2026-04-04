@@ -48,14 +48,10 @@
 html, body { cursor: default; }
 
 body.sovereign-master {
-    display: grid;
-    place-items: center;
-    width: 100vw;
-    height: 100vh;
-    height: 100svh;
+    width: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     position: relative;
     background: var(--bg-master);
     color: var(--text-high);
@@ -64,6 +60,17 @@ body.sovereign-master {
                 transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), 
                 filter 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: scale(1);
+    display: block; /* Default to block for normal scrolling */
+}
+
+/* HOMEPAGE SPECIFIC (Pinned Layout) */
+body.sovereign-master.is-homepage {
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
 }
 
 /* 
