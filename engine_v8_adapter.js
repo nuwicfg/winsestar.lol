@@ -206,12 +206,12 @@
         if (window.particlesJS) {
             particlesJS('particles-js', {
                 particles: {
-                    number: { value: 150 },
+                    number: { value: window.innerWidth < 768 ? 30 : 60 },
                     color: { value: m.atomColor || '#ffffff' },
-                    opacity: { value: 0.5 },
+                    opacity: { value: 0.3 },
                     size: { value: 1 },
                     line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.1, width: 1 },
-                    move: { enable: true, speed: 2 }
+                    move: { enable: true, speed: 1 }
                 }
             });
         }
@@ -235,14 +235,22 @@
     function setupStaticTilt() {
         const card = document.getElementById('cardTilt');
         if (!card) return;
+        
+        let isTilting = false;
         window.addEventListener('mousemove', e => {
-            const r = card.getBoundingClientRect();
-            const centerX = r.left + r.width / 2;
-            const centerY = r.top + r.height / 2;
-            const rx = ((e.clientY - centerY) / (window.innerHeight / 2)) * -10;
-            const ry = ((e.clientX - centerX) / (window.innerWidth / 2)) * 10;
-            card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1.02)`;
-        });
+            if (!isTilting) {
+                isTilting = true;
+                requestAnimationFrame(() => {
+                    const r = card.getBoundingClientRect();
+                    const centerX = r.left + r.width / 2;
+                    const centerY = r.top + r.height / 2;
+                    const rx = ((e.clientY - centerY) / (window.innerHeight / 2)) * -5;
+                    const ry = ((e.clientX - centerX) / (window.innerWidth / 2)) * 5;
+                    card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1.02)`;
+                    isTilting = false;
+                });
+            }
+        }, { passive: true });
     }
 
     async function fetchTelemetry() {

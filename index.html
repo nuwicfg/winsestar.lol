@@ -26,9 +26,6 @@
 
   <link rel="icon" type="image/png" href="logo.png">
 
-  <!-- Tailwind CSS (CDN for ultra speed and simple styling) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- FontAwesome for the UI icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -275,42 +272,66 @@
   <script>
     // Warp Speed Yellow Stars
     const canvas = document.getElementById('warpCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false }); // Optimize by explicit alpha false
     let w = canvas.width = window.innerWidth;
     let h = canvas.height = window.innerHeight;
     let stars = [];
-    for (let i = 0; i < 300; i++) {
+    const NUM_STARS = window.innerWidth < 768 ? 50 : 150; // Dynamic based on screen
+    for (let i = 0; i < NUM_STARS; i++) {
       stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * w });
     }
-    function draw() {
+    
+    let lastDraw = 0;
+    function draw(timestamp) {
+      requestAnimationFrame(draw);
+      
+      // Throttle to ~60hz explicitly if engine goes crazy
+      if (timestamp - lastDraw < 16) return;
+      lastDraw = timestamp;
+
       ctx.fillStyle = 'rgba(0,0,0,0.3)';
       ctx.fillRect(0, 0, w, h);
       ctx.translate(w / 2, h / 2);
+      
+      ctx.beginPath(); // Batch drawing
+      ctx.fillStyle = '#ffffff';
       for (let i = 0; i < stars.length; i++) {
         let s = stars[i];
         s.z -= 3;
         if (s.z <= 0) { s.z = w; s.x = Math.random() * w - w / 2; s.y = Math.random() * h - h / 2; }
         let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
-        if (r > 10) r = 10;
-        ctx.beginPath();
-        ctx.fillStyle = '#ffffff';
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
+        if (r > 6) r = 6;
+        
+        // Draw directly using rect for extreme performance instead of arc
+        ctx.rect(x - r/2, y - r/2, r, r);
       }
+      ctx.fill(); // Fill all at once
       ctx.translate(-w / 2, -h / 2);
-      requestAnimationFrame(draw);
     }
-    draw();
+    requestAnimationFrame(draw);
     window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
 
-    // Cursor Glow
+    // Cursor Glow (Optimized)
     const cg = document.createElement('div');
-    cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px;';
+    cg.style.cssText = 'position:fixed; width:200px; height:200px; background:radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); border-radius:50%; pointer-events:none; z-index:99; mix-blend-mode:screen; transform:translate(-50%,-50%); left:-500px; top:-500px; will-change: transform, left, top;';
     document.body.appendChild(cg);
+    
+    let cursorX = -500;
+    let cursorY = -500;
+    let isMoving = false;
+
     document.addEventListener('mousemove', e => {
-      cg.style.left = e.clientX + 'px';
-      cg.style.top = e.clientY + 'px';
-    });
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+      if (!isMoving) {
+        isMoving = true;
+        requestAnimationFrame(() => {
+          cg.style.left = cursorX + 'px';
+          cg.style.top = cursorY + 'px';
+          isMoving = false;
+        });
+      }
+    }, { passive: true });
 
     // Global Translations Engine for Home
     const TRANSLATIONS = {
