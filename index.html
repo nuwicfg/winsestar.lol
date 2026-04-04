@@ -109,7 +109,7 @@
   </style>
 </head>
 
-<body class="sovereign-master">
+<body class="sovereign-master is-homepage">
 
   <!-- LANGUAGE SWITCHER (Global) -->
   <div class="action-btns-home">
@@ -166,12 +166,19 @@
   <div class="glow-matrix"></div>
 
   <!-- MAIN PROFILE INTERFACE -->
-  <div id="mainUI" class="main-container-v7 main-visible">
+  <div id="decorLeft" class="mega-hologram-v8">
+    <img id="decorCover" src="logo.png" alt="Spotify Hologram">
+  </div>
+
+  <!-- Main UI Layer -->
+  <div class="main-container-v7" id="mainUI">
     <div class="tilt-wrapper" id="cardTilt">
 
       <div id="card-aura-particles"
         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 160%; z-index: -1; pointer-events: none; opacity: 0.8; filter: blur(2px);">
       </div>
+
+      <div id="decorRight" class="card-decor-right">Winsestar</div>
 
       <div class="profile-card-v7 gradient-border" id="mainCard"
         style="border: 2px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.2) inset, 0 0 35px rgba(255,255,255,0.3);">

@@ -1473,6 +1473,146 @@ canvas.bg-v7 { position: fixed; inset: 0; z-index: -2; width: 100vw; height: 100
     padding-right: 20px;
 }
 
+/* =========================================
+   INDEPENDENT 3D MEGA-HOLOGRAM v8.8
+   ========================================= */
+
+.mega-hologram-v8 {
+    position: fixed;
+    top: 50%;
+    left: 8%; /* Far left positioning */
+    transform: translateY(-50%) perspective(1500px) rotateY(15deg);
+    width: 380px;
+    height: 380px;
+    z-index: 1; 
+    opacity: 0.08; /* User requested "donuk" (muted) */
+    display: none;
+    pointer-events: none;
+    filter: saturate(0.2) blur(3px) contrast(0.9); /* Muted look */
+    transition: opacity 1.5s var(--ease-v7), filter 0.8s;
+}
+
+.is-homepage .mega-hologram-v8 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: hologram-float 12s ease-in-out infinite;
+}
+
+.mega-hologram-v8 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    mask-image: radial-gradient(circle, black 50%, transparent 100%);
+    /* PREMIUM NEON GLOW v8.9 */
+    filter: saturate(0.2) blur(3px) contrast(0.9) 
+            drop-shadow(0 0 30px rgba(255, 255, 255, 0.15)) 
+            drop-shadow(0 0 60px rgba(255, 255, 255, 0.05));
+    transition: all 1s ease;
+}
+
+@keyframes hologram-float {
+    0%, 100% { transform: translateY(-50%) perspective(1500px) rotateY(15deg) translateZ(0); }
+    50% { transform: translateY(-52%) perspective(1500px) rotateY(18deg) translateZ(30px); }
+}
+
+/* BRANDING TEXT REFINEMENT */
+.card-decor-right {
+    position: absolute;
+    right: -200px; /* Moved further right as requested */
+    top: 50%;
+    transform: translateY(-50%) translateZ(120px) rotateY(-40deg);
+    font-family: 'Montserrat';
+    font-size: 3rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08); /* Muted text */
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.12; /* Ghost-like transparency */
+    pointer-events: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.03));
+    transition: all 0.5s var(--ease-v7);
+}
+
+/* =========================================
+   GLOBAL MOBILE OPTIMIZATION v8.9
+   ========================================= */
+
+@media (max-width: 1024px) {
+    .card-decor-left, .card-decor-right, .mega-hologram-v8 {
+        display: none !important; /* Hide 3D sidebars on all mobile/tablets */
+    }
+
+    .main-container-v7 {
+        padding: 0 1rem;
+        max-width: 100vw;
+    }
+
+    .profile-card-v7 {
+        max-width: 92vw;
+        border-radius: 30px;
+    }
+
+    /* TikTok Grid optimization */
+    .grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .banner-area-v7 {
+        height: 200px;
+    }
+
+    .p-avatar-v7 {
+        width: 110px;
+        height: 110px;
+        margin-top: -55px;
+    }
+
+    .social-grid-v7 {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .v8-pref-widget {
+        padding: 10px 15px;
+        gap: 12px;
+    }
+
+    .ss-album-art, .ss-game-art {
+        width: 48px;
+        height: 48px;
+    }
+
+    .ss-title { font-size: 0.85rem; }
+    .ss-artist { font-size: 0.7rem; }
+}
+
+@media (max-height: 700px) {
+    .profile-card-v7 {
+        transform: scale(0.9) translateY(-10px);
+    }
+}
+
+.card-decor-left.active {
+    opacity: 0.7;
+    left: -150px;
+}
+
+@media (max-width: 900px) {
+    .card-decor-left, .card-decor-right {
+        display: none !important; /* Hide on small screens to prevent overlap */
+    }
+}
+
 /* MARQUEE SYSTEM v8.5 */
 .ss-marquee {
     animation: ss-marquee 10s linear infinite;

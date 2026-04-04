@@ -122,7 +122,7 @@
         try {
             const res = await fetch('https://api.counterapi.dev/v1/winsestar/profile/up');
             const data = await res.json();
-            let count = (data.count || 0) + 12842;
+            let count = (data.count || 0);
             const viewEl = document.getElementById('profileVersion');
             if (viewEl) {
                 viewEl.innerHTML = `<i class="fa-solid fa-eye" style="margin-right: 5px;"></i> ${Number(count).toLocaleString()} Görüntülenme`;
@@ -302,11 +302,30 @@
             prefsEl.innerHTML = html;
         }
 
+        // Sync 3D Side Decorations
+        sync3DDecor(data);
+
         // Apply Marquee to internal card targets
         setTimeout(() => {
             const targets = document.querySelectorAll('.ss-target-title, .ss-target-artist');
             targets.forEach(t => handleMarquee(t));
         }, 100);
+    }
+
+    function sync3DDecor(data) {
+        const coverEl = document.getElementById('decorCover');
+        const decorWrap = document.getElementById('decorLeft');
+        if (!coverEl || !decorWrap) return;
+
+        if (data.spotify) {
+            coverEl.src = data.spotify.album_art_url || 'logo.png';
+            decorWrap.style.opacity = "0.15"; // Maintained as requested
+            decorWrap.style.pointerEvents = "none";
+        } else {
+            // If not listening, you might want to hide it or show a default logo
+            coverEl.src = 'logo.png';
+            decorWrap.style.opacity = "0.05"; // Barely visible when idle
+        }
     }
 
     function handleMarquee(el) {
