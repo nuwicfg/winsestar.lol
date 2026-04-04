@@ -14,14 +14,23 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
+    html {
+      overflow-y: scroll !important;
+      height: auto !important;
+    }
+
     body.sovereign-master {
       background: #000;
       position: relative;
-      overflow-y: auto !important;
-      /* Portfolio necessitates scrolling */
+      overflow-y: visible !important;
+      overflow-x: hidden !important;
+      /* Ensure the page can expand vertically */
       height: auto !important;
       min-height: 100vh;
       display: block !important;
+      margin: 0;
+      padding: 0;
+      -webkit-overflow-scrolling: touch;
     }
 
     .portfolio-page-wrapper {
