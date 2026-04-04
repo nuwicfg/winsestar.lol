@@ -123,7 +123,7 @@
 
     async function incrementGlobalViews() {
         try {
-            const res = await fetch('https://api.counterapi.dev/v1/winsestar_v11/profile/up');
+            const res = await fetch('https://api.counterapi.dev/v1/winsestar_v12/profile/up');
             const data = await res.json();
             let count = (data.count || 0);
             const viewEl = document.getElementById('profileVersion');
