@@ -81,6 +81,9 @@
     });
 
     function init() {
+        // EMERGENCY VISIBILITY (Prevents black screen in Chrome/Opera)
+        forceShowPage(); 
+
         try {
             if (!window.S_PROFILE_DATA) {
                 window.S_PROFILE_DATA = {
@@ -120,7 +123,7 @@
 
     async function incrementGlobalViews() {
         try {
-            const res = await fetch('https://api.counterapi.dev/v1/winsestar_v10/profile/up');
+            const res = await fetch('https://api.counterapi.dev/v1/winsestar_v11/profile/up');
             const data = await res.json();
             let count = (data.count || 0);
             const viewEl = document.getElementById('profileVersion');
@@ -319,12 +322,12 @@
 
         if (data.spotify) {
             coverEl.src = data.spotify.album_art_url || 'logo.png';
-            decorWrap.style.opacity = "0.22"; // Increased slightly for better visibility
+            decorWrap.style.opacity = "0.25"; // Increased for Chrome rendering engine
             decorWrap.style.pointerEvents = "none";
         } else {
             // If not listening, you might want to hide it or show a default logo
             coverEl.src = 'logo.png';
-            decorWrap.style.opacity = "0.08"; 
+            decorWrap.style.opacity = "0.1"; 
         }
     }
 
