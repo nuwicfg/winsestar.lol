@@ -7,27 +7,25 @@
 
 (function() {
     // --- CINEMATIC TRANSITION SYSTEM v8.0 ---
-    window.animatePageOut = function(url) {
-        // Create glitch overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'transition-glitch-overlay glitch-flash-active';
-        document.body.appendChild(overlay);
-
-        // Add exit animation class
-        document.body.classList.add('page-exit');
-
-        setTimeout(() => {
-            window.location.href = url;
-        }, 800);
-    };
+    // --- EXTREME VISIBILITY FAIL-SAFE v8.5 ---
+    function forceShowPage() {
+        document.body.classList.remove('page-enter');
+        document.body.style.opacity = '1';
+        document.body.style.visibility = 'visible';
+        document.body.style.display = 'grid'; // Maintain Sovereign layout
+        const overlays = document.querySelectorAll('.transition-glitch-overlay');
+        overlays.forEach(o => o.remove());
+        console.log("Sovereign Visibility Forced.");
+    }
 
     window.animatePageIn = function() {
         document.body.classList.add('page-enter');
         
-        // Trigger immediately
         requestAnimationFrame(() => {
-            document.body.classList.remove('page-enter');
-            document.body.style.opacity = '1';
+            setTimeout(() => {
+                document.body.classList.remove('page-enter');
+                document.body.style.opacity = '1';
+            }, 50);
         });
 
         // Flash on enter
@@ -38,13 +36,15 @@
         setTimeout(() => overlay.remove(), 600);
     };
 
-    // Trigger Entrance IMMEDIATELY on script load
+    // Trigger Entrance IMMEDIATELY
     if (document.body) window.animatePageIn();
-    else document.addEventListener('DOMContentLoaded', window.animatePageIn);
+    
+    // Global Fail-Safe (If script hangs or animations fail, show site anyway)
+    setTimeout(forceShowPage, 1000);
+    window.addEventListener('load', forceShowPage);
 
-    // Global Click Interceptor for navigation
+    // Global Click Interceptor
     document.addEventListener('click', (e) => {
-        // Handle standard <a> links
         const link = e.target.closest('a');
         if (link && link.getAttribute('href')) {
             const url = link.getAttribute('href');
@@ -54,8 +54,6 @@
                 return;
             }
         }
-
-        // Handle specific ID-based navigation (like the infoBtn <div> in index.html)
         const infoBtn = e.target.closest('#infoBtn');
         if (infoBtn) {
             e.preventDefault();
@@ -64,79 +62,68 @@
         }
     });
 
-    // EXTREME VISIBILITY FAIL-SAFE
-    setTimeout(() => {
-        document.body.classList.remove('page-enter');
-        document.body.style.opacity = '1';
-    }, 1500);
-
-    // Wait for profile data to be available
     function init() {
-        // ... (rest of init)
-        if (!window.S_PROFILE_DATA) {
-            // Provide default static data if not defined (Fallback for info/social/portfolio)
-            window.S_PROFILE_DATA = {
-                username: "winsestar",
-                full_name: "WINSESTAR",
-                config: {
-                    links: { discord: "1158363483256147978" },
-                    features: { badges: [], typewriter: true }
-                }
+        try {
+            if (!window.S_PROFILE_DATA) {
+                window.S_PROFILE_DATA = {
+                    username: "winsestar",
+                    full_name: "WINSESTAR",
+                    config: {
+                        links: { discord: "1158363483256147978" },
+                        features: { badges: [], typewriter: true }
+                    }
+                };
+            }
+
+            const profile = window.S_PROFILE_DATA;
+            const config = profile.config || {};
+            
+            window.sState = {
+                discordId: config.links?.discord?.split('/').pop() || '1158363483256147978',
+                siteTitle: profile.full_name || profile.username,
+                bio: profile.bio || '',
+                colors: config.colors || {},
+                effects: config.effects || {},
+                media: config.media || { bgMode: 'stars' },
+                discord: config.discord || { sync: true },
+                links: config.links || {},
+                features: config.features || { badges: ['imperial-star'], typewriter: true, viewCounter: true }
             };
-        }
 
-        const profile = window.S_PROFILE_DATA;
-        
-        // Ensure body is visible since we are in static mode
-        document.body.style.opacity = '1';
-        
-        const config = profile.config || {};
-        
-        // Map profile data to sState structure expected by the engine
-        window.sState = {
-            discordId: config.links?.discord?.split('/').pop() || '',
-            siteTitle: profile.full_name || profile.username,
-            bio: profile.bio || '',
-            colors: config.colors || {},
-            effects: config.effects || {},
-            media: config.media || { bgMode: 'stars' },
-            discord: config.discord || { sync: true },
-            links: config.links || {},
-            features: config.features || { badges: ['imperial-star'], typewriter: true, viewCounter: true }
-        };
-
-        if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-            incrementGlobalViews();
+            if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+                incrementGlobalViews();
+            }
+            bootSovereign();
+        } catch (err) {
+            console.error("Initialization Error:", err);
+            forceShowPage(); 
         }
-        bootSovereign();
     }
 
     async function incrementGlobalViews() {
         try {
-            // Increment
             const res = await fetch('https://api.counterapi.dev/v1/winsestar/profile/up');
             const data = await res.json();
-            let count = (data.count || 0) + 12842; // Base view count + actual visits
-            
+            let count = (data.count || 0) + 12842;
             const viewEl = document.getElementById('profileVersion');
             if (viewEl) {
                 viewEl.innerHTML = `<i class="fa-solid fa-eye" style="margin-right: 5px;"></i> ${Number(count).toLocaleString()} Görüntülenme`;
             }
-        } catch (e) {
-            console.error("View Counter Error:", e);
-        }
+        } catch (e) {}
     }
 
-    async function bootSovereign() {
+    function bootSovereign() {
         try {
             applySovereignState(window.sState);
             setupStaticTilt();
             preloadAvatar();
             fetchTelemetry();
             setInterval(fetchTelemetry, 15000);
-            setInterval(spawnShootingStar, 4000); // Cinematic sky
+            setInterval(spawnShootingStar, 4000);
+            forceShowPage(); // Success backup
         } catch (e) {
-            console.error("Sovereign Engine Error:", e);
+            console.error("Boot Error:", e);
+            forceShowPage();
         }
     }
 
