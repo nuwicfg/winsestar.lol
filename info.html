@@ -10,6 +10,7 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -31,7 +32,6 @@
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       /* Default opacity for smooth fade in */
-      opacity: 0;
       transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -473,13 +473,17 @@
         <i class="fa-solid fa-house"></i>
         <span class="nav-label">ANA SAYFA</span>
     </a>
-    <a href="#" class="nav-item active">
+    <a href="info.html" class="nav-item active page-link">
         <i class="fa-solid fa-user"></i>
         <span class="nav-label">WİNSESTAR</span>
     </a>
     <a href="social.html" class="nav-item page-link">
-        <i class="fa-solid fa-share-nodes"></i>
-        <span class="nav-label">SOSYAL MEDYA</span>
+      <i class="fa-solid fa-share-nodes"></i>
+      <span class="nav-label">SOSYAL MEDYA</span>
+    </a>
+    <a href="portfolio.html" class="nav-item page-link">
+      <i class="fa-solid fa-clapperboard"></i>
+      <span class="nav-label">EDİTLERİM</span>
     </a>
   </nav>
 
@@ -526,24 +530,8 @@
   <!-- VanillaTilt Library for 3D Effect -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
   <script>
-    // Smooth Entry & Exit Transitions
+    // Fullscreen Logic for info page
     document.addEventListener('DOMContentLoaded', () => {
-      // Fade in
-      setTimeout(() => { document.body.style.opacity = '1'; }, 100);
-
-      // Intercept links for fade out
-      const pageLinks = document.querySelectorAll('.page-link');
-      pageLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.currentTarget.href;
-          document.body.style.opacity = '0';
-          document.body.style.transform = 'scale(0.97)';
-          setTimeout(() => { window.location.href = target; }, 500);
-        });
-      });
-
-      // Fullscreen Logic for info page
       const fsBtn = document.getElementById('fsToggleBtnInfo');
       if (fsBtn) {
         fsBtn.addEventListener('click', () => {
@@ -727,6 +715,8 @@
       cg.style.top = e.clientY + 'px';
     });
   </script>
+
+  <script src="engine_v8_adapter.js"></script>
 </body>
 
 </html>

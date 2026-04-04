@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Winsestar.lol</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Essential Sovereign CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .sovereign-master {
+      background: #000;
+      position: relative;
+      overflow-y: auto; /* Portfolio is scrollable */
+      height: auto;
+      min-height: 100vh;
+      display: block;
+    }
+
+    .portfolio-page-wrapper {
+      position: relative;
+      z-index: 10;
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+  </style>
+</head>
+
+<body class="sovereign-master">
+
+  <!-- 3D ZOOMING STARS BG -->
+  <canvas id="warpCanvas" style="position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events: none; opacity: 0.6;"></canvas>
+
+  <!-- TOP NAVIGATION (Relocated from side) -->
+  <nav class="top-nav-v7">
+    <a href="index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span class="nav-label">ANA SAYFA</span>
+    </a>
+    <a href="info.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span class="nav-label">WİNSESTAR</span>
+    </a>
+    <a href="social.html" class="nav-item">
+      <i class="fa-solid fa-share-nodes"></i>
+      <span class="nav-label">SOSYAL MEDYA</span>
+    </a>
+    <a href="portfolio.html" class="nav-item active">
+      <i class="fa-solid fa-clapperboard"></i>
+      <span class="nav-label">EDİTLERİM</span>
+    </a>
+  </nav>
+
+  <div class="portfolio-page-wrapper">
+    <div class="portfolio-header">
+      <h1 class="portfolio-title">EDİTLERİM</h1>
+      <p>PROFESSİONAL TİKTOK EDİTS & CONTENT</p>
+    </div>
+
+    <div class="portfolio-container">
+      <!-- TikTok Card 1 -->
+      <div class="tiktok-card-v7">
+         <iframe src="https://www.tiktok.com/embed/v2/7624686459395591445" allowfullscreen scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+
+      <!-- TikTok Card 2 -->
+      <div class="tiktok-card-v7">
+         <iframe src="https://www.tiktok.com/embed/v2/7617894205637070101" allowfullscreen scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+
+      <!-- TikTok Card 3 -->
+      <div class="tiktok-card-v7">
+         <iframe src="https://www.tiktok.com/embed/v2/7615351467112746256" allowfullscreen scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+
+      <!-- TikTok Card 4 -->
+      <div class="tiktok-card-v7">
+         <iframe src="https://www.tiktok.com/embed/v2/7620081924203154709" allowfullscreen scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="engine_v8_adapter.js"></script>
+  <script>
+    // Global Translations Engine for Portfolio
+    const TRANSLATIONS = {
+      tr: {
+        navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR", navPortfolio: "EDİTLERİM",
+        pageTitle: "EDİTLERİM"
+      },
+      en: {
+        navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS", navPortfolio: "EDITS",
+        pageTitle: "EDITS"
+      },
+      de: {
+        navHome: "START", navInfo: "ÜBER", navSocial: "LINKS", navPortfolio: "EDITS",
+        pageTitle: "EDITS"
+      },
+      fr: {
+        navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS", navPortfolio: "EDITS",
+        pageTitle: "EDITS"
+      }
+    };
+
+    function updateLanguage(lang) {
+      const navLabels = document.querySelectorAll('.nav-label');
+      if (navLabels.length >= 4) {
+        navLabels[0].innerText = TRANSLATIONS[lang].navHome;
+        navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
+        navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
+        navLabels[3].innerText = TRANSLATIONS[lang].navPortfolio;
+      }
+      const titleEl = document.querySelector('.portfolio-title');
+      if (titleEl) titleEl.innerText = TRANSLATIONS[lang].pageTitle;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const lang = localStorage.getItem('winsestar_lang') || 'tr';
+      updateLanguage(lang);
+    });
+
+    // Warp Speed Background
+    const canvas = document.getElementById('warpCanvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        let stars = [];
+        for (let i = 0; i < 300; i++) {
+            stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * w });
+        }
+        function draw() {
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fillRect(0, 0, w, h);
+            ctx.translate(w / 2, h / 2);
+            for (let i = 0; i < stars.length; i++) {
+                let s = stars[i];
+                s.z -= 3;
+                if (s.z <= 0) { s.z = w; s.x = Math.random() * w - w / 2; s.y = Math.random() * h - h / 2; }
+                let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
+                if (r > 10) r = 10;
+                ctx.beginPath();
+                ctx.fillStyle = '#ffffff';
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.translate(-w / 2, -h / 2);
+            requestAnimationFrame(draw);
+        }
+        draw();
+        window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+    }
+  </script>
+</body>
+</html>

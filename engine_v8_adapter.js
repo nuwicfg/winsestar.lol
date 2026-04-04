@@ -6,14 +6,90 @@
 "use strict";
 
 (function() {
+    // --- CINEMATIC TRANSITION SYSTEM v8.0 ---
+    window.animatePageOut = function(url) {
+        // Create glitch overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'transition-glitch-overlay glitch-flash-active';
+        document.body.appendChild(overlay);
+
+        // Add exit animation class
+        document.body.classList.add('page-exit');
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 800);
+    };
+
+    window.animatePageIn = function() {
+        document.body.classList.add('page-enter');
+        
+        // Trigger immediately
+        requestAnimationFrame(() => {
+            document.body.classList.remove('page-enter');
+            document.body.style.opacity = '1';
+        });
+
+        // Flash on enter
+        const overlay = document.createElement('div');
+        overlay.className = 'transition-glitch-overlay';
+        document.body.appendChild(overlay);
+        overlay.classList.add('glitch-flash-active');
+        setTimeout(() => overlay.remove(), 600);
+    };
+
+    // Trigger Entrance IMMEDIATELY on script load
+    if (document.body) window.animatePageIn();
+    else document.addEventListener('DOMContentLoaded', window.animatePageIn);
+
+    // Global Click Interceptor for navigation
+    document.addEventListener('click', (e) => {
+        // Handle standard <a> links
+        const link = e.target.closest('a');
+        if (link && link.getAttribute('href')) {
+            const url = link.getAttribute('href');
+            if (url && url !== '#' && !url.startsWith('http') && !url.startsWith('mailto')) {
+                e.preventDefault();
+                window.animatePageOut(url);
+                return;
+            }
+        }
+
+        // Handle specific ID-based navigation (like the infoBtn <div> in index.html)
+        const infoBtn = e.target.closest('#infoBtn');
+        if (infoBtn) {
+            e.preventDefault();
+            window.animatePageOut('info.html');
+            return;
+        }
+    });
+
+    // EXTREME VISIBILITY FAIL-SAFE
+    setTimeout(() => {
+        document.body.classList.remove('page-enter');
+        document.body.style.opacity = '1';
+    }, 1500);
+
     // Wait for profile data to be available
     function init() {
+        // ... (rest of init)
         if (!window.S_PROFILE_DATA) {
-            setTimeout(init, 100);
-            return;
+            // Provide default static data if not defined (Fallback for info/social/portfolio)
+            window.S_PROFILE_DATA = {
+                username: "winsestar",
+                full_name: "WINSESTAR",
+                config: {
+                    links: { discord: "1158363483256147978" },
+                    features: { badges: [], typewriter: true }
+                }
+            };
         }
 
         const profile = window.S_PROFILE_DATA;
+        
+        // Ensure body is visible since we are in static mode
+        document.body.style.opacity = '1';
+        
         const config = profile.config || {};
         
         // Map profile data to sState structure expected by the engine
@@ -29,7 +105,9 @@
             features: config.features || { badges: ['imperial-star'], typewriter: true, viewCounter: true }
         };
 
-        incrementGlobalViews();
+        if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+            incrementGlobalViews();
+        }
         bootSovereign();
     }
 
@@ -56,14 +134,23 @@
             preloadAvatar();
             fetchTelemetry();
             setInterval(fetchTelemetry, 15000);
+            setInterval(spawnShootingStar, 4000); // Cinematic sky
         } catch (e) {
             console.error("Sovereign Engine Error:", e);
         }
     }
 
-    // --- REUSED CORE LOGIC FROM engine_v8.js ---
-    // (Stripped down version for cleaner execution in Next.js)
+    // --- SHOOTING STARS ENGINE v8.5 ---
+    function spawnShootingStar() {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.left = Math.random() * window.innerWidth + 'px';
+        star.style.top = Math.random() * window.innerHeight * 0.5 + 'px';
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 3000);
+    }
 
+    // --- REUSED CORE LOGIC FROM engine_v8.js ---
     function applySovereignState(s) {
         const root = document.documentElement;
         const c = s.colors || {};
@@ -77,15 +164,11 @@
             root.style.setProperty('--border-start', c.border[0]);
             root.style.setProperty('--border-end', c.border[1]);
         }
-        // ... more color mapping ...
 
         const eff = s.effects || {};
         const nameEl = document.getElementById('profileName');
         const cardEl = document.getElementById('mainCard');
 
-        if (nameEl) {
-            // nameEl.classList.toggle('active-glitch', false);
-        }
         if (cardEl) {
             cardEl.classList.toggle('float-animation', !!eff.floatCard);
             cardEl.classList.toggle('glow-animation', !!eff.glowCard);
@@ -105,7 +188,6 @@
         const atom = document.getElementById('particles-js');
         if (!atom) return;
         
-        // Simple star background by default
         if (window.particlesJS) {
             particlesJS('particles-js', {
                 particles: {
@@ -148,7 +230,6 @@
         });
     }
 
-    // --- TELEMETRY HELPER ---
     async function fetchTelemetry() {
         const dId = window.sState.discordId;
         if (!dId) return;
@@ -167,46 +248,17 @@
         return `https://cdn.discordapp.com/app-assets/${appId}/${assetId}.png`;
     }
 
-    function getDiscordBadgesHtml(flags) {
-        if (!flags) return '';
-        const badgeMap = {
-            1: { name: 'Staff', icon: 'fa-discord', color: '#5865F2' },
-            2: { name: 'Partner', icon: 'fa-handshake', color: '#5865F2' },
-            4: { name: 'HypeSquad Events', icon: 'fa-flag', color: '#f59e0b' },
-            8: { name: 'Bug Hunter', icon: 'fa-bug', color: '#22c55e' },
-            64: { name: 'Bravery', icon: 'fa-shield', color: '#9b59b6' },
-            128: { name: 'Brilliance', icon: 'fa-lightbulb', color: '#f1c40f' },
-            256: { name: 'Balance', icon: 'fa-scale-balanced', color: '#1abc9c' },
-            512: { name: 'Early Supporter', icon: 'fa-star', color: '#ffffff' },
-            16384: { name: 'Bug Hunter Lvl 2', icon: 'fa-bug', color: '#f59e0b' },
-            4194304: { name: 'Active Developer', icon: 'fa-code', color: '#22c55e' }
-        };
-        let html = '';
-        for (const [bit, info] of Object.entries(badgeMap)) {
-            if ((flags & bit) === parseInt(bit)) {
-                html += `<div style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:4px; background:rgba(255,255,255,0.05); margin-right:4px; border:1px solid rgba(255,255,255,0.1);" title="${info.name}"><i class="fa-solid ${info.icon}" style="color:${info.color}; font-size:10px;"></i></div>`;
-            }
-        }
-        return html;
-    }
-
     function renderTelemetry(data) {
         const statusEl = document.getElementById('discordStatus');
         if (statusEl) {
             const colors = { online: '#22c55e', idle: '#f59e0b', dnd: '#ef4444', offline: '#4b5563' };
             statusEl.style.background = colors[data.discord_status] || colors.offline;
         }
-        // Ensure we load the local profil.gif by not overriding the src
-        const avatarEl = document.getElementById('profileAvatar');
-        // No extra yellow borders applied to the avatar anymore.
 
         const prefsEl = document.getElementById('discordPrefs');
         if (prefsEl) {
             let html = '';
             
-
-            
-            // Custom Status
             const customStatus = data.activities.find(a => a.type === 4);
             if (customStatus) {
                 const emoji = customStatus.emoji?.id ? `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${customStatus.emoji.animated ? 'gif' : 'png'}?size=32" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 4px;">` : (customStatus.emoji?.name ? (customStatus.emoji.name + ' ') : '');
@@ -214,33 +266,26 @@
                 html += `<div class="v8-pref-widget telemetry-card activity-card" style="border-left: 2px solid #ffffff;"><div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val" style="font-size: 0.9em; font-weight: 500; color: #fff;">${emoji}${text}</div></div>`;
             }
             
-            // Spotify
             if (data.spotify) {
                 const cover = data.spotify.album_art_url || '';
-                html += `<div class="v8-pref-widget telemetry-card spotify-card" style="border-left: 2px solid #1ed760;">
-                            <img src="${cover}" style="width: 54px; height: 54px; border-radius: 8px; margin-right: 15px; box-shadow: 0 4px 10px rgba(30, 215, 96, 0.3);">
-                            <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 2px; text-transform: uppercase; font-weight: bold;"><i class="fa-brands fa-spotify" style="margin-right: 4px; color: #1ed760;"></i> LISTENING</div>
-                                <div class="pref-val" style="font-weight: 700; font-size: 0.9em; color: #fff; text-overflow: ellipsis; overflow: hidden;">${data.spotify.song}</div>
-                                <div style="font-size: 0.75em; color: rgba(255,255,255,0.8); text-overflow: ellipsis; overflow: hidden;">by ${data.spotify.artist}</div>
+                html += `<div class="v8-pref-widget telemetry-card spotify-card">
+                            <img src="${cover}" class="ss-album-art">
+                            <div class="ss-info">
+                                <div class="ss-listening-tag"><i class="fa-brands fa-spotify"></i> LISTENING</div>
+                                <div class="ss-title-wrap"><span class="ss-title ss-target-title">${data.spotify.song}</span></div>
+                                <div class="ss-artist-wrap"><span class="ss-artist ss-target-artist">by ${data.spotify.artist}</span></div>
                             </div>
                         </div>`;
             }
             
-            // Playing a Game / Rich Presence
             data.activities.filter(a => a.type === 0).forEach(game => {
-                let imgHtml = '';
-                if (game.application_id) {
-                    const imgUrl = getAssetUrl(game.application_id, game.assets?.large_image);
-                    imgHtml = `<img src="${imgUrl}" style="width: 54px; height: 54px; border-radius: 8px; margin-right: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);">`;
-                }
-                html += `<div class="v8-pref-widget telemetry-card activity-card" style="border-left: 2px solid #ffffff;">
-                            ${imgHtml}
-                            <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                <div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 2px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-gamepad" style="margin-right: 4px; color: #ffffff;"></i> PLAYING</div>
-                                <div class="pref-val" style="font-weight: 700; font-size: 0.9em; color: #fff; text-overflow: ellipsis; overflow: hidden;">${game.name}</div>
-                                <div style="font-size: 0.75em; color: rgba(255,255,255,0.8); text-overflow: ellipsis; overflow: hidden;">${game.details || ''}</div>
-                                <div style="font-size: 0.75em; color: rgba(255,255,255,0.8); text-overflow: ellipsis; overflow: hidden;">${game.state || ''}</div>
+                const imgUrl = game.application_id ? getAssetUrl(game.application_id, game.assets?.large_image) : 'logo.png';
+                html += `<div class="v8-pref-widget telemetry-card activity-card">
+                            <img src="${imgUrl}" class="ss-game-art">
+                            <div class="ss-info">
+                                <div class="ss-playing-tag"><i class="fa-solid fa-gamepad"></i> PLAYING</div>
+                                <div class="ss-title-wrap"><span class="ss-title ss-target-title">${game.name}</span></div>
+                                <div class="ss-artist-wrap"><span class="ss-artist ss-target-artist">${game.details || ''}</span></div>
                             </div>
                         </div>`;
             });
@@ -251,19 +296,32 @@
             
             prefsEl.innerHTML = html;
         }
+
+        // Apply Marquee to internal card targets
+        setTimeout(() => {
+            const targets = document.querySelectorAll('.ss-target-title, .ss-target-artist');
+            targets.forEach(t => handleMarquee(t));
+        }, 100);
     }
 
-    function applyTypewriter(el, text) {
-        el.textContent = '';
-        let i = 0;
-        function type() {
-            if (i < text.length) {
-                el.textContent += text.charAt(i);
-                i++;
-                setTimeout(type, 50);
+    function handleMarquee(el) {
+        if (!el) return;
+        el.classList.remove('ss-marquee');
+        
+        // Let the DOM settle, then check for actual overflow
+        setTimeout(() => {
+            const container = el.parentElement;
+            // Case: If text is wider than its container, start scrolling
+            if (el.scrollWidth > container.offsetWidth) {
+                el.classList.add('ss-marquee');
+                
+                // Double the content internally to create a seamless loop
+                if (!el.innerHTML.includes('</span><span')) {
+                   const original = el.innerText;
+                   el.innerHTML = `<span>${original}</span><span style="padding-left: 50px;">${original}</span>`;
+                }
             }
-        }
-        type();
+        }, 300); // Increased delay for better measurement on initial render
     }
 
     function applyBadges(badges) {
@@ -273,9 +331,7 @@
         wrap.innerHTML = badges.map(b => `<div class="badge-item"><i class="fa-solid fa-certificate"></i></div>`).join('');
     }
 
-    function preloadAvatar() {
-        // Fallback or early load logic
-    }
+    function preloadAvatar() {}
 
     // Start initialization
     if (document.readyState === 'loading') {

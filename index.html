@@ -38,9 +38,9 @@
         "links": {
           "discord": "https://discord.com/users/1158363483256147978",
           "tiktok": "https://tiktok.com/@winsevlr",
-          "instagram": "https://instagram.com/winsestar",
-          "spotify": "https://spotify.com/",
-          "steam": "https://steamcommunity.com/"
+          "instagram": "https://instagram.com/winsevlr",
+          "spotify": "https://open.spotify.com/user/315xjzu4csnzw2id5g7kmzatxazu?si=5f3ba35782e24391",
+          "steam": "https://steamcommunity.com/id/winsestar/"
         }
       }
     };
@@ -134,7 +134,7 @@
 
   <!-- SIDE NAVIGATION (Iconic Capsule) -->
   <nav class="side-nav">
-    <a href="#" class="nav-item active">
+    <a href="index.html" class="nav-item active page-link">
       <i class="fa-solid fa-house"></i>
       <span class="nav-label">ANA SAYFA</span>
     </a>
@@ -145,6 +145,10 @@
     <a href="social.html" class="nav-item page-link">
       <i class="fa-solid fa-share-nodes"></i>
       <span class="nav-label">SOSYAL MEDYA</span>
+    </a>
+    <a href="portfolio.html" class="nav-item page-link">
+      <i class="fa-solid fa-clapperboard"></i>
+      <span class="nav-label">EDİTLERİM</span>
     </a>
   </nav>
 
@@ -227,6 +231,7 @@
     </div> <!-- Closes tilt-wrapper -->
   </div> <!-- Closes mainUI -->
 
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="engine_v8_adapter.js"></script>
@@ -273,22 +278,22 @@
     // Global Translations Engine for Home
     const TRANSLATIONS = {
       tr: {
-        navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR",
+        navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR", navPortfolio: "EDİTLERİM",
         bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
         views: "Görüntülenme"
       },
       en: {
-        navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS",
+        navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS", navPortfolio: "EDITS",
         bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
         views: "Views"
       },
       de: {
-        navHome: "START", navInfo: "ÜBER", navSocial: "LINKS",
+        navHome: "START", navInfo: "ÜBER", navSocial: "LINKS", navPortfolio: "EDITS",
         bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
         views: "Aufrufe"
       },
       fr: {
-        navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS",
+        navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS", navPortfolio: "EDITS",
         bio: '<span class="blink-text" style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);">your eyes killed me.</span> <span style="color: #fff; text-shadow: 0 0 15px rgba(255,255,255,1);"><i class="fa-solid fa-eye"></i></span>',
         views: "Vues"
       }
@@ -302,10 +307,11 @@
 
       // Update Nav
       const navLabels = document.querySelectorAll('.nav-label');
-      if (navLabels.length >= 3) {
+      if (navLabels.length >= 4) {
         navLabels[0].innerText = TRANSLATIONS[lang].navHome;
         navLabels[1].innerText = TRANSLATIONS[lang].navInfo;
         navLabels[2].innerText = TRANSLATIONS[lang].navSocial;
+        navLabels[3].innerText = TRANSLATIONS[lang].navPortfolio;
       }
 
       // Update Bio
@@ -323,22 +329,7 @@
       const savedLang = localStorage.getItem('winsestar_lang') || 'tr';
       switchLang(savedLang);
 
-      // Fade in on load
-      document.body.style.opacity = '0';
-      setTimeout(() => {
-        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-        document.body.style.opacity = '1';
-      }, 100);
-
-      // Intercept Info Button for smooth exit
-      const infoBtn = document.getElementById('infoBtn');
-      if (infoBtn) {
-        infoBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.style.opacity = '0';
-          setTimeout(() => { window.location.href = 'info.html'; }, 500);
-        });
-      }
+      // Fullscreen Logic
 
       // Fullscreen Logic
       const fsBtn = document.getElementById('fullscreenToggle');
