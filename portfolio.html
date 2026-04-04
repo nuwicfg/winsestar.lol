@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Winsestar.lol</title>
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="logo.png?v=2">
 
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -66,6 +66,56 @@
 
     .tiktok-btn-v7 i {
       font-size: 1.5rem;
+    }
+
+    /* Mobile Optimization for Portfolio */
+    @media (max-width: 768px) {
+      .top-nav-v7 {
+        top: auto !important;
+        bottom: 25px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        flex-direction: row !important;
+        padding: 12px 25px !important;
+        border-radius: 40px !important;
+        width: auto !important;
+        background: rgba(10, 10, 10, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        z-index: 1000;
+      }
+      
+      .nav-item {
+        width: 55px !important;
+        height: 55px !important;
+        font-size: 1.3rem !important;
+      }
+      
+      .nav-label { display: none !important; }
+
+      .portfolio-page-wrapper {
+        padding-top: 60px;
+        padding-bottom: 120px;
+      }
+
+      .portfolio-title { font-size: 2.5rem !important; margin-bottom: 15px !important; }
+      
+      .portfolio-container {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        padding: 0 1.5rem !important;
+      }
+
+      .tiktok-card-v7 {
+        border-radius: 25px !important;
+      }
+
+      .tiktok-btn-v7 {
+        padding: 15px 35px !important;
+        font-size: 0.9rem !important;
+        width: 90% !important;
+        justify-content: center !important;
+        margin: 0 auto !important;
+      }
     }
   </style>
 </head>

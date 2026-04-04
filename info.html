@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Winsestar | Kimdir?</title>
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="logo.png?v=2">
 
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -399,58 +399,47 @@
     }
 
     @media (max-width: 768px) {
+      .action-btns {
+        top: 25px !important;
+        right: 50% !important;
+        transform: translateX(50%) scale(0.9) !important;
+        width: max-content;
+      }
+      
       .side-nav {
         left: 50% !important;
         top: auto !important;
-        bottom: 15px !important;
+        bottom: 25px !important;
         transform: translateX(-50%) !important;
         flex-direction: row !important;
-        padding: 10px 20px !important;
+        padding: 12px 25px !important;
         border-radius: 40px !important;
         width: auto !important;
-        z-index: 1000;
+        background: rgba(10, 10, 10, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
       }
+      
       .nav-item {
-        width: 45px !important;
-        height: 45px !important;
-        font-size: 1.1rem !important;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.2rem !important;
       }
-      .nav-label {
-        display: none !important;
-      }
+      
       .hero-grid {
-        gap: 30px;
-        margin-top: 20px;
-        padding-bottom: 80px;
+        gap: 40px;
+        margin-top: 60px;
+        padding-bottom: 120px;
       }
-      .image-card {
-        margin: 0 auto;
-      }
+      
       .profile-img {
-        width: 250px;
-        height: 250px;
+        width: 260px;
+        height: 260px;
+        border-radius: 35px;
       }
-      .tiktok-overlay {
-        font-size: 2.2rem;
-        bottom: 10px;
-        right: 10px;
-      }
-      .title-line-1 {
-        font-size: 2rem;
-      }
-      .title-line-2 {
-        font-size: 3rem;
-        margin-bottom: 15px;
-      }
-      .desc-text {
-        font-size: 0.95rem;
-        padding: 0 10px;
-      }
-      .action-btns {
-        top: 10px;
-        right: 10px;
-        transform: scale(0.75);
-      }
+      
+      .title-line-1 { font-size: 2.22rem !important; }
+      .title-line-2 { font-size: 3.5rem !important; margin-bottom: 20px; }
+      .desc-text { font-size: 1rem; line-height: 1.7; padding: 0 15px; }
     }
   </style>
 </head>

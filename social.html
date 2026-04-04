@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Winsestar | Sosyal Medya</title>
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="logo.png?v=2">
 
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -86,7 +86,7 @@
     .nav-item.active {
       background: #ffffff;
       color: #000000;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
       transform: scale(1.1);
     }
 
@@ -261,12 +261,14 @@
       .side-nav {
         left: 50% !important;
         top: auto !important;
-        bottom: 15px !important;
+        bottom: 25px !important;
         transform: translateX(-50%) !important;
         flex-direction: row !important;
-        padding: 10px 20px !important;
+        padding: 12px 25px !important;
         border-radius: 40px !important;
         width: auto !important;
+        background: rgba(10, 10, 10, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
         z-index: 1000;
       }
 
@@ -281,38 +283,54 @@
       }
 
       .action-btns-social {
-        top: 15px !important;
-        right: 15px !important;
-        transform: scale(0.85);
-        transform-origin: top right;
+        top: 25px !important;
+        right: 50% !important;
+        transform: translateX(50%) scale(0.9) !important;
+        width: max-content;
       }
 
       .app-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
-        max-width: 90%;
+        gap: 15px;
+        max-width: 85%;
+        margin: 0 auto;
       }
 
       .title-line-1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         text-align: center;
-        margin-bottom: 30px;
+        margin-top: 40px;
+        margin-bottom: 25px;
       }
 
       .hero-section {
-        padding-bottom: 100px;
+        padding-top: 80px;
+        padding-bottom: 120px;
+        justify-content: flex-start;
       }
 
       .app-card {
-        padding: 20px;
+        padding: 15px;
         aspect-ratio: auto;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.05);
       }
 
       .app-icon {
-        margin-bottom: 15px;
-        width: 60px;
-        height: 60px;
-        font-size: 2rem;
+        margin-bottom: 12px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.8rem;
+        border-radius: 18px;
+      }
+
+      .nav-item.active {
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.8); /* Sharper white halo for mobile */
+      }
+      
+      .bg-valorant {
+        background-position: top center;
+        opacity: 0.1;
       }
     }
   </style>

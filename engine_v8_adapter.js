@@ -5,12 +5,12 @@
 
 "use strict";
 
-(function() {
+(function () {
     // --- CINEMATIC TRANSITION SYSTEM v8.0 ---
     // --- CRITICAL VISIBILITY & TRANSITION SYSTEM v8.6 ---
     // This system ensures the site NEVER stays black, even if scripts fail.
-    
-    window.animatePageOut = function(url) {
+
+    window.animatePageOut = function (url) {
         const overlay = document.createElement('div');
         overlay.className = 'transition-glitch-overlay glitch-flash-active';
         document.body.appendChild(overlay);
@@ -18,7 +18,7 @@
         setTimeout(() => { window.location.href = url; }, 800);
     };
 
-    window.animatePageIn = function() {
+    window.animatePageIn = function () {
         // IMMEDIATE CHECK FOR BOTS / CRAWLERS
         const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
         if (isBot) {
@@ -32,7 +32,7 @@
 
         // Entrance animation
         document.body.classList.add('page-enter');
-        
+
         // Force opacity and remove enter class in the next frame
         requestAnimationFrame(() => {
             document.body.classList.remove('page-enter');
@@ -63,7 +63,7 @@
     } else {
         document.addEventListener('DOMContentLoaded', window.animatePageIn);
     }
-    
+
     // Hard fail-safes (Tightened for Google Crawler)
     setTimeout(forceShowPage, 600);
     window.addEventListener('load', forceShowPage);
@@ -89,13 +89,13 @@
 
     function init() {
         // EMERGENCY VISIBILITY (Prevents black screen in Chrome/Opera)
-        forceShowPage(); 
+        forceShowPage();
 
         try {
             if (!window.S_PROFILE_DATA) {
                 window.S_PROFILE_DATA = {
                     username: "winsestar",
-                    full_name: "WINSESTAR",
+                    full_name: "WINSE",
                     config: {
                         links: { discord: "1158363483256147978" },
                         features: { badges: [], typewriter: true }
@@ -105,7 +105,7 @@
 
             const profile = window.S_PROFILE_DATA;
             const config = profile.config || {};
-            
+
             window.sState = {
                 discordId: '1158363483256147978',
                 siteTitle: profile.full_name || profile.username,
@@ -124,7 +124,7 @@
             bootSovereign();
         } catch (err) {
             console.error("Init Error:", err);
-            forceShowPage(); 
+            forceShowPage();
         }
     }
 
@@ -139,7 +139,7 @@
                 const label = (window.TRANSLATIONS && window.TRANSLATIONS[lang]) ? window.TRANSLATIONS[lang].views : 'Görüntülenme';
                 viewEl.innerHTML = `<i class="fa-solid fa-eye" style="margin-right: 5px;"></i> <span id="viewCountText">${Number(count).toLocaleString()} ${label}</span>`;
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     function bootSovereign() {
@@ -171,7 +171,7 @@
     function applySovereignState(s) {
         const root = document.documentElement;
         const c = s.colors || {};
-        
+
         // Apply CSS Variables
         if (c.name) {
             root.style.setProperty('--text-start', c.name[0]);
@@ -194,7 +194,7 @@
         handleBgMatrix(s.media || { bgMode: 'stars' });
         renderSocialIcons(s.links || {});
         applyBadges(s.features?.badges || []);
-        
+
         if (s.features?.typewriter) {
             const bioEl = document.getElementById('profileBio');
             if (bioEl) bioEl.innerHTML = s.bio;
@@ -204,7 +204,7 @@
     function handleBgMatrix(m) {
         const atom = document.getElementById('particles-js');
         if (!atom) return;
-        
+
         if (window.particlesJS) {
             particlesJS('particles-js', {
                 particles: {
@@ -223,7 +223,7 @@
         const grid = document.getElementById('socialLinks');
         if (!grid) return;
         grid.innerHTML = '';
-        
+
         const icons = { discord: 'fa-discord', tiktok: 'fa-tiktok', instagram: 'fa-instagram', github: 'fa-github', youtube: 'fa-youtube', steam: 'fa-steam', spotify: 'fa-spotify', twitter: 'fa-x-twitter', telegram: 'fa-telegram' };
         Object.keys(icons).forEach(k => {
             if (links[k]) {
@@ -237,7 +237,7 @@
     function setupStaticTilt() {
         const card = document.getElementById('cardTilt');
         if (!card) return;
-        
+
         let isTilting = false;
         window.addEventListener('mousemove', e => {
             if (!isTilting) {
@@ -262,7 +262,7 @@
             const r = await fetch('https://api.lanyard.rest/v1/users/' + dId);
             const { data } = await r.json();
             if (data) renderTelemetry(data);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     function getAssetUrl(appId, assetId) {
@@ -283,14 +283,14 @@
         const prefsEl = document.getElementById('discordPrefs');
         if (prefsEl) {
             let html = '';
-            
+
             const customStatus = data.activities.find(a => a.type === 4);
             if (customStatus) {
                 const emoji = customStatus.emoji?.id ? `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${customStatus.emoji.animated ? 'gif' : 'png'}?size=32" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 4px;">` : (customStatus.emoji?.name ? (customStatus.emoji.name + ' ') : '');
                 const text = customStatus.state || '';
                 html += `<div class="v8-pref-widget telemetry-card activity-card" style="border-left: 2px solid #ffffff;"><div class="pref-label" style="font-size: 0.7em; color: #fff; margin-bottom: 4px; text-transform: uppercase; font-weight: bold;"><i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> STATUS</div><div class="pref-val" style="font-size: 0.9em; font-weight: 500; color: #fff;">${emoji}${text}</div></div>`;
             }
-            
+
             if (data.spotify) {
                 const cover = data.spotify.album_art_url || '';
                 html += `<div class="v8-pref-widget telemetry-card spotify-card">
@@ -302,9 +302,9 @@
                             </div>
                         </div>`;
             }
-            
+
             data.activities.filter(a => a.type === 0).forEach(game => {
-                const imgUrl = game.application_id ? getAssetUrl(game.application_id, game.assets?.large_image) : 'logo.png';
+                const imgUrl = game.application_id ? getAssetUrl(game.application_id, game.assets?.large_image) : 'logo.png?v=2';
                 html += `<div class="v8-pref-widget telemetry-card activity-card">
                             <img src="${imgUrl}" class="ss-game-art">
                             <div class="ss-info">
@@ -314,16 +314,52 @@
                             </div>
                         </div>`;
             });
-            
+
             if (!html) {
                 html = `<div class="v8-pref-widget" style="padding: 10px; background: rgba(0,0,0,0.5); border-radius: 8px; text-align: center; border: 1px dashed rgba(255,255,255,0.3);"><div class="pref-label" style="font-size: 0.7em; color: rgba(255,255,255,0.7); margin-bottom: 4px; text-transform: uppercase;"><i class="fa-solid fa-satellite-dish" style="margin-right: 4px;"></i> DISCORD TELEMETRY</div><div class="pref-val"><span style="color: rgba(255,255,255,0.6); font-size: 0.85em;">Offline or Idle</span></div></div>`;
             }
-            
-            prefsEl.innerHTML = html;
+
+            if (html !== prefsEl.innerHTML) {
+                prefsEl.style.transition = "opacity 0.5s var(--ease-v7), transform 0.5s var(--ease-v7), filter 0.5s var(--ease-v7)";
+                prefsEl.style.opacity = "0";
+                prefsEl.style.transform = "translateY(30px) scale(0.85)";
+                prefsEl.style.filter = "blur(10px) brightness(2)";
+
+                setTimeout(() => {
+                    prefsEl.innerHTML = html;
+                    prefsEl.classList.add('v8-bloom'); // Flash effect
+
+                    prefsEl.style.opacity = "1";
+                    prefsEl.style.transform = "translateY(0) scale(1)";
+                    prefsEl.style.filter = "blur(0px) brightness(1)";
+
+                    // Re-apply Marquee after injection
+                    const targets = prefsEl.querySelectorAll('.ss-target-title, .ss-target-artist');
+                    targets.forEach(t => handleMarquee(t));
+
+                    setTimeout(() => prefsEl.classList.remove('v8-bloom'), 600);
+                }, 500);
+            }
         }
 
         // Sync 3D Side Decorations
         sync3DDecor(data);
+
+        // EXTRA: Dynamic Theme Sync
+        if (data.spotify) {
+            const artUrl = data.spotify.album_art_url;
+            if (window.lastProcessedArt !== artUrl) {
+                window.lastProcessedArt = artUrl;
+                extractColorsFromImage(artUrl).then(color => {
+                    applyDynamicTheme(color);
+                });
+            }
+        } else {
+            if (window.lastProcessedArt !== null) {
+                window.lastProcessedArt = null;
+                applyDynamicTheme(null);
+            }
+        }
 
         // Apply Marquee to internal card targets
         setTimeout(() => {
@@ -332,37 +368,87 @@
         }, 100);
     }
 
+    async function extractColorsFromImage(url) {
+        if (!url || !window.ColorThief) return null;
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.onload = () => {
+                try {
+                    const colorThief = new ColorThief();
+                    const rgb = colorThief.getColor(img);
+                    resolve(`rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`);
+                } catch (e) { resolve(null); }
+            };
+            img.onerror = () => resolve(null);
+            img.src = url;
+        });
+    }
+
+    function applyDynamicTheme(color) {
+        const root = document.documentElement;
+        if (color) {
+            root.style.setProperty('--accent-primary', color);
+            root.style.setProperty('--accent-glow', color.replace('rgb', 'rgba').replace(')', ', 0.4)'));
+            root.style.setProperty('--border-start', color);
+
+            // Apply to 3D text specifically if needed (handled by CSS var now)
+        } else {
+            // Reset to defaults
+            root.style.setProperty('--accent-primary', '#ffffff');
+            root.style.setProperty('--accent-glow', 'rgba(255, 255, 255, 0.4)');
+            root.style.setProperty('--border-start', '#ffffff');
+        }
+    }
+
     function sync3DDecor(data) {
         const coverEl = document.getElementById('decorCover');
         const decorWrap = document.getElementById('decorLeft');
         if (!coverEl || !decorWrap) return;
 
+        const newSrc = data.spotify ? (data.spotify.album_art_url || 'logo.png?v=2') : 'logo.png?v=2';
+
+        // Only trigger transition if the source actually changes
+        if (!coverEl.src.includes(newSrc)) {
+            coverEl.style.transition = "opacity 0.6s var(--ease-v7), filter 0.6s var(--ease-v7), transform 0.6s var(--ease-v7)";
+            coverEl.style.opacity = "0";
+            coverEl.style.transform = "scale(0.7) rotateY(45deg) translateZ(-100px)"; // Prominent 3D jump
+            coverEl.style.filter = "blur(20px) brightness(2)";
+
+            setTimeout(() => {
+                coverEl.src = newSrc;
+                coverEl.onload = () => {
+                    coverEl.style.opacity = "1";
+                    coverEl.style.transform = "scale(1) rotateY(0deg) translateZ(0)";
+                    coverEl.style.filter = "blur(0px) brightness(1.1)";
+                };
+            }, 600);
+        }
+
         if (data.spotify) {
-            coverEl.src = data.spotify.album_art_url || 'logo.png';
-            decorWrap.style.opacity = "0.5"; // Increased for better visibility as requested
-            decorWrap.style.pointerEvents = "none";
+            decorWrap.style.opacity = "0.8";
+            decorWrap.style.filter = "saturate(1.2) contrast(1.1) brightness(1.1)";
         } else {
-            // If not listening, you might want to hide it or show a default logo
-            coverEl.src = 'logo.png';
-            decorWrap.style.opacity = "0.2"; 
+            decorWrap.style.opacity = "0.4";
+            decorWrap.style.filter = "saturate(0.9) contrast(1.0)";
         }
     }
 
     function handleMarquee(el) {
         if (!el) return;
         el.classList.remove('ss-marquee');
-        
+
         // Let the DOM settle, then check for actual overflow
         setTimeout(() => {
             const container = el.parentElement;
             // Case: If text is wider than its container, start scrolling
             if (el.scrollWidth > container.offsetWidth) {
                 el.classList.add('ss-marquee');
-                
+
                 // Double the content internally to create a seamless loop
                 if (!el.innerHTML.includes('</span><span')) {
-                   const original = el.innerText;
-                   el.innerHTML = `<span>${original}</span><span style="padding-left: 50px;">${original}</span>`;
+                    const original = el.innerText;
+                    el.innerHTML = `<span>${original}</span><span style="padding-left: 50px;">${original}</span>`;
                 }
             }
         }, 300); // Increased delay for better measurement on initial render
@@ -375,7 +461,7 @@
         wrap.innerHTML = badges.map(b => `<div class="badge-item"><i class="fa-solid fa-certificate"></i></div>`).join('');
     }
 
-    function preloadAvatar() {}
+    function preloadAvatar() { }
 
     // Start initialization
     if (document.readyState === 'loading') {
