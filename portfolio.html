@@ -14,21 +14,68 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .sovereign-master {
+    body.sovereign-master {
       background: #000;
       position: relative;
-      overflow-y: auto;
-      /* Portfolio is scrollable */
-      height: auto;
+      overflow-y: auto !important;
+      /* Portfolio necessitates scrolling */
+      height: auto !important;
       min-height: 100vh;
-      display: block;
+      display: block !important;
     }
 
     .portfolio-page-wrapper {
       position: relative;
       z-index: 10;
       padding-top: 100px;
+      padding-bottom: 60px;
+    }
+
+    .portfolio-footer-cta {
+      text-align: center;
+      margin-top: 40px;
       padding-bottom: 100px;
+      animation: cardEntrance 1.5s var(--ease-v7) backwards;
+    }
+
+    .cta-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 4px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+
+    .tiktok-btn-v7 {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 18px 45px;
+      border-radius: 100px;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: 3px;
+      transition: all 0.5s var(--ease-v7);
+      backdrop-filter: blur(15px);
+      text-transform: uppercase;
+    }
+
+    .tiktok-btn-v7:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(255, 255, 255, 0.2);
+      border-color: #fff;
+    }
+
+    .tiktok-btn-v7 i {
+      font-size: 1.5rem;
     }
   </style>
 </head>
@@ -90,6 +137,15 @@
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
     </div>
+
+    <!-- Devamı için CTA Section -->
+    <div class="portfolio-footer-cta">
+      <p class="cta-text" id="ctaText">DAHA FAZLASI İÇİN</p>
+      <a href="https://tiktok.com/@winsevlr" target="_blank" class="tiktok-btn-v7" id="ctaBtn">
+        <i class="fa-brands fa-tiktok"></i>
+        <span>TİKTOK PROFİLİ</span>
+      </a>
+    </div>
   </div>
 
 
@@ -100,19 +156,19 @@
     const TRANSLATIONS = {
       tr: {
         navHome: "ANA SAYFA", navInfo: "KİMDİR?", navSocial: "BAĞLANTILAR", navPortfolio: "EDİTLERİM",
-        pageTitle: "EDİTLERİM"
+        pageTitle: "EDİTLERİM", ctaText: "DAHA FAZLASI İÇİN", ctaBtn: "TİKTOK PROFİLİ"
       },
       en: {
         navHome: "HOME", navInfo: "ABOUT", navSocial: "SOCIALS", navPortfolio: "EDITS",
-        pageTitle: "EDITS"
+        pageTitle: "EDITS", ctaText: "FOR MORE", ctaBtn: "TIKTOK PROFILE"
       },
       de: {
         navHome: "START", navInfo: "ÜBER", navSocial: "LINKS", navPortfolio: "EDITS",
-        pageTitle: "EDITS"
+        pageTitle: "EDITS", ctaText: "FÜR MEHR", ctaBtn: "TIKTOK PROFIL"
       },
       fr: {
         navHome: "ACCUEIL", navInfo: "À PROPOS", navSocial: "SOCIALS", navPortfolio: "EDITS",
-        pageTitle: "EDITS"
+        pageTitle: "EDITS", ctaText: "POUR PLUS", ctaBtn: "PROFIL TIKTOK"
       }
     };
 
@@ -126,6 +182,12 @@
       }
       const titleEl = document.querySelector('.portfolio-title');
       if (titleEl) titleEl.innerText = TRANSLATIONS[lang].pageTitle;
+
+      // Update CTA
+      const ctaTextEl = document.getElementById('ctaText');
+      const ctaBtnEl = document.getElementById('ctaBtn');
+      if (ctaTextEl) ctaTextEl.innerText = TRANSLATIONS[lang].ctaText;
+      if (ctaBtnEl) ctaBtnEl.querySelector('span').innerText = TRANSLATIONS[lang].ctaBtn;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
