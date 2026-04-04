@@ -105,25 +105,25 @@
     <div class="portfolio-container">
       <!-- TikTok Card 1 -->
       <div class="tiktok-card-v7">
-        <iframe src="https://www.tiktok.com/embed/v2/7624686459395591445" allowfullscreen scrolling="no"
+        <iframe src="https://www.tiktok.com/embed/v2/7624686459395591445" allowfullscreen scrolling="no" loading="lazy"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
 
       <!-- TikTok Card 2 -->
       <div class="tiktok-card-v7">
-        <iframe src="https://www.tiktok.com/embed/v2/7617894205637070101" allowfullscreen scrolling="no"
+        <iframe src="https://www.tiktok.com/embed/v2/7617894205637070101" allowfullscreen scrolling="no" loading="lazy"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
 
       <!-- TikTok Card 3 -->
       <div class="tiktok-card-v7">
-        <iframe src="https://www.tiktok.com/embed/v2/7615351467112746256" allowfullscreen scrolling="no"
+        <iframe src="https://www.tiktok.com/embed/v2/7615351467112746256" allowfullscreen scrolling="no" loading="lazy"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
 
       <!-- TikTok Card 4 -->
       <div class="tiktok-card-v7">
-        <iframe src="https://www.tiktok.com/embed/v2/7620081924203154709" allowfullscreen scrolling="no"
+        <iframe src="https://www.tiktok.com/embed/v2/7620081924203154709" allowfullscreen scrolling="no" loading="lazy"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
     </div>
@@ -185,35 +185,42 @@
       updateLanguage(lang);
     });
 
-    // Warp Speed Background
+    // Warp Speed Background (Optimized)
     const canvas = document.getElementById('warpCanvas');
     if (canvas) {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: false });
       let w = canvas.width = window.innerWidth;
       let h = canvas.height = window.innerHeight;
       let stars = [];
-      for (let i = 0; i < 300; i++) {
+      const NUM_STARS = window.innerWidth < 768 ? 50 : 100;
+      for (let i = 0; i < NUM_STARS; i++) {
         stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * w });
       }
-      function draw() {
+      
+      let lastDraw = 0;
+      function draw(timestamp) {
+        requestAnimationFrame(draw);
+        if (timestamp - lastDraw < 16) return;
+        lastDraw = timestamp;
+
         ctx.fillStyle = 'rgba(0,0,0,0.3)';
         ctx.fillRect(0, 0, w, h);
         ctx.translate(w / 2, h / 2);
+        
+        ctx.beginPath();
+        ctx.fillStyle = '#ffffff';
         for (let i = 0; i < stars.length; i++) {
           let s = stars[i];
           s.z -= 3;
           if (s.z <= 0) { s.z = w; s.x = Math.random() * w - w / 2; s.y = Math.random() * h - h / 2; }
           let x = (s.x / s.z) * w, y = (s.y / s.z) * h, r = 1.2 * (w / s.z);
-          if (r > 10) r = 10;
-          ctx.beginPath();
-          ctx.fillStyle = '#ffffff';
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fill();
+          if (r > 6) r = 6;
+          ctx.rect(x - r/2, y - r/2, r, r);
         }
+        ctx.fill();
         ctx.translate(-w / 2, -h / 2);
-        requestAnimationFrame(draw);
       }
-      draw();
+      requestAnimationFrame(draw);
       window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
     }
   </script>
